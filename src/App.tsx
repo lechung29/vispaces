@@ -9,7 +9,7 @@ const App = () => {
             <Routes>
                 <Route path="/*" element={<TitleResolver />}>
                     <Route element={<Layout />}>
-                        <Route index element={<div>Hello ba con</div>} />
+                        <Route index element={<div className="text-[orange]">Hello ba con</div>} />
                         <Route path="about" element={<div>cc</div>} />
                     </Route>
                 </Route>
