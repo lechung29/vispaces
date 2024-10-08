@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import { Layout } from "./layouts";
 import { TitleResolver } from "./layouts"
+import { Login } from "./pages";
 
 const App = () => {
     return (
@@ -11,7 +12,10 @@ const App = () => {
                     <Route element={<Layout />}>
                         <Route index element={<div className="text-[orange]">Hello ba con</div>} />
                         <Route path="about" element={<div>cc</div>} />
+                        <Route path="notifications" element={<div>fdsfds</div>} />
                     </Route>
+                    <Route path="login" element={<Login />}/>
+                    <Route path="*" element={<div className="text-[orange]">Page not found</div>} />
                 </Route>
             </Routes>
         </BrowserRouter>
