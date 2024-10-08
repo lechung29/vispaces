@@ -1,5 +1,6 @@
 import { Stack } from '@mantine/core'
 import React from 'react'
+import { motion } from "framer-motion"
 import { AiOutlineHome } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { BiMessageDetail } from "react-icons/bi";
@@ -24,64 +25,81 @@ const NavigationView: React.FC = () => {
         {
             title: "Home",
             path: "/",
-            icon: <AiOutlineHome style={{ color: "#000", fontSize: 20 }} />
+            icon: <AiOutlineHome className="common-navigation-icon" />
         },
         {
             title: "Search",
             path: "/search",
-            icon: <FiSearch style={{ color: "#000", fontSize: 20 }} />
+            icon: <FiSearch className="common-navigation-icon" />
         },
         {
             title: "Messages",
             path: "/messages",
-            icon: <BiMessageDetail style={{ color: "#000", fontSize: 20 }} />
+            icon: <BiMessageDetail className="common-navigation-icon" />
         },
         {
             title: "Reels",
             path: "/reels",
-            icon: <MdOutlineRadio style={{ color: "#000", fontSize: 20 }} />
+            icon: <MdOutlineRadio className="common-navigation-icon" />
         },
         {
             title: "Notifications",
             path: "/notifications",
             icon: <div className='w-auto h-auto relative'>
-                <IoMdHeartEmpty style={{ color: "#000", fontSize: 20 }} />
-                <div className='absolute w-2 h-2 rounded bg-red-500 top-0 right-0'/>
+                <IoMdHeartEmpty className="common-navigation-icon" />
+                <span className="absolute flex w-3 h-3 top-0 right-0">
+                    <motion.div
+                        className='absolute w-2 h-2 rounded bg-red-300 top-0 right-0'
+                        initial={{ scale: 1, opacity: 1 }}
+                        animate={{
+                            scale: [1, 2, 2],  // Scale from 1 to 2
+                            opacity: [1, 1, 0], // Opacity from 1 to 0
+                        }}
+                        transition={{
+                            duration: 1, // Duration of 1 second
+                            times: [0, 0.75, 1],
+                            ease: [0, 0, 0.2, 1], // cubic-bezier easing
+                            repeat: Infinity, // Loop the animation infinitely
+                            repeatType: "loop", // Looping type
+                        }}
+                    />
+                    <span className="absolute top-0 right-0 inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                </span>
             </div>
         },
         {
             title: "Friends",
             path: "/friends",
-            icon: <HiOutlineUsers style={{ color: "#000", fontSize: 20 }} />
+            icon: <HiOutlineUsers className="common-navigation-icon" />
         },
         {
             title: "Profile",
             path: "/profile",
-            icon: <FaRegCircleUser style={{ color: "#000", fontSize: 20 }} />
+            icon: <FaRegCircleUser className="common-navigation-icon" />
         },
         {
             title: "Settings",
             path: "/settings",
-            icon: <IoSettingsOutline style={{ color: "#000", fontSize: 20 }} />
+            icon: <IoSettingsOutline className="common-navigation-icon" />
         },
         {
             title: "Logout",
             path: "/logout",
-            icon: <IoLogOutOutline style={{ color: "#000", fontSize: 20 }} />
+            icon: <IoLogOutOutline className="common-navigation-icon" />
         }
     ]
     return (
         <div className="common-navigation-section sticky top-0 left-0 w-auto lg:w-1/6 p-2 h-screen border-r bg-white">
-            <img 
-                src="/src/assets/vi_space_logo.png" 
-                alt="vi_space" 
-                className="lg:block hidden w-full object-cover cursor-pointer" 
+            <img
+                src="/src/assets/vi_space_logo.png"
+                alt="vi_space"
+                className="lg:block hidden w-full object-cover cursor-pointer"
                 onClick={() => navigate("/")}
             />
             <Stack className='w-full' gap={"xs"}>
                 {NavigateRouter.map((item) => (
                     <NavLink
-                        className='p-3 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2'
+                        className='px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2'
                         to={item.path!}
                     >
                         {item.icon}

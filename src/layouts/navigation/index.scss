@@ -1,3 +1,13 @@
 .active {
-    background-color: rgba(241, 245, 249, 1)
+    background: linear-gradient(90deg,#d63c68,#6a82fb);  
+    color: #fff;
+
+    .common-navigation-icon {
+        color: #fff;
+    }
+}
+
+.common-navigation-icon {
+    color: #000;
+    font-size: 20px;
 }

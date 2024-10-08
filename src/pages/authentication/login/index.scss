@@ -1,0 +1,23 @@
+.common-login-container {
+    background: linear-gradient(90deg,#d63c68,#6a82fb);  
+}
+
+.common-validation-input {
+
+    input.mantine-Input-input {
+        color: #000;
+        font-weight: 400;
+        
+        &::placeholder {
+            color: #4b5563;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        &:focus {
+            border: 1.75px solid #000;
+            outline: 1.75px solid transparent;
+            outline-offset: 1.75px;
+        }
+    }
+}

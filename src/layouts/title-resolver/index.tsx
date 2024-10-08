@@ -6,7 +6,7 @@ export const TitleResolver = (props: PropsWithChildren) => {
 
     const location = useLocation();
 
-    const prefix = "TechCom"
+    const prefix = "ViSpace"
 
     useEffect(() => {
         let title = "";
