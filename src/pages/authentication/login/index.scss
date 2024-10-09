@@ -1,5 +1,8 @@
 .common-login-container {
     background: linear-gradient(90deg,#d63c68,#6a82fb);  
+    background-size: 200% 200%;
+    animation: linearBackground 8s ease-in infinite;
+
 }
 
 .common-validation-input {
@@ -7,6 +10,12 @@
     input.mantine-Input-input {
         color: #000;
         font-weight: 400;
+
+        &[aria-invalid="true"] {
+            border: 1.75px solid red;
+            outline: 1.75px solid transparent;
+            outline-offset: 1.75px;
+        }
         
         &::placeholder {
             color: #4b5563;
@@ -18,6 +27,44 @@
             border: 1.75px solid #000;
             outline: 1.75px solid transparent;
             outline-offset: 1.75px;
+
+            &[aria-invalid="true"] {
+                border: 2px solid red;
+                outline: 2px solid transparent;
+                outline-offset: 2px;
+            }
         }
+
     }
 }
+
+.submit-primary-button {
+    background: linear-gradient(135deg,#d63c68,#6a82fb); 
+    background-size: 200% 200%;
+
+    &:hover {
+        animation: linearBackground 1.5s ease-in infinite;
+    } 
+}
+
+.login-google-button-icon {
+    font-size: 24px;
+}
+
+
+
+
+@keyframes linearBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%; 
+    }
+}
+
+
+
