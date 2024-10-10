@@ -36,6 +36,40 @@
         }
 
     }
+
+    input.mantine-PasswordInput-innerInput {
+        color: #000;
+        font-weight: 400;
+        
+        &::placeholder {
+            color: #4b5563;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        &[aria-invalid="true"] {
+            border: 1.75px solid red;
+            outline: 1.75px solid transparent;
+            outline-offset: 1.75px;
+        }
+
+        &:focus {
+            border: 1.75px solid #000;
+            outline: 1.75px solid transparent;
+            outline-offset: 1.75px;
+
+            &[aria-invalid="true"] {
+                border: 2px solid red;
+                outline: 2px solid transparent;
+                outline-offset: 2px;
+            }
+        }
+    }
+
+    .mantine-PasswordInput-input:focus-within {
+        border: none;
+        outline: 1.75px solid transparent;
+    }
 }
 
 .submit-primary-button {

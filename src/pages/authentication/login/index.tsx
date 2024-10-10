@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import './index.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { Text, TextInput } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
+import { AnimatedButton, AnimatedTextInput } from '@/components';
+import { GoEye } from "react-icons/go";
+import { GoEyeClosed } from "react-icons/go";
 
 interface ILoginViewProps { }
 
 const LoginView: React.FC<ILoginViewProps> = (_props) => {
     const navigate = useNavigate();
     const [scope, animate] = useAnimate<HTMLDivElement>();
+    const [showPassword, setShowPassword] = React.useState(false)
 
     useEffect(() => {
         if (scope.current) {
@@ -36,20 +40,40 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
         }
     }, [scope])
 
+    const passwordIcon = useMemo(() => {
+        return showPassword
+            ? <GoEye
+                tabIndex={-1}
+                cursor="pointer"
+                size={20}
+                color='gray'
+                onClick={() => setShowPassword(false)}
+                onMouseDown={(e) => e.preventDefault()}
+            />
+            : <GoEyeClosed
+                tabIndex={-1}
+                cursor="pointer"
+                size={20}
+                color='gray'
+                onClick={() => setShowPassword(true)}
+                onMouseDown={(e) => e.preventDefault()}
+            />
+    }, [showPassword])
+
     return (
-        <div
+        <motion.div
             className='common-login-container w-screen min-h-screen h-full flex items-center justify-center py-3 px-2'
             ref={scope}
         >
             <motion.div className='lg:w-[400px] w-[320px] h-auto px-5 pt-3 pb-8 rounded-3xl bg-white flex flex-col gap-4 animation-login-form'>
-                <div className='common-login-logo w-full h-auto flex justify-center'>
+                <motion.div className='common-login-logo w-full h-auto flex justify-center'>
                     <motion.img
                         className='h-[100px] object-cover cursor-pointer input-stagger-item'
                         src="/src/assets/vi_space_logo.png"
                         alt="vi_space_logo"
                         onClick={() => navigate("/")}
                     />
-                </div>
+                </motion.div>
                 <motion.div className='w-full h-auto flex flex-col gap-3'>
                     <AnimatedTextInput
                         className='common-validation-input input-stagger-item'
@@ -65,6 +89,8 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                         variant="filled"
                         radius="md"
                         placeholder="Password"
+                        type={showPassword ? "password" : "text"}
+                        rightSection={passwordIcon}
                         whileHover={{ scale: 1.025 }}
                     />
                     <AnimatedButton
@@ -82,7 +108,7 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                         Sign in
                     </AnimatedButton>
                 </motion.div>
-                <div className='w-full h-auto flex items-center justify-center input-stagger-item'>
+                <motion.div className='w-full h-auto flex items-center justify-center input-stagger-item'>
                     <AnimatedButton
                         className='px-2 bg-transparent login-google-button'
                         whileHover={{
@@ -96,10 +122,10 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                     >
                         <FcGoogle className='login-google-button-icon' />
                     </AnimatedButton>
-                </div>
-                <div className='w-full h-auto flex items-center justify-center input-stagger-item gap-2'>
-                    <Text 
-                        size="sm" 
+                </motion.div>
+                <motion.div className='w-full h-auto flex items-center justify-center input-stagger-item gap-2'>
+                    <Text
+                        size="sm"
                         fw={500}
                         c="#94a3b8"
                     >
@@ -108,15 +134,12 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                     <Link to={"/register"} className='font-normal text-[14px] hover:font-medium hover:text-[#4763ff]'>
                         John now
                     </Link>
-                </div>
+                </motion.div>
             </motion.div>
-        </div>
+        </motion.div>
     );
 };
 
-const AnimatedTextInput = motion(TextInput);
-
-const AnimatedButton = motion("button");
 
 export {
     LoginView as Login
