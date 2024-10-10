@@ -17,6 +17,9 @@ export const TitleResolver = (props: PropsWithChildren) => {
             case "/about":
                 title = "About Us";
                 break;
+            case "/login":
+                title = "Login";
+                break;
             default:
                 title = "Page Not Found";
         }
