@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './index.scss';
+import './../login/index.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { Text } from '@mantine/core';
 import { motion, stagger, useAnimate } from 'framer-motion';
@@ -8,21 +8,21 @@ import { AnimatedButton, AnimatedTextInput } from '@/components';
 import { GoEye } from "react-icons/go";
 import { GoEyeClosed } from "react-icons/go";
 
-interface ILoginViewProps { }
+interface ISignUpViewProps { }
 
-const LoginView: React.FC<ILoginViewProps> = (_props) => {
+const SignUpView: React.FC<ISignUpViewProps> = (_props) => {
     const navigate = useNavigate();
     const [scope, animate] = useAnimate<HTMLDivElement>();
     const [showPassword, setShowPassword] = React.useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
 
     useEffect(() => {
         if (scope.current) {
             animate(scope.current.querySelectorAll(".animation-auth-form"), {
                 opacity: [0, 1],
                 scale: [0, 1],
-                x: [-2000, 0]
             }, {
-                delay: 0.25,
+                delay: 0.5,
                 stiffness: 80,
                 duration: 1,
                 ease: 'easeIn',
@@ -41,7 +41,7 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
         }
     }, [scope])
 
-    const passwordIcon = (status: boolean) => {
+    const passwordIcon = (status: boolean, onChangeStatus: (newStatus: boolean) => void) => {
         const Icon = status ? GoEyeClosed : GoEye;
 
         return (
@@ -50,11 +50,19 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                 style={{ cursor: "pointer" }}
                 size={20}
                 color="gray"
-                onClick={() => setShowPassword(!status)}
+                onClick={() => onChangeStatus(!status)}
                 onMouseDown={(e) => e.preventDefault()}
             />
         );
     };
+
+    const onChangeShowPassword = (status: boolean) => {
+        setShowPassword(status)
+    }
+
+    const onChangeShowConfirmPassword = (status: boolean) => {
+        setShowConfirmPassword(status)
+    }
 
     return (
         <motion.div
@@ -84,9 +92,27 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                         size="md"
                         variant="filled"
                         radius="md"
+                        placeholder="Username"
+                        whileHover={{ scale: 1.025 }}
+                    />
+                    <AnimatedTextInput
+                        className='common-validation-input input-stagger-item'
+                        size="md"
+                        variant="filled"
+                        radius="md"
                         placeholder="Password"
-                        type={showPassword ? "text" : "password" }
-                        rightSection={passwordIcon(showPassword)}
+                        type={showPassword ? "text" : "password"}
+                        rightSection={passwordIcon(showPassword, onChangeShowPassword)}
+                        whileHover={{ scale: 1.025 }}
+                    />
+                    <AnimatedTextInput
+                        className='common-validation-input input-stagger-item'
+                        size="md"
+                        variant="filled"
+                        radius="md"
+                        placeholder="Confirm password"
+                        type={showConfirmPassword ? "text" : "password"}
+                        rightSection={passwordIcon(showConfirmPassword, onChangeShowConfirmPassword)}
                         whileHover={{ scale: 1.025 }}
                     />
                     <AnimatedButton
@@ -101,7 +127,7 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                     // disabled
                     >
                         {/* <Loader color="#fff" size="sm" /> */}
-                        Sign in
+                        Sign up
                     </AnimatedButton>
                 </motion.div>
                 <motion.div className='w-full h-auto flex items-center justify-center input-stagger-item'>
@@ -125,10 +151,10 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                         fw={500}
                         c="#94a3b8"
                     >
-                        No account?
+                        Have an account?
                     </Text>
-                    <Link to={"/sign-up"} className='font-normal text-[14px] hover:font-medium hover:text-[#4763ff]'>
-                        John now
+                    <Link to={"/login"} className='font-normal text-[14px] hover:font-medium hover:text-[#4763ff]'>
+                        Sign in
                     </Link>
                 </motion.div>
             </motion.div>
@@ -138,5 +164,5 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
 
 
 export {
-    LoginView as Login
+    SignUpView as SignUp
 };

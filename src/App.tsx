@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import { Layout } from "./layouts";
 import { TitleResolver } from "./layouts"
-import { Login } from "./pages";
+import { Login, SignUp } from "./pages";
 
 const App = () => {
     return (
@@ -15,6 +15,7 @@ const App = () => {
                         <Route path="notifications" element={<div>fdsfds</div>} />
                     </Route>
                     <Route path="login" element={<Login />}/>
+                    <Route path="sign-up" element={<SignUp />} />
                     <Route path="*" element={<div className="text-[orange]">Page not found</div>} />
                 </Route>
             </Routes>
