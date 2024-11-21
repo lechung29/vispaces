@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect } from 'react';
 import './../login/index.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { Text } from '@mantine/core';
+import { Loader, Text } from '@mantine/core';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
 import { AnimatedButton, AnimatedTextInput } from '@/components';
@@ -10,6 +10,7 @@ import { GoEyeClosed } from "react-icons/go";
 import { useImmerState } from '@/hooks/useImmerState';
 import { validateSignUp } from '../validation';
 import { AuthService } from '@/services';
+import { delay } from '@/utils';
 
 interface ISignUpViewProps { }
 
@@ -24,6 +25,7 @@ interface ISignUpViewState {
     confirmPasswordError: string;
     showPassword: boolean;
     showConfirmPassword: boolean;
+    isLoading: boolean;
 }
 
 const initialState: ISignUpViewState = {
@@ -37,12 +39,13 @@ const initialState: ISignUpViewState = {
     confirmPasswordError: '',
     showPassword: false,
     showConfirmPassword: false,
+    isLoading: false,
 }
 
 const SignUpView: React.FC<ISignUpViewProps> = (_props) => {
     const navigate = useNavigate();
     const [state, setState] = useImmerState<ISignUpViewState>(initialState)
-    const { email, displayName, password, confirmPassword, showPassword, showConfirmPassword, confirmPasswordError, displayNameError, emailError, passwordError} = state
+    const { email, displayName, password, confirmPassword, showPassword, showConfirmPassword, confirmPasswordError, displayNameError, emailError, passwordError, isLoading } = state
     const [scope, animate] = useAnimate<HTMLDivElement>();
 
     useEffect(() => {
@@ -86,11 +89,11 @@ const SignUpView: React.FC<ISignUpViewProps> = (_props) => {
     };
 
     const onChangeShowPassword = (status: boolean) => {
-        setState({ showPassword: status})
+        setState({ showPassword: status })
     }
 
     const onChangeShowConfirmPassword = (status: boolean) => {
-        setState({ showConfirmPassword: status})
+        setState({ showConfirmPassword: status })
     }
 
     const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -102,7 +105,8 @@ const SignUpView: React.FC<ISignUpViewProps> = (_props) => {
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        const { valid, emailError, displayNameError, passwordError, confirmPasswordError } = validateSignUp(email, displayName, password, confirmPassword )
+        setState({ isLoading: true })
+        const { valid, emailError, displayNameError, passwordError, confirmPasswordError } = validateSignUp(email, displayName, password, confirmPassword)
         if (!valid) {
             setState((draft) => {
                 draft.emailError = emailError;
@@ -114,7 +118,10 @@ const SignUpView: React.FC<ISignUpViewProps> = (_props) => {
             try {
                 const data = await AuthService.registerUser(email, displayName, password)
                 if (data.responseInfo.status === 1) {
-                    navigate("/login");
+                    setState({ isLoading: false })
+                    await delay(1500).then(() => {
+                        navigate("/login");
+                    })
                 }
             } catch (error) {
                 console.log(error)
@@ -200,8 +207,7 @@ const SignUpView: React.FC<ISignUpViewProps> = (_props) => {
                         }}
                         onClick={handleSubmit}
                     >
-                        {/* <Loader color="#fff" size="sm" /> */}
-                        Sign up
+                        {isLoading ? <Loader color="#fff" size={18} /> : "Sign up"}
                     </AnimatedButton>
                 </motion.div>
                 <motion.div className='w-full h-auto flex items-center justify-center input-stagger-item'>

@@ -1,19 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import './index.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { Text } from '@mantine/core';
+import { Loader, Text } from '@mantine/core';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
 import { AnimatedButton, AnimatedTextInput } from '@/components';
 import { GoEye } from "react-icons/go";
 import { GoEyeClosed } from "react-icons/go";
+import { useImmerState } from '@/hooks/useImmerState';
+import { validateSignIn } from '../validation';
+import { AuthService } from '@/services';
+import { delay } from '@/utils';
 
 interface ILoginViewProps { }
 
+interface ILoginViewState {
+    email: string;
+    password: string;
+    emailError: string;
+    passwordError: string;
+    showPassword: boolean;
+    isLoading: boolean;
+}
+
+const initialState: ILoginViewState = {
+    email: '',
+    password: '',
+    emailError: '',
+    passwordError: '',
+    showPassword: false,
+    isLoading: false,
+}
+
 const LoginView: React.FC<ILoginViewProps> = (_props) => {
     const navigate = useNavigate();
+    const [state, setState] = useImmerState<ILoginViewState>(initialState)
+    const { email, password, emailError, passwordError, showPassword, isLoading } = state;
     const [scope, animate] = useAnimate<HTMLDivElement>();
-    const [showPassword, setShowPassword] = React.useState(false)
 
     useEffect(() => {
         if (scope.current) {
@@ -50,11 +73,42 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                 style={{ cursor: "pointer" }}
                 size={20}
                 color="gray"
-                onClick={() => setShowPassword(!status)}
+                onClick={() => setState({ showPassword: !status })}
                 onMouseDown={(e) => e.preventDefault()}
             />
         );
     };
+
+    const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setState((draft) => {
+            draft[event.target.name] = event.target.value;
+            draft[event.target.name + "Error"] = ""
+        })
+    }
+
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setState({ isLoading: true})
+        const { valid, emailError, passwordError } = validateSignIn(email, password)
+        if (!valid) {
+            setState((draft) => {
+                draft.emailError = emailError;
+                draft.passwordError = passwordError;
+            })
+        } else {
+            try {
+                const data = await AuthService.loginUser(email, password)
+                if (data.responseInfo.status === 1) {
+                    setState({ isLoading: false })
+                    await delay(1500).then(() => {
+                        navigate("/");
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
 
     return (
         <motion.div
@@ -77,8 +131,12 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                         variant="filled"
                         radius="md"
                         placeholder="Email"
+                        name='email'
+                        value={email}
+                        error={emailError}
+                        onChange={onChangeInput}
                         whileHover={{ scale: 1.025 }}
-                        
+
                     />
                     <AnimatedTextInput
                         className='common-validation-input input-stagger-item'
@@ -86,7 +144,11 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                         variant="filled"
                         radius="md"
                         placeholder="Password"
-                        type={showPassword ? "text" : "password" }
+                        name='password'
+                        value={password}
+                        error={passwordError}
+                        onChange={onChangeInput}
+                        type={showPassword ? "text" : "password"}
                         rightSection={passwordIcon(showPassword)}
                         whileHover={{ scale: 1.025 }}
                     />
@@ -99,10 +161,9 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                                 stiffness: 2000,
                             }
                         }}
-                    // disabled
+                        onClick={handleSubmit}
                     >
-                        {/* <Loader color="#fff" size="sm" /> */}
-                        Sign in
+                        {isLoading ? <Loader color="#fff" size={18} /> : "Sign in"}
                     </AnimatedButton>
                 </motion.div>
                 <motion.div className='w-full h-auto flex items-center justify-center input-stagger-item'>
