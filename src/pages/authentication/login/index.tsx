@@ -78,6 +78,7 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
                         radius="md"
                         placeholder="Email"
                         whileHover={{ scale: 1.025 }}
+                        
                     />
                     <AnimatedTextInput
                         className='common-validation-input input-stagger-item'
