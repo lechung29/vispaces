@@ -6,10 +6,11 @@
 }
 
 .common-validation-input {
-
+    padding-bottom: 1rem;
     input.mantine-Input-input {
         color: #000;
         font-weight: 400;
+        font-size: 15px;
 
         &[aria-invalid="true"] {
             border: 1.75px solid red;
