@@ -10,6 +10,13 @@ class AuthService {
             password,
         }).then(response => response.data)
     }
+
+    public static loginUser(email: string, password: string): Promise<IResponseBase> {
+        return axiosClient.post(API_ROUTE.LOGIN, {
+            email,
+            password
+        }).then(response => response.data)
+    }
 }
 
 export {

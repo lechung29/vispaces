@@ -56,3 +56,38 @@ export const validateSignUp = (email: string, displayName: string, password: str
         confirmPasswordError
     }
 }
+
+export const validateSignIn = (email: string, password: string,) => {
+    let valid = true;
+    let emailError = "";
+    let passwordError = "";
+    if (!email) {
+        valid = false;
+        emailError = "Please enter an email"
+    }
+    
+    if (!password) {
+        valid = false;
+        passwordError = "Please enter a password"
+    }
+
+    if (!!email) {
+        const emailRegex =
+            /^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(?:\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)$/;
+        if (!email.match(emailRegex)) {
+            valid = false;
+            emailError = "Email is not a valid email address"
+        }
+    }
+
+    if (!!password && password.length < 6) {
+        valid = false;
+        passwordError = "Password must be at least 6 characters"
+    }
+
+    return {
+        valid,
+        emailError,
+        passwordError,
+    }
+}
