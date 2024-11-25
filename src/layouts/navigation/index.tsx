@@ -1,4 +1,4 @@
-import { Stack } from '@mantine/core'
+import { ScrollArea, Stack } from '@mantine/core'
 import React from 'react'
 import { motion } from "framer-motion"
 import { AiOutlineHome } from "react-icons/ai";
@@ -90,23 +90,26 @@ const NavigationView: React.FC = () => {
     ]
     return (
         <div className="common-navigation-section sticky top-0 left-0 w-auto lg:w-1/6 p-2 h-screen border-r bg-white">
-            <img
-                src="/src/assets/vi_space_logo.png"
-                alt="vi_space"
-                className="lg:block hidden w-full object-cover cursor-pointer"
-                onClick={() => navigate("/")}
-            />
-            <Stack className='w-full' gap={"xs"}>
-                {NavigateRouter.map((item) => (
-                    <NavLink
-                        className='px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2'
-                        to={item.path!}
-                    >
-                        {item.icon}
-                        <span className='lg:block hidden'>{item.title}</span>
-                    </NavLink>
-                ))}
-            </Stack>
+            <ScrollArea h={"calc(100vh - 1rem)"} type='never'>
+                <img
+                    src="/src/assets/vi_space_logo.png"
+                    alt="vi_space"
+                    className="lg:block hidden w-full object-cover cursor-pointer"
+                    onClick={() => navigate("/")}
+                />
+                <Stack className='w-full' gap={"xs"}>
+                    {NavigateRouter.map((item, index) => (
+                        <NavLink
+                            key={index}
+                            className='px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2'
+                            to={item.path!}
+                        >
+                            {item.icon}
+                            <span className='lg:block hidden'>{item.title}</span>
+                        </NavLink>
+                    ))}
+                </Stack>
+            </ScrollArea>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import "./index.css";
 import { Layout } from "./layouts";
 import { TitleResolver } from "./layouts"
 import { Login, SignUp } from "./pages";
+import Home from "./pages/home";
 
 const App = () => {
     return (
@@ -10,7 +11,7 @@ const App = () => {
             <Routes>
                 <Route path="/*" element={<TitleResolver />}>
                     <Route element={<Layout />}>
-                        <Route index element={<div className="text-[orange]">Hello ba con</div>} />
+                        <Route index element={<Home />} />
                         <Route path="about" element={<div>cc</div>} />
                         <Route path="notifications" element={<div>fdsfds</div>} />
                     </Route>

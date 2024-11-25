@@ -6,6 +6,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Work Sans", system-ui;
-    letter-spacing: -.5px;
-}
+    font-family: "Lora", serif!important;
+    font-optical-sizing: auto;  
+    letter-spacing: 0.25px;
+}   
