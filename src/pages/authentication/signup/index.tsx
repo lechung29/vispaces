@@ -114,19 +114,20 @@ const SignUpView: React.FC<ISignUpViewProps> = (_props) => {
                 draft.passwordError = passwordError;
                 draft.confirmPasswordError = confirmPasswordError;
             })
-        } else {
-            try {
-                const data = await AuthService.registerUser(email, displayName, password)
-                if (data.responseInfo.status === 1) {
-                    setState({ isLoading: false })
-                    await delay(1500).then(() => {
-                        navigate("/login");
-                    })
-                }
-            } catch (error) {
-                console.log(error)
-            }
+            return Promise.resolve()
         }
+        try {
+            const data = await AuthService.registerUser(email, displayName, password)
+            if (data.responseInfo.status === 1) {
+                setState({ isLoading: false })
+                await delay(1500).then(() => {
+                    navigate("/login");
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     return (

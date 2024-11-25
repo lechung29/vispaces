@@ -88,25 +88,25 @@ const LoginView: React.FC<ILoginViewProps> = (_props) => {
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        setState({ isLoading: true})
+        setState({ isLoading: true })
         const { valid, emailError, passwordError } = validateSignIn(email, password)
         if (!valid) {
             setState((draft) => {
                 draft.emailError = emailError;
                 draft.passwordError = passwordError;
             })
-        } else {
-            try {
-                const data = await AuthService.loginUser(email, password)
-                if (data.responseInfo.status === 1) {
-                    setState({ isLoading: false })
-                    await delay(1500).then(() => {
-                        navigate("/");
-                    })
-                }
-            } catch (error) {
-                console.log(error)
+            return Promise.resolve()
+        }
+        try {
+            const data = await AuthService.loginUser(email, password)
+            if (data.responseInfo.status === 1) {
+                setState({ isLoading: false })
+                await delay(1500).then(() => {
+                    navigate("/");
+                })
             }
+        } catch (error) {
+            console.log(error)
         }
     }
 
