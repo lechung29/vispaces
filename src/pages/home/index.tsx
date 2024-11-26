@@ -1,3 +1,4 @@
+import CommonPost from '@/components/commonpost'
 import NewPost from '@/components/newpost'
 import StoryList from '@/components/storylist'
 import React from 'react'
@@ -12,11 +13,15 @@ const Home: React.FunctionComponent<IHomePageProps> = (_props) => {
             <div className='story-part h-full w-full'>
                 <StoryList />
             </div>
-            <div className='content-part my-12 px-14 w-full h-auto flex justify-center items-center gap-10'>
-                <div className='w-[50%] h-auto'>
+            <div className='content-part my-12 px-14 w-full h-auto flex justify-center items-start gap-10'>
+                <div className='w-[60%] h-auto flex items-center justify-center flex-col gap-7'>
                     <NewPost />
+                    <CommonPost />
+                    <CommonPost />
+                    <CommonPost />
+
                 </div>
-                <div className='w-[50%] h-auto'>
+                <div className='w-[40%] h-auto'>
                     123
                 </div>
             </div>

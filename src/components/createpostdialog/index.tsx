@@ -22,6 +22,8 @@ const CreatePostDialog: React.FunctionComponent<ICreatePostDialog> = (props) => 
                 backgroundOpacity: 0.55,
                 blur: 3,
             }}
+            centered
+            size={"lg"}
         >
             <div className='w-full h-auto'>
                 <div className='message-status w-full my-2'>
