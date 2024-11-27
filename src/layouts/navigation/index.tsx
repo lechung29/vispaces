@@ -45,7 +45,7 @@ const NavigationView: React.FC = () => {
         {
             title: "Notifications",
             path: "/notifications",
-            icon: <div className='w-auto h-auto relative'>
+            icon: <motion.div className='w-auto h-auto relative'>
                 <IoMdHeartEmpty className="common-navigation-icon" />
                 <span className="absolute flex w-3 h-3 top-0 right-0">
                     <motion.div
@@ -65,7 +65,7 @@ const NavigationView: React.FC = () => {
                     />
                     <span className="absolute top-0 right-0 inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                 </span>
-            </div>
+            </motion.div>
         },
         {
             title: "Friends",
@@ -89,7 +89,7 @@ const NavigationView: React.FC = () => {
         }
     ]
     return (
-        <div className="common-navigation-section sticky top-0 left-0 w-auto lg:w-1/6 p-2 h-screen border-r bg-white">
+        <motion.div className="common-navigation-section sticky top-0 left-0 w-auto lg:w-1/6 p-2 h-screen border-r bg-white">
             <ScrollArea h={"calc(100vh - 1rem)"} type='never'>
                 <img
                     src="/src/assets/vi_space_logo.png"
@@ -110,7 +110,7 @@ const NavigationView: React.FC = () => {
                     ))}
                 </Stack>
             </ScrollArea>
-        </div>
+        </motion.div>
     )
 }
 
