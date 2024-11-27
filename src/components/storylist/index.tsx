@@ -14,6 +14,7 @@ import { GrFormNext } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
 import { classNames } from "@/utils";
 import { Title } from "@mantine/core";
+import { motion } from "framer-motion"
 
 export interface IStoryListProps {
     items?: any[];
@@ -55,9 +56,9 @@ const StoryList: React.FunctionComponent<IStoryListProps> = (_props) => {
         }
     }
     return (
-        <div>
+        <motion.div>
             <Title className="!mx-14 !text-[24px] !font-bold">Stories</Title>
-            <div className="flex items-center justify-start">
+            <motion.div className="flex items-center justify-start">
                 <AnimatedIconButton
                     variant="subtle"
                     size="lg"
@@ -241,8 +242,8 @@ const StoryList: React.FunctionComponent<IStoryListProps> = (_props) => {
                 >
                     <GrFormNext size={24} color="#000" />
                 </AnimatedIconButton>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 
