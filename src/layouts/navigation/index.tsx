@@ -35,8 +35,13 @@ const NavigationView: React.FunctionComponent = () => {
         const children = !!item.path
             ? <Link
                 key={index}
+                onClick={() => {
+                    if (openSearchPanel) {
+                        dispatch(toggleSearchPanel(false))
+                    }
+                }}
                 className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-200 cursor-pointer flex items-center gap-2', {
-                    "active": (window.location.pathname === item.path)
+                    "active": (window.location.pathname === item.path && !openSearchPanel)
                 })}
                 to={item.path!}
             >
@@ -45,7 +50,9 @@ const NavigationView: React.FunctionComponent = () => {
             </Link>
             : <motion.div
                 key={index}
-                className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2')}
+                className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
+                    "active": openSearchPanel
+                })}
                 onClick={() => {
                     dispatch(toggleSearchPanel(true))
                 }}
@@ -119,15 +126,15 @@ const NavigationView: React.FunctionComponent = () => {
                         className='absolute w-2 h-2 rounded bg-red-300 top-0 right-0'
                         initial={{ scale: 1, opacity: 1 }}
                         animate={{
-                            scale: [1, 2, 2],  // Scale from 1 to 2
-                            opacity: [1, 1, 0], // Opacity from 1 to 0
+                            scale: [1, 2, 2], 
+                            opacity: [1, 1, 0], 
                         }}
                         transition={{
-                            duration: 1, // Duration of 1 second
+                            duration: 1,
                             times: [0, 0.75, 1],
-                            ease: [0, 0, 0.2, 1], // cubic-bezier easing
-                            repeat: Infinity, // Loop the animation infinitely
-                            repeatType: "loop", // Looping type
+                            ease: [0, 0, 0.2, 1], 
+                            repeat: Infinity, 
+                            repeatType: "loop", 
                         }}
                     />
                     <span className="absolute top-0 right-0 inline-flex rounded-full h-2 w-2 bg-red-500"></span>
