@@ -1,5 +1,5 @@
 import { ActionIcon, Avatar, Badge, CloseButton, Divider, Image, Input, Title, Tooltip } from '@mantine/core'
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import PostActionMenu from '../postactionmenu'
 import { FaImage } from "react-icons/fa6";
 import { PhotoProvider, PhotoView } from 'react-photo-view'
@@ -20,14 +20,9 @@ const CommonPost: React.FunctionComponent<ICommonPostProps> = (_props) => {
     const [isLike, setIsLike] = useState(false)
     const [isOpenComment, setIsOpenComment] = useState(false)
     const [commentValue, setCommentValue] = useState("")
-    const badgeRef = useRef<HTMLDivElement | null>()
     const handleLikeClick = () => {
         setIsLike(!isLike)
     }
-
-    useEffect(() => {
-        console.log(badgeRef.current)
-    }, [badgeRef.current])
 
     const handleCommentClick = () => {
         setIsOpenComment(!isOpenComment)

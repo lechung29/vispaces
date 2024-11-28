@@ -1,5 +1,5 @@
-import { ScrollArea, Stack } from '@mantine/core'
-import React from 'react'
+import { ScrollArea, Stack, Tooltip } from '@mantine/core'
+import React, { useRef } from 'react'
 import { motion } from "framer-motion"
 import { AiOutlineHome } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
@@ -9,9 +9,14 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoLogOutOutline } from "react-icons/io5";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegCircleUser } from "react-icons/fa6";
 import "./index.scss"
+import { Breakpoint, classNames, useMinWidth } from '@/utils';
+import { useAppDispatch, useAppSelector } from '@/redux/store/store';
+import { searchPanelState, toggleSearchPanel } from '@/redux/reducers';
+import SearchPanel from '@/components/searchpanel';
+import { IFunc2 } from '@/types/Function';
 
 interface INavigateRouter {
     title: string;
@@ -19,8 +24,71 @@ interface INavigateRouter {
     icon: JSX.Element
 }
 
-const NavigationView: React.FC = () => {
+const NavigationView: React.FunctionComponent = () => {
+    const { openSearchPanel } = useAppSelector(searchPanelState)
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const ref = useRef<HTMLDivElement>(null)
+    const isLarge = useMinWidth(Breakpoint.LaptopMin)
+
+    const onRenderRouterItem: IFunc2<INavigateRouter, number, JSX.Element> = (item, index) => {
+        const children = !!item.path
+            ? <Link
+                key={index}
+                className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-200 cursor-pointer flex items-center gap-2', {
+                    "active": (window.location.pathname === item.path)
+                })}
+                to={item.path!}
+            >
+                {item.icon}
+                <motion.span className={classNames('hidden', { "lg:block": !openSearchPanel })}>{item.title}</motion.span>
+            </Link>
+            : <motion.div
+                key={index}
+                className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2')}
+                onClick={() => {
+                    dispatch(toggleSearchPanel(true))
+                }}
+            >
+                {item.icon}
+                <motion.span className={classNames('hidden', { "lg:block": !openSearchPanel })}>{item.title}</motion.span>
+            </motion.div>
+        
+        return (!isLarge || openSearchPanel)
+            ? <Tooltip 
+                label={item.title}
+                style={{
+                    color: "white",
+                    background: "linear-gradient(90deg,#d63c68,#6a82fb)",
+                    fontSize: "13px",
+                    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
+                }}
+                styles={{
+                    arrow: {
+                        background: "#d63c68"
+                    }
+                }}
+                position={"right"}
+                color="rgba(255, 255, 255, 1)"
+                openDelay={100}
+                closeDelay={100}
+                arrowSize={6}
+                transitionProps={{ 
+                    transition: 'fade-right', 
+                    duration: 300 
+                }}
+                withArrow
+                events={{
+                    focus: true,
+                    hover: true,
+                    touch: true,
+                }}
+            >
+                {children}
+            </Tooltip>
+            : children
+    }
+
     const NavigateRouter: INavigateRouter[] = [
         {
             title: "Home",
@@ -29,7 +97,6 @@ const NavigationView: React.FC = () => {
         },
         {
             title: "Search",
-            path: "/search",
             icon: <FiSearch className="common-navigation-icon" />
         },
         {
@@ -89,28 +156,33 @@ const NavigationView: React.FC = () => {
         }
     ]
     return (
-        <motion.div className="common-navigation-section sticky top-0 left-0 w-auto lg:w-1/6 p-2 h-screen border-r bg-white">
+        <motion.aside
+            ref={ref}
+            className={classNames("common-navigation-section relative p-2 h-screen border-r bg-white", {
+                "w-1/6": (!openSearchPanel && isLarge),
+                "w-auto": !isLarge
+            })}
+        >
             <ScrollArea h={"calc(100vh - 1rem)"} type='never'>
-                <img
+                <motion.img
                     src="/src/assets/vi_space_logo.png"
                     alt="vi_space"
-                    className="lg:block hidden w-full object-cover cursor-pointer"
+                    className={classNames("hidden w-full object-cover cursor-pointer pb-2", {
+                        "lg:block": !openSearchPanel
+                    })}
                     onClick={() => navigate("/")}
                 />
                 <Stack className='w-full' gap={"xs"}>
-                    {NavigateRouter.map((item, index) => (
-                        <NavLink
-                            key={index}
-                            className='px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2'
-                            to={item.path!}
-                        >
-                            {item.icon}
-                            <span className='lg:block hidden'>{item.title}</span>
-                        </NavLink>
-                    ))}
+                    {NavigateRouter.map((item, index) => onRenderRouterItem(item, index))}
                 </Stack>
             </ScrollArea>
-        </motion.div>
+            {openSearchPanel && <SearchPanel
+                headerTitle='Search'
+                isOpen={openSearchPanel}
+                onClose={() => dispatch(toggleSearchPanel(false))}
+                hasCloseButton={true}
+            />}
+        </motion.aside>
     )
 }
 
