@@ -1,30 +1,26 @@
 import React, { useMemo } from 'react'
+import { FollowButtonState } from '../newfolloweritem'
+import { useImmerState } from '@/hooks/useImmerState'
 import { motion } from "framer-motion"
 import { Avatar, Button, Loader, Title } from '@mantine/core'
-import { useImmerState } from '@/hooks/useImmerState'
 import { IFunc } from '@/types/Function'
 import { classNames, delay } from '@/utils'
 
-interface INewFollowerItemProps {
-
+interface ISearchItemProps {
+    isFollowed?: boolean
 }
 
-interface INewFollowerItemState {
+interface ISearchItemState {
     followStatus: FollowButtonState
 }
 
-enum FollowButtonState {
-    NotFollow,
-    Following,
-    Followed
-}
-
-const initialState: INewFollowerItemState = {
+const initialState: ISearchItemState = {
     followStatus: FollowButtonState.NotFollow
 }
 
-const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props) => {
-    const [state, setState] = useImmerState<INewFollowerItemState>(initialState)
+const SearchItem: React.FunctionComponent<ISearchItemProps> = (props) => {
+    const { isFollowed } = props;
+    const [state, setState] = useImmerState<ISearchItemState>(initialState)
     const { followStatus } = state
 
     const followButtonProperties = useMemo(() => {
@@ -54,7 +50,7 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
             default:
                 title = <motion.div
                     whileInView={{
-                        x: [-32, 32],
+                        scale: [1, 1.07, 1]
                     }}
                     transition={{ duration: 2, delay: 0.5, ease: "linear", repeat: Infinity }}
                 >
@@ -77,9 +73,9 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
             return Promise.resolve()
         }
         setState({ followStatus: FollowButtonState.Following })
-        return delay(2000).then(() => setState({ followStatus: FollowButtonState.Followed }))
+        return delay(2000)
+            .then(() => setState({ followStatus: FollowButtonState.Followed }))
     }
-
     return (
         <motion.div className='w-full flex items-center justify-between'>
             <motion.div className='w-auto flex items-center justify-start gap-3'>
@@ -93,7 +89,7 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
                     <Title className='!text-[12px] !text-[#6b7280] !font-medium'>Suggested For You</Title>
                 </motion.div>
             </motion.div>
-            <Button
+            {!isFollowed && <Button
                 className={classNames(`!px-3 !text-[${followButtonProperties.textColor}] overflow-hidden cursor-pointer !text-[12px] !w-[80px] !h-[32px] !py-[6px]`, {
                     "!cursor-not-allowed": followStatus === FollowButtonState.Following
                 })}
@@ -104,12 +100,11 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
                 color={followButtonProperties.background}
             >
                 {followButtonProperties.title}
-            </Button>
+            </Button>}
         </motion.div>
     )
 }
 
 export {
-    NewFollowerItem,
-    FollowButtonState
+    SearchItem
 }

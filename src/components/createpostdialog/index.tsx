@@ -65,4 +65,6 @@ const CreatePostDialog: React.FunctionComponent<ICreatePostDialog> = (props) => 
     )
 }
 
-export default CreatePostDialog
+export {
+    CreatePostDialog
+}

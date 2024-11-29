@@ -1,3 +1,18 @@
 .search-panel-section {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+    .search-input {
+        .mantine-Input-input:focus-within {
+            outline: none;
+            border: 1.75px solid #4d4b4b;
+        }
+
+        .mantine-Input-input::placeholder {
+            color: #4d4b4b;
+        }
+    }
+}
+
+.mantine-Button-section {
+    margin-inline-end: 4px !important;
 }

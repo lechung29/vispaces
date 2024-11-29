@@ -74,11 +74,11 @@
 }
 
 .submit-primary-button {
-    background: linear-gradient(135deg,#d63c68,#6a82fb); 
-    background-size: 200% 200%;
+    background: linear-gradient(135deg,#d63c68,#6a82fb)!important; 
+    background-size: 200% 200%!important;
 
     &:hover {
-        animation: linearBackground 1.5s ease-in infinite;
+        animation: linearBackground 1.5s ease-in infinite !important;
     } 
 }
 

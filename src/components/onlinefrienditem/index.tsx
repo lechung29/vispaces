@@ -27,4 +27,6 @@ const OnlineFriendItem: React.FunctionComponent<IOnlineFriendItemProps> = (_prop
     )
 }
 
-export default OnlineFriendItem
+export {
+    OnlineFriendItem
+}
