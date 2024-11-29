@@ -56,9 +56,9 @@ const StoryList: React.FunctionComponent<IStoryListProps> = (_props) => {
         }
     }
     return (
-        <motion.div>
+        <motion.section>
             <Title className="!mx-14 !text-[24px] !font-bold">Stories</Title>
-            <motion.div className="flex items-center justify-start">
+            <motion.article className="flex items-center justify-start">
                 <AnimatedIconButton
                     variant="subtle"
                     size="lg"
@@ -242,8 +242,8 @@ const StoryList: React.FunctionComponent<IStoryListProps> = (_props) => {
                 >
                     <GrFormNext size={24} color="#000" />
                 </AnimatedIconButton>
-            </motion.div>
-        </motion.div>
+            </motion.article>
+        </motion.section>
     )
 }
 

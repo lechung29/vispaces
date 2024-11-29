@@ -49,7 +49,7 @@ const NavigationView: React.FunctionComponent = () => {
                 {item.icon}
                 <motion.span className={!isLarge ? "hidden" : !openSearchPanel ? "block" : "hidden"}>{item.title}</motion.span>
             </Link>
-            : <motion.div
+            : <motion.section
                 key={index}
                 tabIndex={0}
                 className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
@@ -61,7 +61,7 @@ const NavigationView: React.FunctionComponent = () => {
             >
                 {item.icon}
                 <motion.span className={!isLarge ? "hidden" : !openSearchPanel ? "block" : "hidden"}>{item.title}</motion.span>
-            </motion.div>
+            </motion.section>
         
         return (!isLarge || openSearchPanel)
             ? <Tooltip 
