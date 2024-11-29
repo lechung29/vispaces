@@ -4,7 +4,7 @@ import { rem, ScrollArea, TextInput, Title } from '@mantine/core'
 import { LuRefreshCw } from "react-icons/lu";
 import { classNames } from '@/utils';
 import { MdSearch } from "react-icons/md";
-import OnlineFriendItem from '../onlinefrienditem';
+import { OnlineFriendItem } from '../onlinefrienditem';
 
 interface IOnlineFriendProps {
 
@@ -52,4 +52,6 @@ const OnlineFriend: React.FunctionComponent<IOnlineFriendProps> = (_props) => {
     )
 }
 
-export default OnlineFriend
+export {
+    OnlineFriend
+}

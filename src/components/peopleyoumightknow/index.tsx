@@ -3,7 +3,7 @@ import { Title } from '@mantine/core'
 import React, { useState } from 'react'
 import { LuRefreshCw } from "react-icons/lu";
 import { motion } from "framer-motion"
-import NewFollowerItem from '../newfolloweritem';
+import { NewFollowerItem } from '../newfolloweritem';
 
 interface IPeopleMightKnowProps {
 
@@ -32,4 +32,6 @@ const PeopleMightKnow: React.FunctionComponent<IPeopleMightKnowProps> = (_props)
     )
 }
 
-export default PeopleMightKnow
+export {
+    PeopleMightKnow
+}

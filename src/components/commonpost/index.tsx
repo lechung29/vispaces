@@ -1,6 +1,6 @@
 import { ActionIcon, Avatar, Badge, CloseButton, Divider, Image, Input, Title, Tooltip } from '@mantine/core'
 import React, { Fragment, useState } from 'react'
-import PostActionMenu from '../postactionmenu'
+import { PostActionMenu } from '../postactionmenu'
 import { FaImage } from "react-icons/fa6";
 import { PhotoProvider, PhotoView } from 'react-photo-view'
 import { IoHeartSharp } from "react-icons/io5";
@@ -16,7 +16,7 @@ interface ICommonPostProps {
 
 }
 
-const CommonPost: React.FunctionComponent<ICommonPostProps> = (_props) => {
+const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
     const [isLike, setIsLike] = useState(false)
     const [isOpenComment, setIsOpenComment] = useState(false)
     const [commentValue, setCommentValue] = useState("")
@@ -28,24 +28,24 @@ const CommonPost: React.FunctionComponent<ICommonPostProps> = (_props) => {
         setIsOpenComment(!isOpenComment)
     }
     return (
-        <motion.div className='bg-white h-auto w-full p-4 rounded-lg drop-shadow-sm flex items-center justify-center flex-col gap-4'>
-            <motion.div className='post-basic-info-row w-full flex items-center justify-between'>
-                <motion.div className='post-author-info flex items-center justify-center gap-3'>
+        <motion.section className='bg-white h-auto w-full p-4 rounded-lg drop-shadow-sm flex items-center justify-center flex-col gap-4'>
+            <motion.header className='post-basic-info-row w-full flex items-center justify-between'>
+                <motion.figure className='post-author-info flex items-center justify-center gap-3'>
                     <Avatar
                         src="/src/assets/avatar.jpg"
                         alt="it's me"
                         className='cursor-pointer'
                     />
-                    <motion.div className='flex flex-col'>
+                    <motion.figcaption className='flex flex-col'>
                         <Title className='!text-[14px] !font-semibold'>Killian Le</Title>
                         <Title className='!text-[12px] !font-medium !text-[#6b7280]'>2 hours ago</Title>
-                    </motion.div>
-                </motion.div>
-                <motion.div className='post-action-menu flex items-center justify-center'>
+                    </motion.figcaption>
+                </motion.figure>
+                <motion.section hidden className='post-action-menu flex items-center justify-center'>
                     <PostActionMenu />
-                </motion.div>
-            </motion.div>
-            <motion.div className='post-content-row w-full flex flex-col gap-3'>
+                </motion.section>
+            </motion.header>
+            <motion.article className='post-content-row w-full flex flex-col gap-3'>
                 <Title className='!text-[13px] !font-normal' >Tôi buồn ngủ quá</Title>
                 <PhotoProvider>
                     <PhotoView src="/src/assets/b38bfc6b-06f6-4336-9487-bdd473466643.jpg">
@@ -60,8 +60,8 @@ const CommonPost: React.FunctionComponent<ICommonPostProps> = (_props) => {
                         />
                     </PhotoView>
                 </PhotoProvider>
-            </motion.div>
-            <motion.div className='post-action-row w-full flex items-center justify-between'>
+            </motion.article>
+            <motion.section className='post-action-row w-full flex items-center justify-between'>
                 <motion.div className='flex items-center justify-center gap-2'>
                     <motion.div className='flex items-center justify-center gap-1'>
                         <Tooltip
@@ -119,7 +119,7 @@ const CommonPost: React.FunctionComponent<ICommonPostProps> = (_props) => {
                         </ActionIcon>
                     </Tooltip>
                 </motion.div>
-            </motion.div>
+            </motion.section>
             {isOpenComment && <Fragment>
                 <Divider className='w-full' my="0" size={"xs"} />
                 <motion.div className='post-comment-section w-full flex flex-col gap-2'>
@@ -225,8 +225,10 @@ const CommonPost: React.FunctionComponent<ICommonPostProps> = (_props) => {
                     </AnimatedButton>
                 </motion.div>
             </Fragment>}
-        </motion.div>
+        </motion.section>
     )
 }
 
-export default CommonPost
+export {
+    CommonPostView as CommonPost
+}

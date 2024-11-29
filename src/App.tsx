@@ -2,8 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import { Layout } from "./layouts";
 import { TitleResolver } from "./layouts"
-import { Login, SignUp } from "./pages";
-import Home from "./pages/home";
+import { Home, Login, SignUp } from "./pages";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 

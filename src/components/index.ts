@@ -9,3 +9,4 @@ export * from "./peopleyoumightknow";
 export * from "./newfolloweritem";
 export * from "./onlinefriend";
 export * from "./searchpanel";
+export * from "./searchitem"

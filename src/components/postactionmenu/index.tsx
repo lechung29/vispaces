@@ -49,4 +49,6 @@ const PostActionMenu: React.FunctionComponent<IPostActionMenu> = (_props) => {
     )
 }
 
-export default PostActionMenu
+export {
+    PostActionMenu
+}

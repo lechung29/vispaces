@@ -1,5 +1,5 @@
 import { ScrollArea, Stack, Tooltip } from '@mantine/core'
-import React, { useRef } from 'react'
+import React, { Fragment, useRef } from 'react'
 import { motion } from "framer-motion"
 import { AiOutlineHome } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
@@ -15,8 +15,8 @@ import "./index.scss"
 import { Breakpoint, classNames, useMinWidth } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/redux/store/store';
 import { searchPanelState, toggleSearchPanel } from '@/redux/reducers';
-import SearchPanel from '@/components/searchpanel';
 import { IFunc2 } from '@/types/Function';
+import { SearchPanel } from '@/components';
 
 interface INavigateRouter {
     title: string;
@@ -28,13 +28,14 @@ const NavigationView: React.FunctionComponent = () => {
     const { openSearchPanel } = useAppSelector(searchPanelState)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const ref = useRef<HTMLDivElement>(null)
+    const navigationRef = useRef<HTMLDivElement | null>(null)
     const isLarge = useMinWidth(Breakpoint.LaptopMin)
 
     const onRenderRouterItem: IFunc2<INavigateRouter, number, JSX.Element> = (item, index) => {
         const children = !!item.path
             ? <Link
                 key={index}
+                tabIndex={0}
                 onClick={() => {
                     if (openSearchPanel) {
                         dispatch(toggleSearchPanel(false))
@@ -46,10 +47,11 @@ const NavigationView: React.FunctionComponent = () => {
                 to={item.path!}
             >
                 {item.icon}
-                <motion.span className={classNames('hidden', { "lg:block": !openSearchPanel })}>{item.title}</motion.span>
+                <motion.span className={!isLarge ? "hidden" : !openSearchPanel ? "block" : "hidden"}>{item.title}</motion.span>
             </Link>
             : <motion.div
                 key={index}
+                tabIndex={0}
                 className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
                     "active": openSearchPanel
                 })}
@@ -58,7 +60,7 @@ const NavigationView: React.FunctionComponent = () => {
                 }}
             >
                 {item.icon}
-                <motion.span className={classNames('hidden', { "lg:block": !openSearchPanel })}>{item.title}</motion.span>
+                <motion.span className={!isLarge ? "hidden" : !openSearchPanel ? "block" : "hidden"}>{item.title}</motion.span>
             </motion.div>
         
         return (!isLarge || openSearchPanel)
@@ -121,7 +123,7 @@ const NavigationView: React.FunctionComponent = () => {
             path: "/notifications",
             icon: <motion.div className='w-auto h-auto relative'>
                 <IoMdHeartEmpty className="common-navigation-icon" />
-                <span className="absolute flex w-3 h-3 top-0 right-0">
+                <motion.span className="absolute flex w-3 h-3 top-0 right-0">
                     <motion.div
                         className='absolute w-2 h-2 rounded bg-red-300 top-0 right-0'
                         initial={{ scale: 1, opacity: 1 }}
@@ -137,8 +139,8 @@ const NavigationView: React.FunctionComponent = () => {
                             repeatType: "loop", 
                         }}
                     />
-                    <span className="absolute top-0 right-0 inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                </span>
+                    <motion.span className="absolute top-0 right-0 inline-flex rounded-full h-2 w-2 bg-red-500"></motion.span>
+                </motion.span>
             </motion.div>
         },
         {
@@ -164,23 +166,23 @@ const NavigationView: React.FunctionComponent = () => {
     ]
     return (
         <motion.aside
-            ref={ref}
-            className={classNames("common-navigation-section relative p-2 h-screen border-r bg-white", {
-                "w-1/6": (!openSearchPanel && isLarge),
-                "w-auto": !isLarge
-            })}
+            ref={navigationRef}
+            className={`common-navigation-section relative p-2 h-screen border-r bg-white ${!isLarge ? "w-auto" : !openSearchPanel ? "w-1/6" : "w-auto"}`}
         >
             <ScrollArea h={"calc(100vh - 1rem)"} type='never'>
                 <motion.img
                     src="/src/assets/vi_space_logo.png"
                     alt="vi_space"
-                    className={classNames("hidden w-full object-cover cursor-pointer pb-2", {
-                        "lg:block": !openSearchPanel
-                    })}
+                    className={`w-full object-cover cursor-pointer pb-2 ${!isLarge ? "hidden" : !openSearchPanel ? "block" : "hidden"}`}
                     onClick={() => navigate("/")}
                 />
-                <Stack className='w-full' gap={"xs"}>
-                    {NavigateRouter.map((item, index) => onRenderRouterItem(item, index))}
+                <Stack 
+                    className={classNames('w-full', {
+                        "pt-5": !isLarge || openSearchPanel
+                    })} 
+                    gap={"xs"}
+                >
+                    {NavigateRouter.map((item, index) => <Fragment key={index}>{onRenderRouterItem(item, index)}</Fragment>)}
                 </Stack>
             </ScrollArea>
             {openSearchPanel && <SearchPanel
@@ -188,6 +190,7 @@ const NavigationView: React.FunctionComponent = () => {
                 isOpen={openSearchPanel}
                 onClose={() => dispatch(toggleSearchPanel(false))}
                 hasCloseButton={true}
+                parentRef={navigationRef}
             />}
         </motion.aside>
     )

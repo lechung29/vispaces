@@ -20,4 +20,6 @@ const StoryAvatar: React.FunctionComponent<IStoryAvatarProps> = (_props) => {
     )
 }
 
-export default StoryAvatar
+export {
+    StoryAvatar
+}
