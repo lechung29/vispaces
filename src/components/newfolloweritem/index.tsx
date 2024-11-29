@@ -81,18 +81,18 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
     }
 
     return (
-        <motion.div className='w-full flex items-center justify-between'>
-            <motion.div className='w-auto flex items-center justify-start gap-3'>
+        <motion.section className='w-full flex items-center justify-between'>
+            <motion.article className='w-auto flex items-center justify-start gap-3'>
                 <Avatar
                     src="/src/assets/avatar.jpg"
                     alt="it's me"
                     className='cursor-pointer'
                 />
-                <motion.div className='w-max flex flex-col'>
+                <motion.figcaption className='w-max flex flex-col'>
                     <Title className='!text-[14px] !font-semibold'>Bach Le</Title>
                     <Title className='!text-[12px] !text-[#6b7280] !font-medium'>Suggested For You</Title>
-                </motion.div>
-            </motion.div>
+                </motion.figcaption>
+            </motion.article>
             <Button
                 className={classNames(`!px-3 !text-[${followButtonProperties.textColor}] overflow-hidden cursor-pointer !text-[12px] !w-[80px] !h-[32px] !py-[6px]`, {
                     "!cursor-not-allowed": followStatus === FollowButtonState.Following
@@ -105,7 +105,7 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
             >
                 {followButtonProperties.title}
             </Button>
-        </motion.div>
+        </motion.section>
     )
 }
 

@@ -22,10 +22,10 @@ const NewPost: React.FunctionComponent<INewPostProps> = (_props) => {
     const { isOpenDialog } = state
     return (
         <Fragment>
-            <motion.div className='bg-white h-auto w-full p-4 rounded-lg drop-shadow-sm flex items-center justify-center gap-4'>
-                <motion.div className='bg-customBg1 flex-1 text-center rounded-lg py-[10px] text-[#4b5563] font-medium cursor-pointer' onClick={() => setState({ isOpenDialog: true })}>
+            <motion.section className='bg-white h-auto w-full p-4 rounded-lg drop-shadow-sm flex items-center justify-center gap-4'>
+                <motion.figcaption className='bg-customBg1 flex-1 text-center rounded-lg py-[10px] text-[#4b5563] font-medium cursor-pointer' onClick={() => setState({ isOpenDialog: true })}>
                     What do you have in mind?
-                </motion.div>
+                </motion.figcaption>
                 <AnimatedIconButton
                     variant="light"
                     size="xl"
@@ -45,7 +45,7 @@ const NewPost: React.FunctionComponent<INewPostProps> = (_props) => {
                 >
                     <FaVideo />
                 </AnimatedIconButton>
-            </motion.div>
+            </motion.section>
             {isOpenDialog && <CreatePostDialog
                 title='Create post'
                 isOpen={isOpenDialog}

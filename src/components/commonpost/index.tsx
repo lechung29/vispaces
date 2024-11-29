@@ -62,8 +62,8 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                 </PhotoProvider>
             </motion.article>
             <motion.section className='post-action-row w-full flex items-center justify-between'>
-                <motion.div className='flex items-center justify-center gap-2'>
-                    <motion.div className='flex items-center justify-center gap-1'>
+                <motion.section className='flex items-center justify-center gap-2'>
+                    <motion.section className='flex items-center justify-center gap-1'>
                         <Tooltip
                             withArrow
                             transitionProps={{ duration: 200 }}
@@ -81,8 +81,8 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                             </ActionIcon>
                         </Tooltip>
                         <Title className='post-total-like !text-[#6b7280] !font-medium !text-[13px]'>1,380</Title>
-                    </motion.div>
-                    <motion.div className='flex items-center justify-center gap-1'>
+                    </motion.section>
+                    <motion.section className='flex items-center justify-center gap-1'>
                         <Tooltip
                             withArrow
                             transitionProps={{ duration: 200 }}
@@ -100,9 +100,9 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                             </ActionIcon>
                         </Tooltip>
                         <Title className='post-total-like !text-[#6b7280] !font-medium !text-[13px]'>260</Title>
-                    </motion.div>
-                </motion.div>
-                <motion.div className='flex items-center justify-center'>
+                    </motion.section>
+                </motion.section>
+                <motion.section className='flex items-center justify-center'>
                     <Tooltip
                         withArrow
                         transitionProps={{ duration: 200 }}
@@ -118,20 +118,20 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                             <IoShareOutline size={20} />
                         </ActionIcon>
                     </Tooltip>
-                </motion.div>
+                </motion.section>
             </motion.section>
             {isOpenComment && <Fragment>
                 <Divider className='w-full' my="0" size={"xs"} />
-                <motion.div className='post-comment-section w-full flex flex-col gap-2'>
-                    <motion.div className='comment-item w-full flex items-start justify-center gap-3'>
+                <motion.section className='post-comment-section w-full flex flex-col gap-2'>
+                    <motion.section className='comment-item w-full flex items-start justify-center gap-3'>
                         <Avatar
                             size={"sm"}
                             src="/src/assets/avatar.jpg"
                             alt="it's me"
                             className='cursor-pointer'
                         />
-                        <motion.div className='flex flex-col flex-1 gap-1'>
-                            <motion.div className='flex flex-col w-max px-3 py-2 bg-[#e7e8e8] rounded-2xl relative'>
+                        <motion.section className='flex flex-col flex-1 gap-1'>
+                            <motion.section className='flex flex-col w-max px-3 py-2 bg-[#e7e8e8] rounded-2xl relative'>
                                 <Title className='!text-[14px] !font-semibold'>Killian Le</Title>
                                 <Title className='!text-[14px] !font-normal'>Wow, You are so talented and creative.</Title>
                                 <Badge
@@ -140,26 +140,26 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                                 >
                                     <motion.div className='flex items-center justify-center gap-1'>
                                         <AiFillLike />
-                                        <span>100</span>
+                                        <motion.span>100</motion.span>
                                     </motion.div>
                                 </Badge>
-                            </motion.div>
-                            <motion.div className='flex items-center justify-start gap-4 w-full'>
+                            </motion.section>
+                            <motion.section className='flex items-center justify-start gap-4 w-full'>
                                 <Title className={classNames('!text-[12px] cursor-pointer !font-medium', { "!text-[#6b7280]": true })}>Like</Title>
                                 <Title className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Edit</Title>
                                 <Title className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Delete</Title>
-                            </motion.div>
-                        </motion.div>
-                    </motion.div>
-                    <motion.div className='comment-item w-full flex items-start justify-center gap-3'>
+                            </motion.section>
+                        </motion.section>
+                    </motion.section>
+                    <motion.section className='comment-item w-full flex items-start justify-center gap-3'>
                         <Avatar
                             size={"sm"}
                             src="/src/assets/avatar.jpg"
                             alt="it's me"
                             className='cursor-pointer'
                         />
-                        <motion.div className='flex flex-col flex-1 gap-1'>
-                            <motion.div className='flex flex-col w-max px-3 py-2 bg-[#e7e8e8] rounded-2xl relative'>
+                        <motion.section className='flex flex-col flex-1 gap-1'>
+                            <motion.section className='flex flex-col w-max px-3 py-2 bg-[#e7e8e8] rounded-2xl relative'>
                                 <Title className='!text-[14px] !font-semibold'>Killian Le</Title>
                                 <Title className='!text-[14px] !font-normal'>Wow, You are so talented and creative.</Title>
                                 <Badge
@@ -168,24 +168,24 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                                 >
                                     <motion.div className='flex items-center justify-center gap-1'>
                                         <AiFillLike />
-                                        <span>100</span>
+                                        <motion.span>100</motion.span>
                                     </motion.div>
                                 </Badge>
-                            </motion.div>
-                            <motion.div className='flex items-center justify-start gap-4 w-full'>
+                            </motion.section>
+                            <motion.section className='flex items-center justify-start gap-4 w-full'>
                                 <Title className={classNames('!text-[12px] cursor-pointer !font-medium', { "!text-[#6b7280]": true })}>Like</Title>
                                 <Title className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Edit</Title>
                                 <Title className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Delete</Title>
-                            </motion.div>
-                        </motion.div>
-                    </motion.div>
-                    <motion.div className='flex w-full items-center justify-start gap-2'>
+                            </motion.section>
+                        </motion.section>
+                    </motion.section>
+                    <motion.section className='flex w-full items-center justify-start gap-2'>
                         <IoIosArrowDown />
                         <Title className='!text-[14px] !text-[#5b6270] !font-normal cursor-pointer hover:!text-blue-400'>More comment</Title>
-                    </motion.div>
-                </motion.div>
+                    </motion.section>
+                </motion.section>
                 <Divider className='w-full' my="0" size={"xs"} />
-                <motion.div className='post-comment-input w-full flex items-center justify-center gap-3'>
+                <motion.section className='post-comment-input w-full flex items-center justify-center gap-3'>
                     <Avatar
                         size={"sm"}
                         src="/src/assets/avatar.jpg"
@@ -223,7 +223,7 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                     >
                         Send
                     </AnimatedButton>
-                </motion.div>
+                </motion.section>
             </Fragment>}
         </motion.section>
     )

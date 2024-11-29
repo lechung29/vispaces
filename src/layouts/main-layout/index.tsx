@@ -6,12 +6,12 @@ import { motion } from "framer-motion"
 
 export const Layout: React.FunctionComponent = () => {
 
-    return <motion.div className="common-layout-section w-screen min-h-screen h-full flex items-center">
+    return <motion.section className="common-layout-section w-screen min-h-screen h-full flex items-center">
         <Navigation />
         <ScrollArea h={"100vh"} w={"100vw"} type="never">
-            <motion.div className="common-layout-main-section min-h-screen flex-1 px-5 py-10 bg-customBg1">
+            <motion.section className="common-layout-main-section min-h-screen flex-1 px-5 py-10 bg-customBg1">
                 <Outlet />
-            </motion.div>
+            </motion.section>
         </ScrollArea>
-    </motion.div>
+    </motion.section>
 };
