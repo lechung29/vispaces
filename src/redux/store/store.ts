@@ -4,7 +4,7 @@ import { createLogger } from "redux-logger";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import storage from "redux-persist/lib/storage";
 import { useDispatch, useSelector } from "react-redux";
-import searchPanelSlice from "../reducers/searchpanel"
+import PanelSlice from "../reducers/panel"
 
 const persistConfig: any = {
     key: "root",
@@ -14,7 +14,7 @@ const persistConfig: any = {
 };
 
 const rootReducer = combineReducers({
-    searchPanel: searchPanelSlice
+    panel: PanelSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
