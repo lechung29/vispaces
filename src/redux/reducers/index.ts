@@ -1,1 +1,1 @@
-export* from "./searchpanel"
+export* from "./panel"

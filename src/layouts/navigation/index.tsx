@@ -14,18 +14,19 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import "./index.scss"
 import { Breakpoint, classNames, useMinWidth } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/redux/store/store';
-import { searchPanelState, toggleSearchPanel } from '@/redux/reducers';
-import { IFunc2 } from '@/types/Function';
-import { SearchPanel } from '@/components';
+import { panelState, toggleNotificationPanel, toggleSearchPanel } from '@/redux/reducers';
+import { IAction, IFunc, IFunc2 } from '@/types/Function';
+import { NotificationPanel, SearchPanel } from '@/components';
 
 interface INavigateRouter {
     title: string;
     path?: string;
     icon: JSX.Element
+    onClick?: IAction | IFunc<Promise<void>>
 }
 
 const NavigationView: React.FunctionComponent = () => {
-    const { openSearchPanel } = useAppSelector(searchPanelState)
+    const { openSearchPanel, openNotificationsPanel } = useAppSelector(panelState)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const navigationRef = useRef<HTMLDivElement | null>(null)
@@ -42,28 +43,26 @@ const NavigationView: React.FunctionComponent = () => {
                     }
                 }}
                 className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-200 cursor-pointer flex items-center gap-2', {
-                    "active": (window.location.pathname === item.path && !openSearchPanel)
+                    "active": (window.location.pathname === item.path && !openSearchPanel && !openNotificationsPanel)
                 })}
                 to={item.path!}
             >
                 {item.icon}
-                <motion.span className={!isLarge ? "hidden" : !openSearchPanel ? "block" : "hidden"}>{item.title}</motion.span>
+                <motion.span className={!isLarge ? "hidden" : !(openSearchPanel || openNotificationsPanel) ? "block" : "hidden"}>{item.title}</motion.span>
             </Link>
             : <motion.section
                 key={index}
                 tabIndex={0}
                 className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
-                    "active": openSearchPanel
+                    "active": item.title === "Search" ? openSearchPanel : openNotificationsPanel
                 })}
-                onClick={() => {
-                    dispatch(toggleSearchPanel(true))
-                }}
+                onClick={item?.onClick}
             >
                 {item.icon}
-                <motion.span className={!isLarge ? "hidden" : !openSearchPanel ? "block" : "hidden"}>{item.title}</motion.span>
+                <motion.span className={!isLarge ? "hidden" : !(openSearchPanel || openNotificationsPanel) ? "block" : "hidden"}>{item.title}</motion.span>
             </motion.section>
         
-        return (!isLarge || openSearchPanel)
+        return (!isLarge || openSearchPanel || openNotificationsPanel)
             ? <Tooltip 
                 label={item.title}
                 style={{
@@ -106,7 +105,11 @@ const NavigationView: React.FunctionComponent = () => {
         },
         {
             title: "Search",
-            icon: <FiSearch className="common-navigation-icon" />
+            onClick: () => {
+                dispatch(toggleNotificationPanel(false))
+                dispatch(toggleSearchPanel(true))
+            },
+            icon: <FiSearch className="common-navigation-icon" />,
         },
         {
             title: "Messages",
@@ -120,7 +123,10 @@ const NavigationView: React.FunctionComponent = () => {
         },
         {
             title: "Notifications",
-            path: "/notifications",
+            onClick: () => {
+                dispatch(toggleSearchPanel(false))
+                dispatch(toggleNotificationPanel(true))
+            },
             icon: <motion.div className='w-auto h-auto relative'>
                 <IoMdHeartEmpty className="common-navigation-icon" />
                 <motion.span className="absolute flex w-3 h-3 top-0 right-0">
@@ -167,18 +173,18 @@ const NavigationView: React.FunctionComponent = () => {
     return (
         <motion.aside
             ref={navigationRef}
-            className={`common-navigation-section relative p-2 h-screen border-r bg-white ${!isLarge ? "w-auto" : !openSearchPanel ? "w-1/6" : "w-auto"}`}
+            className={`common-navigation-section relative p-2 h-screen border-r bg-white ${!isLarge ? "w-auto" : !(openSearchPanel || openNotificationsPanel) ? "w-1/6" : "w-auto"}`}
         >
             <ScrollArea h={"calc(100vh - 1rem)"} type='never'>
                 <motion.img
                     src="/src/assets/vi_space_logo.png"
                     alt="vi_space"
-                    className={`w-full object-cover cursor-pointer pb-2 ${!isLarge ? "hidden" : !openSearchPanel ? "block" : "hidden"}`}
+                    className={`w-full object-cover cursor-pointer pb-2 ${!isLarge ? "hidden" : !(openSearchPanel || openNotificationsPanel) ? "block" : "hidden"}`}
                     onClick={() => navigate("/")}
                 />
                 <Stack 
                     className={classNames('w-full', {
-                        "pt-5": !isLarge || openSearchPanel
+                        "pt-5": !isLarge || openSearchPanel || openNotificationsPanel
                     })} 
                     gap={"xs"}
                 >
@@ -189,6 +195,13 @@ const NavigationView: React.FunctionComponent = () => {
                 headerTitle='Search'
                 isOpen={openSearchPanel}
                 onClose={() => dispatch(toggleSearchPanel(false))}
+                hasCloseButton={true}
+                parentRef={navigationRef}
+            />}
+            {openNotificationsPanel && <NotificationPanel 
+                headerTitle='Notifications'
+                isOpen={openNotificationsPanel}
+                onClose={() => dispatch(toggleNotificationPanel(false))}
                 hasCloseButton={true}
                 parentRef={navigationRef}
             />}

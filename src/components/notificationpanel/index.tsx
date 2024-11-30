@@ -2,14 +2,15 @@ import { IAction } from '@/types/Function'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { motion } from "framer-motion"
 import "./index.scss"
-import { ActionIcon, Divider, Input, ScrollArea, Title } from '@mantine/core'
+import { ActionIcon, ScrollArea, Title } from '@mantine/core'
 import { IoCloseOutline } from "react-icons/io5";
 import { TooltipItem } from '@/utils'
-import { SearchItem } from '../searchitem'
 import { AnimatedButton } from '../animatedComponent'
 import { IoIosArrowRoundDown } from "react-icons/io";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { NotificationItem } from '../notificationitem'
 
-export interface ISearchPanelProps {
+export interface INotificationPanelProps {
     isOpen: boolean
     onClose: IAction;
     headerTitle: string
@@ -18,7 +19,7 @@ export interface ISearchPanelProps {
     parentRef?: React.MutableRefObject<HTMLDivElement | null>
 }
 
-const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
+const NotificationPanelView: React.FunctionComponent<INotificationPanelProps> = (props) => {
     const { isOpen, onClose, parentRef, headerTitle } = props
     const panelRef = useRef<HTMLDivElement | null>(null)
 
@@ -48,49 +49,42 @@ const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
         </ActionIcon>
     }, [])
 
+    const checkMarkAsReadButton = useMemo(() => {
+        return <ActionIcon
+            color='gray'
+            tabIndex={0}
+            size="xl"
+            variant="transparent"
+            aria-label="Mark as read"
+            onClick={() => console.log("hello")}
+        >
+            <IoMdCheckmarkCircleOutline style={{ width: '50%', height: '50%' }} />
+        </ActionIcon>
+    }, [])
+
     return (
         <motion.aside
             hidden={!isOpen}
             ref={panelRef}
-            className='search-panel-section w-96 h-[100vh] bg-white absolute top-0 bottom-0 left-[100%] z-10'
+            className='notification-panel-section w-96 h-[100vh] bg-white absolute top-0 bottom-0 left-[100%] z-10'
         >
             <ScrollArea w={"100%"} h={"100vh"} scrollbarSize={8} type='hover'>
                 <motion.section className='w-full h-full py-5'>
                     <motion.header className='w-full h-full flex items-center justify-between px-4'>
                         <Title tabIndex={0} className='!font-medium !text-[22px] text-[#3f4854]'>{headerTitle}</Title>
-                        {TooltipItem(closeButton, "Close")}
+                        <motion.article className='w-auto flex items-center justify-center gap-1'>
+                            {TooltipItem(checkMarkAsReadButton, "Mark as read")}
+                            {TooltipItem(closeButton, "Close")}
+                        </motion.article>
                     </motion.header>
-                    <motion.article className='w-full h-auto my-3 px-4'>
-                        <Input
-                            placeholder="Search"
-                            variant="filled"
-                            className='!mt-0 flex-1 search-input'
-                            radius={"md"}
-                            rightSectionPointerEvents="all"
-                            mt="lg"
-                        />
-                    </motion.article>
-                    <Divider
-                        className='w-full'
-                        my="md"
-                        color="#f3f4f6"
-                        size={"xs"}
-                    />
-                    <motion.article className='w-full h-auto px-4 my-2 flex items-center justify-between'>
-                        <Title tabIndex={0} className='!text-[17px] !text-[#4b5563] font-medium'>Recent</Title>
-                        <Title tabIndex={0} className='!text-[15px] !text-blue-500 font-normal select-none cursor-pointer'>Clear all</Title>
+                    <motion.article className='w-full h-auto px-4 my-5 flex items-center justify-start'>
+                        <Title tabIndex={0} className='!text-[15px] !text-[#4b5563] font-medium'>New</Title>
                     </motion.article>
                     <motion.article className='w-full h-auto px-4 my-5 flex flex-col gap-1'>
-                        <SearchItem isFollowed={false} />
-                        <SearchItem isFollowed={true} />
-                        <SearchItem isFollowed={false} />
-                        <SearchItem isFollowed={true} />
-                        <SearchItem isFollowed={false} />
-                        <SearchItem isFollowed={true} />
-                        <SearchItem isFollowed={false} />
-                        <SearchItem isFollowed={true} />
-                        <SearchItem isFollowed={false} />
-                        <SearchItem isFollowed={true} />
+                        <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={false}/>
                     </motion.article>
                     <motion.section className='w-full h-auto px-4 my-3 flex items-center justify-center'>
                         <AnimatedButton
@@ -108,7 +102,7 @@ const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
                                     }
                                 }}
                             >
-                                <IoIosArrowRoundDown size={20}/>
+                                <IoIosArrowRoundDown size={20} />
                             </motion.div>}
                         >
                             Load more
@@ -121,5 +115,5 @@ const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
 }
 
 export {
-    SearchPanelView as SearchPanel
+    NotificationPanelView as NotificationPanel
 }

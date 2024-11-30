@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect } from 'react';
 import './../login/index.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { Loader, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
 import { AnimatedDefaultButton, AnimatedTextInput } from '@/components';
@@ -11,6 +11,7 @@ import { useImmerState } from '@/hooks/useImmerState';
 import { validateSignUp } from '../validation';
 import { AuthService } from '@/services';
 import { delay } from '@/utils';
+import SubmitButton from '@/components/common/submitbutton';
 
 interface ISignUpViewProps { }
 
@@ -197,19 +198,11 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                         onChange={onChangeInput}
                         whileHover={{ scale: 1.025 }}
                     />
-                    <AnimatedDefaultButton
-                        className='submit-primary-button disabled:cursor-not-allowed input-stagger-item w-full h-[40px] flex justify-center items-center text-[#fff] rounded-lg'
-                        whileHover={{
-                            scale: 1.025,
-                            transition: {
-                                type: "spring",
-                                stiffness: 2000,
-                            }
-                        }}
+                    <SubmitButton 
+                        title='Sign up'
+                        disabled={isLoading}
                         onClick={handleSubmit}
-                    >
-                        {isLoading ? <Loader color="#fff" size={18} /> : "Sign up"}
-                    </AnimatedDefaultButton>
+                    />
                 </motion.section>
                 <motion.section className='w-full h-auto flex items-center justify-center input-stagger-item'>
                     <AnimatedDefaultButton

@@ -77,7 +77,7 @@ const SearchItem: React.FunctionComponent<ISearchItemProps> = (props) => {
             .then(() => setState({ followStatus: FollowButtonState.Followed }))
     }
     return (
-        <motion.section className='w-full flex items-center justify-between'>
+        <motion.section className='w-full flex items-center justify-between hover:bg-[#f1f0f9] px-2 py-3 rounded-xl cursor-pointer'>
             <motion.figure className='w-auto flex items-center justify-start gap-3'>
                 <Avatar
                     src="/src/assets/avatar.jpg"
