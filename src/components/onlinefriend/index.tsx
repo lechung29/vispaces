@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { motion } from "framer-motion"
-import { rem, ScrollArea, TextInput, Title } from '@mantine/core'
+import { ScrollArea, Title } from '@mantine/core'
 import { LuRefreshCw } from "react-icons/lu";
 import { classNames } from '@/utils';
-import { MdSearch } from "react-icons/md";
 import { OnlineFriendItem } from '../onlinefrienditem';
+import SearchInput from '../common/searchinput';
 
 interface IOnlineFriendProps {
 
@@ -23,13 +23,12 @@ const OnlineFriend: React.FunctionComponent<IOnlineFriendProps> = (_props) => {
                 />
             </motion.header>
             <motion.article className='w-full flex items-center justify-between mb-3'>
-                <TextInput
-                    className='w-full'
-                    leftSectionPointerEvents="none"
-                    size='xs'
-                    radius="xl"
-                    leftSection={<MdSearch style={{ width: rem(16), height: rem(16) }} />}
-                    placeholder="Search your friends"
+                <SearchInput
+                    placeholder='Search your friends'
+                    leftSection
+                    radius='lg'
+                    value=''
+                    onChange={() => console.log("1134")}
                 />
             </motion.article>
             <motion.section className='w-full h-auto py-2'>

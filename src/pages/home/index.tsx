@@ -12,7 +12,7 @@ interface IHomePageProps {
 
 const HomeView: React.FunctionComponent<IHomePageProps> = (_props) => {
     return (
-        <motion.section className='h-full w-auto mx-auto px-6 relative'>
+        <motion.section className='h-full w-auto mx-auto px-5 py-10 relative'>
             <motion.article className='story-part h-full w-full'>
                 <StoryList />
             </motion.article>
