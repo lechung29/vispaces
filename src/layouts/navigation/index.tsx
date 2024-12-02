@@ -42,7 +42,7 @@ const NavigationView: React.FunctionComponent = () => {
                         dispatch(toggleSearchPanel(false))
                     }
                 }}
-                className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-200 cursor-pointer flex items-center gap-2', {
+                className={classNames('px-3 py-2 rounded-md !font-normal text-[15px] hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
                     "active": (window.location.pathname === item.path && !openSearchPanel && !openNotificationsPanel)
                 })}
                 to={item.path!}
@@ -53,7 +53,7 @@ const NavigationView: React.FunctionComponent = () => {
             : <motion.section
                 key={index}
                 tabIndex={0}
-                className={classNames('px-3 py-2 rounded-md font-medium hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
+                className={classNames('px-3 py-2 rounded-md !font-normal text-[15px] hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
                     "active": item.title === "Search" ? openSearchPanel : openNotificationsPanel
                 })}
                 onClick={item?.onClick}

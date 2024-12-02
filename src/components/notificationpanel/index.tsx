@@ -2,7 +2,7 @@ import { IAction } from '@/types/Function'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { motion } from "framer-motion"
 import "./index.scss"
-import { ActionIcon, ScrollArea, Title } from '@mantine/core'
+import { ActionIcon, Divider, ScrollArea, Title } from '@mantine/core'
 import { IoCloseOutline } from "react-icons/io5";
 import { TooltipItem } from '@/utils'
 import { AnimatedButton } from '../animatedComponent'
@@ -82,6 +82,21 @@ const NotificationPanelView: React.FunctionComponent<INotificationPanelProps> = 
                     </motion.article>
                     <motion.article className='w-full h-auto px-4 my-5 flex flex-col gap-1'>
                         <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={false}/>
+                    </motion.article>
+                    <Divider className='w-full' my="0" size={"xs"} />
+                    <motion.article className='w-full h-auto px-4 my-5 flex items-center justify-start'>
+                        <Title tabIndex={0} className='!text-[15px] !text-[#4b5563] font-medium'>This Week</Title>
+                    </motion.article>
+                    <motion.article className='w-full h-auto px-4 my-5 flex flex-col gap-1'>
+                        <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={true}/>
+                        <NotificationItem isRead={false}/>
+                        <NotificationItem isRead={true}/>
                         <NotificationItem isRead={false}/>
                         <NotificationItem isRead={false}/>
                         <NotificationItem isRead={false}/>

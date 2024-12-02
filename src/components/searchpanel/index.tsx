@@ -2,12 +2,13 @@ import { IAction } from '@/types/Function'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { motion } from "framer-motion"
 import "./index.scss"
-import { ActionIcon, Divider, Input, ScrollArea, Title } from '@mantine/core'
+import { ActionIcon, Divider, ScrollArea, Title } from '@mantine/core'
 import { IoCloseOutline } from "react-icons/io5";
 import { TooltipItem } from '@/utils'
 import { SearchItem } from '../searchitem'
 import { AnimatedButton } from '../animatedComponent'
 import { IoIosArrowRoundDown } from "react-icons/io";
+import SearchInput from '../common/searchinput'
 
 export interface ISearchPanelProps {
     isOpen: boolean
@@ -61,13 +62,12 @@ const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
                         {TooltipItem(closeButton, "Close")}
                     </motion.header>
                     <motion.article className='w-full h-auto my-3 px-4'>
-                        <Input
-                            placeholder="Search"
-                            variant="filled"
-                            className='!mt-0 flex-1 search-input'
-                            radius={"md"}
-                            rightSectionPointerEvents="all"
-                            mt="lg"
+                        <SearchInput
+                            placeholder='Search'
+                            leftSection
+                            value=''
+                            size='sm'
+                            onChange={() => console.log("1134")}
                         />
                     </motion.article>
                     <Divider
@@ -108,7 +108,7 @@ const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
                                     }
                                 }}
                             >
-                                <IoIosArrowRoundDown size={20}/>
+                                <IoIosArrowRoundDown size={20} />
                             </motion.div>}
                         >
                             Load more
