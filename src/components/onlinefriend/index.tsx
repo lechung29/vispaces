@@ -4,7 +4,7 @@ import { ScrollArea, Title } from '@mantine/core'
 import { LuRefreshCw } from "react-icons/lu";
 import { classNames } from '@/utils';
 import { OnlineFriendItem } from '../onlinefrienditem';
-import SearchInput from '../common/searchinput';
+import { TextInput } from '../common';
 
 interface IOnlineFriendProps {
 
@@ -23,9 +23,10 @@ const OnlineFriend: React.FunctionComponent<IOnlineFriendProps> = (_props) => {
                 />
             </motion.header>
             <motion.article className='w-full flex items-center justify-between mb-3'>
-                <SearchInput
+                <TextInput
                     placeholder='Search your friends'
                     leftSection
+                    haveSearchIcon
                     radius='lg'
                     value=''
                     onChange={() => console.log("1134")}
