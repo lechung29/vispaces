@@ -58,6 +58,9 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                             // src="/src/assets/background.jpg"
                             src="/src/assets/b38bfc6b-06f6-4336-9487-bdd473466643.jpg"
                         />
+                        {/* <video src='/src/assets/ViSpace _ Home - Google Chrome 2024-12-03 13-17-13.mp4' controls  autoPlay> */}
+
+                        {/* </video> */}
                     </PhotoView>
                 </PhotoProvider>
             </motion.article>

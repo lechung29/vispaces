@@ -14,11 +14,20 @@ export const TitleResolver = (props: PropsWithChildren) => {
             case "/":
                 title = "Home";
                 break;
-            case "/about":
-                title = "About Us";
+            case "/messages":
+                title = "Your messages";
                 break;
             case "/login":
                 title = "Login";
+                break;
+            case "/sign-up":
+                title = "Sign up";
+                break;
+            case "reels":
+                title = "Reels";
+                break;
+            case "/friends":
+                title = "Your friends";
                 break;
             default:
                 title = "Page Not Found";

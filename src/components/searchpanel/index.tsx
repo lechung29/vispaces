@@ -8,7 +8,7 @@ import { TooltipItem } from '@/utils'
 import { SearchItem } from '../searchitem'
 import { AnimatedButton } from '../animatedComponent'
 import { IoIosArrowRoundDown } from "react-icons/io";
-import SearchInput from '../common/searchinput'
+import { TextInput } from '../common'
 
 export interface ISearchPanelProps {
     isOpen: boolean
@@ -62,10 +62,12 @@ const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
                         {TooltipItem(closeButton, "Close")}
                     </motion.header>
                     <motion.article className='w-full h-auto my-3 px-4'>
-                        <SearchInput
+                        <TextInput
                             placeholder='Search'
+                            variant={"filled"}
                             leftSection
                             value=''
+                            haveSearchIcon
                             size='sm'
                             onChange={() => console.log("1134")}
                         />

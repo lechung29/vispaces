@@ -1,2 +1,2 @@
 export * from "./submitbutton"
-export * from "./searchinput"
+export * from "./textinput"

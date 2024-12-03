@@ -1,0 +1,10 @@
+.text-input-wrapper {
+    .mantine-Input-input:focus-within {
+        outline: none;
+        border: 1.75px solid #4d4b4b;
+    }
+
+    .mantine-Input-input::placeholder {
+        color: #4d4b4b;
+    }
+}

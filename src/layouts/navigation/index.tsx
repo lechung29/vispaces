@@ -40,6 +40,11 @@ const NavigationView: React.FunctionComponent = () => {
                 onClick={() => {
                     if (openSearchPanel) {
                         dispatch(toggleSearchPanel(false))
+                        return;
+                    }
+                    if (openNotificationsPanel) {
+                        dispatch(toggleNotificationPanel(false))
+                        return;
                     }
                 }}
                 className={classNames('px-3 py-2 rounded-md !font-normal text-[15px] hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
