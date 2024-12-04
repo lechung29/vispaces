@@ -1,5 +1,5 @@
-import { ScrollArea, Stack, Tooltip } from '@mantine/core'
-import React, { Fragment, useRef } from 'react'
+import { Avatar, Divider, Menu, ScrollArea, Stack, Tooltip } from '@mantine/core'
+import React, { Fragment, useCallback, useRef } from 'react'
 import { motion } from "framer-motion"
 import { AiOutlineHome } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
@@ -16,13 +16,14 @@ import { Breakpoint, classNames, useMinWidth } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/redux/store/store';
 import { panelState, toggleNotificationPanel, toggleSearchPanel } from '@/redux/reducers';
 import { IAction, IFunc, IFunc2 } from '@/types/Function';
-import { NotificationPanel, SearchPanel } from '@/components';
+import { NotificationPanel, SearchPanel, UserButton } from '@/components';
 
 interface INavigateRouter {
     title: string;
     path?: string;
     icon: JSX.Element
     onClick?: IAction | IFunc<Promise<void>>
+    fromUserCard?: boolean;
 }
 
 const NavigationView: React.FunctionComponent = () => {
@@ -66,9 +67,9 @@ const NavigationView: React.FunctionComponent = () => {
                 {item.icon}
                 <motion.span className={!isLarge ? "hidden" : !(openSearchPanel || openNotificationsPanel) ? "block" : "hidden"}>{item.title}</motion.span>
             </motion.section>
-        
+
         return (!isLarge || openSearchPanel || openNotificationsPanel)
-            ? <Tooltip 
+            ? <Tooltip
                 label={item.title}
                 style={{
                     color: "white",
@@ -86,9 +87,9 @@ const NavigationView: React.FunctionComponent = () => {
                 openDelay={100}
                 closeDelay={100}
                 arrowSize={6}
-                transitionProps={{ 
-                    transition: 'fade-right', 
-                    duration: 300 
+                transitionProps={{
+                    transition: 'fade-right',
+                    duration: 300
                 }}
                 withArrow
                 events={{
@@ -101,6 +102,70 @@ const NavigationView: React.FunctionComponent = () => {
             </Tooltip>
             : children
     }
+
+    const onRenderUserCardMenu = useCallback((list: INavigateRouter[]) => {
+        return <Menu
+            shadow="xs"
+            width={240}
+            offset={2}
+            closeOnClickOutside
+            trigger='click-hover'
+            openDelay={200}
+            closeDelay={200}
+        >
+            <Menu.Target>
+                {(isLarge && !(openSearchPanel || openNotificationsPanel)) ? <UserButton
+                    image='/src/assets/avatar.jpg'
+                    name='Killian Le'
+                    email='killian.le@avepoint.com'
+                /> : <motion.section className='w-full flex justify-center'>
+                    <Avatar
+                        size={"sm"}
+                        src={"/src/assets/avatar.jpg"}
+                        radius="xl"
+                        className="cursor-pointer"
+                    />
+                </motion.section>}
+            </Menu.Target>
+            <Menu.Dropdown className='overflow-hidden !p-0 !rounded-xl'>
+                <motion.div className='w-full h-[6px] bg-gradient-to-r to-purple-500 via-red-500 from-pink-500' ></motion.div>
+                <motion.section className='w-full px-4 py-3'>
+                    <motion.figure className='w-full flex items-center justify-center gap-3 mb-3'>
+                        <Avatar
+                            size={28}
+                            src={"/src/assets/avatar.jpg"}
+                            radius="xl"
+                            className="cursor-pointer"
+                        />
+                        <motion.figcaption className='flex-1 flex flex-col gap-1'>
+                            <motion.p className='font-semibold text-[#4b5563] text-[15px] leading-4'>Killian Le</motion.p>
+                            <motion.p className='font-semibold text-[#9ca3af] text-[12px] leading-3'>Killian Le</motion.p>
+                        </motion.figcaption>
+                    </motion.figure>
+                    <motion.figure className='w-full flex items-center justify-between'>
+                        <motion.figcaption className='following-count flex items-center justify-center gap-1'>
+                            <motion.p className='font-bold text-[#4b5563] text-[12px]'>620K</motion.p>
+                            <motion.p className='font-semibold text-[#9ca3af] text-[12px]'>Following</motion.p>
+                        </motion.figcaption>
+                        <motion.figcaption className='follower-count flex items-center justify-center gap-1'>
+                            <motion.p className='font-bold text-[#4b5563] text-[12px]'>38K</motion.p>
+                            <motion.p className='font-semibold text-[#9ca3af] text-[12px]'>Followers</motion.p>
+                        </motion.figcaption>
+                    </motion.figure>
+                </motion.section>
+                <Divider className='w-full' my="2px" size={"xs"} />
+                <motion.section className='w-full px-2 py-1'>
+                    {list.map((item, index) => (<Menu.Item
+                        key={index}
+                        leftSection={item.icon}
+                        onClick={() => navigate(item.path!)}
+                    >
+                        {item.title}
+                    </Menu.Item>))}
+                </motion.section>
+            </Menu.Dropdown>
+        </Menu>
+    }, [isLarge, openNotificationsPanel, openSearchPanel])
 
     const NavigateRouter: INavigateRouter[] = [
         {
@@ -139,15 +204,15 @@ const NavigationView: React.FunctionComponent = () => {
                         className='absolute w-2 h-2 rounded bg-red-300 top-0 right-0'
                         initial={{ scale: 1, opacity: 1 }}
                         animate={{
-                            scale: [1, 2, 2], 
-                            opacity: [1, 1, 0], 
+                            scale: [1, 2, 2],
+                            opacity: [1, 1, 0],
                         }}
                         transition={{
                             duration: 1,
                             times: [0, 0.75, 1],
-                            ease: [0, 0, 0.2, 1], 
-                            repeat: Infinity, 
-                            repeatType: "loop", 
+                            ease: [0, 0, 0.2, 1],
+                            repeat: Infinity,
+                            repeatType: "loop",
                         }}
                     />
                     <motion.span className="absolute top-0 right-0 inline-flex rounded-full h-2 w-2 bg-red-500"></motion.span>
@@ -162,23 +227,26 @@ const NavigationView: React.FunctionComponent = () => {
         {
             title: "Profile",
             path: "/profile",
+            fromUserCard: true,
             icon: <FaRegCircleUser className="common-navigation-icon" />
         },
         {
             title: "Settings",
             path: "/settings",
+            fromUserCard: true,
             icon: <IoSettingsOutline className="common-navigation-icon" />
         },
         {
             title: "Logout",
-            path: "/logout",
+            path: "/login",
+            fromUserCard: true,
             icon: <IoLogOutOutline className="common-navigation-icon" />
         }
     ]
     return (
         <motion.aside
             ref={navigationRef}
-            className={`common-navigation-section relative p-2 h-screen border-r bg-white ${!isLarge ? "w-auto" : !(openSearchPanel || openNotificationsPanel) ? "w-1/6" : "w-auto"}`}
+            className={`common-navigation-section relative p-2 h-screen border-r bg-white ${!isLarge ? "w-auto" : !(openSearchPanel || openNotificationsPanel) ? "w-[20%]" : "w-auto"}`}
         >
             <ScrollArea h={"calc(100vh - 1rem)"} type='never'>
                 <motion.img
@@ -187,13 +255,14 @@ const NavigationView: React.FunctionComponent = () => {
                     className={`w-full object-cover cursor-pointer pb-2 ${!isLarge ? "hidden" : !(openSearchPanel || openNotificationsPanel) ? "block" : "hidden"}`}
                     onClick={() => navigate("/")}
                 />
-                <Stack 
+                <Stack
                     className={classNames('w-full', {
                         "pt-5": !isLarge || openSearchPanel || openNotificationsPanel
-                    })} 
+                    })}
                     gap={"xs"}
                 >
-                    {NavigateRouter.map((item, index) => <Fragment key={index}>{onRenderRouterItem(item, index)}</Fragment>)}
+                    {NavigateRouter.filter((item) => !item.fromUserCard).map((item, index) => <Fragment key={index}>{onRenderRouterItem(item, index)}</Fragment>)}
+                    {onRenderUserCardMenu(NavigateRouter.filter(item => item.fromUserCard))}
                 </Stack>
             </ScrollArea>
             {openSearchPanel && <SearchPanel
@@ -203,7 +272,7 @@ const NavigationView: React.FunctionComponent = () => {
                 hasCloseButton={true}
                 parentRef={navigationRef}
             />}
-            {openNotificationsPanel && <NotificationPanel 
+            {openNotificationsPanel && <NotificationPanel
                 headerTitle='Notifications'
                 isOpen={openNotificationsPanel}
                 onClose={() => dispatch(toggleNotificationPanel(false))}
