@@ -1,5 +1,5 @@
-import { Avatar, Divider, Menu, ScrollArea, Stack, Tooltip } from '@mantine/core'
-import React, { Fragment, useCallback, useRef } from 'react'
+import { Avatar, Divider, FloatingPosition, Menu, ScrollArea, Stack, Tooltip } from '@mantine/core'
+import React, { Fragment, useRef } from 'react'
 import { motion } from "framer-motion"
 import { AiOutlineHome } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store/store';
 import { panelState, toggleNotificationPanel, toggleSearchPanel } from '@/redux/reducers';
 import { IAction, IFunc, IFunc2 } from '@/types/Function';
 import { NotificationPanel, SearchPanel, UserButton } from '@/components';
+import { useImmerState } from '@/hooks/useImmerState';
 
 interface INavigateRouter {
     title: string;
@@ -26,7 +27,18 @@ interface INavigateRouter {
     fromUserCard?: boolean;
 }
 
+interface INavigationBarState {
+    userCardPosition: FloatingPosition
+}
+
+const initialState: INavigationBarState = {
+    userCardPosition: "top"
+}
+
+
 const NavigationView: React.FunctionComponent = () => {
+    const [state, setState] = useImmerState<INavigationBarState>(initialState)
+    const { userCardPosition } = state
     const { openSearchPanel, openNotificationsPanel } = useAppSelector(panelState)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
@@ -103,7 +115,7 @@ const NavigationView: React.FunctionComponent = () => {
             : children
     }
 
-    const onRenderUserCardMenu = useCallback((list: INavigateRouter[]) => {
+    const onRenderUserCardMenu = (list: INavigateRouter[]) => {
         return <Menu
             shadow="xs"
             width={240}
@@ -112,12 +124,16 @@ const NavigationView: React.FunctionComponent = () => {
             trigger='click-hover'
             openDelay={200}
             closeDelay={200}
+            onPositionChange={(position) => {
+                setState({ userCardPosition: position })
+            }}
         >
             <Menu.Target>
                 {(isLarge && !(openSearchPanel || openNotificationsPanel)) ? <UserButton
                     image='/src/assets/avatar.jpg'
                     name='Killian Le'
                     email='killian.le@avepoint.com'
+                    menuPosition={userCardPosition}
                 /> : <motion.section className='w-full flex justify-center'>
                     <Avatar
                         size={"sm"}
@@ -165,7 +181,7 @@ const NavigationView: React.FunctionComponent = () => {
                 </motion.section>
             </Menu.Dropdown>
         </Menu>
-    }, [isLarge, openNotificationsPanel, openSearchPanel])
+    }
 
     const NavigateRouter: INavigateRouter[] = [
         {
