@@ -12,6 +12,7 @@ import { validateSignUp } from '../validation';
 import { AuthService } from '@/services';
 import { delay } from '@/utils';
 import SubmitButton from '@/components/common/submitbutton';
+import { IResponseStatus } from '@/types/request';
 
 interface ISignUpViewProps { }
 
@@ -109,26 +110,16 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
         setState({ isLoading: true })
         const { valid, emailError, displayNameError, passwordError, confirmPasswordError } = validateSignUp(email, displayName, password, confirmPassword)
         if (!valid) {
-            setState((draft) => {
-                draft.emailError = emailError;
-                draft.displayNameError = displayNameError;
-                draft.passwordError = passwordError;
-                draft.confirmPasswordError = confirmPasswordError;
-            })
-            return Promise.resolve()
-        }
-        try {
-            const data = await AuthService.registerUser(email, displayName, password)
-            if (data.responseInfo.status === 1) {
+            setState({ emailError, displayNameError, passwordError, confirmPasswordError})
+        } else {
+            const data = await AuthService.registerUser({ email, displayName, password })
+            if (data.status === IResponseStatus.Success) {
                 setState({ isLoading: false })
                 await delay(1500).then(() => {
                     navigate("/login");
                 })
             }
-        } catch (error) {
-            console.log(error)
         }
-
     }
 
     return (

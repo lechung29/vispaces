@@ -4,13 +4,15 @@ export enum IResponseStatus {
 }
 
 export interface IResponseBase {
-    message: string;
-    responseInfo: {
-        status: IResponseStatus
-        fieldError?: string
+    status: IResponseStatus
+    fieldError?: {
+        fieldName: string,
+        errorMessage: string
     }
+    message?: string;
 }
 
-export interface IResponseAdvance<T = any> extends IResponseBase{
-    data: T;
+export interface IResponseAdvance<T = any> {
+    responseInfo?: IResponseBase,
+    data?: T;
 }

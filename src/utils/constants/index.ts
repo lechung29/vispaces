@@ -1,11 +1,11 @@
 const TOKEN = "TOKEN";
 const REFRESH_TOKEN = "REFRESH_TOKEN";
 
-const API_BASE_URL = "http://localhost:5000/api/v1/";
+const API_BASE_URL = "http://localhost:5000/api/v1";
 
 const API_ROUTE = {
-    LOGIN: "auth/login",
-    SIGNUP: "auth/register",
+    LOGIN: "/auth/login",
+    SIGNUP: "/auth/register",
 };
 
 const LOCATION = {

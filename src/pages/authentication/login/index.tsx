@@ -12,6 +12,7 @@ import { validateSignIn } from '../validation';
 import { AuthService } from '@/services';
 import { delay } from '@/utils';
 import SubmitButton from '@/components/common/submitbutton';
+import { IResponseStatus } from '@/types/request';
 
 interface ILoginViewProps { }
 
@@ -92,22 +93,15 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
         setState({ isLoading: true })
         const { valid, emailError, passwordError } = validateSignIn(email, password)
         if (!valid) {
-            setState((draft) => {
-                draft.emailError = emailError;
-                draft.passwordError = passwordError;
-            })
-            return Promise.resolve()
-        }
-        try {
+            setState({ emailError, passwordError })
+        } else {
             const data = await AuthService.loginUser(email, password)
-            if (data.responseInfo.status === 1) {
+            if (data.status === IResponseStatus.Success) {
                 setState({ isLoading: false })
                 await delay(1500).then(() => {
                     navigate("/");
                 })
             }
-        } catch (error) {
-            console.log(error)
         }
     }
 
