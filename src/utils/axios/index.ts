@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL } from "../constants";
 import { AuthService } from "@/services";
-import { store } from "@/redux/store/store";
 
 const instance = axios.create({
     baseURL: API_BASE_URL,
@@ -21,7 +20,6 @@ instance.interceptors.request.use(async (config) => {
     config.headers["X-Token"] = token
     return config
 }, err => {
-    console.log(err)
     return Promise.resolve(err.request.data)
 })
 
@@ -39,19 +37,24 @@ instance.interceptors.response.use(async (response) => {
                 window.localStorage.setItem("accessToken", data.accessToken)
                 return instance(axiosConfig)
             } else {
-                store.dispatch(handleUnauthorized(data.message))
+                // store.dispatch(handleUnauthorized(data.message))
+                console.log(data.message)
             }
         }
     }
 
-    if (code === 403) {
-        if (message && message === "Error.Account.Locked.Expired") {
-            store.dispatch(handleUnauthorized(message))
-        }
+    if (code === 403 || code === 500) {
+        // if (message && message === "Error.Account.Locked.Expired") {
+        //     console.log(message)
+        // }
+        console.log(message)
     }
     return response.data
 }, err => {
-    console.log(err.message)
+    if (axios.isAxiosError(err) && err.code === "ECONNABORTED") {
+        console.error("⚠️ Request timeout! The server took too long to respond.");
+        return Promise.resolve();
+    }
     return Promise.resolve(err.response.data)
 })
 

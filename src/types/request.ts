@@ -3,16 +3,17 @@ export enum IResponseStatus {
     Success = 1
 }
 
+export interface IFieldError {
+    fieldName: string,
+    errorMessage: string
+}
+
 export interface IResponseBase {
     status: IResponseStatus
-    fieldError?: {
-        fieldName: string,
-        errorMessage: string
-    }
+    fieldError?: IFieldError
     message?: string;
 }
 
-export interface IResponseAdvance<T = any> {
-    responseInfo?: IResponseBase,
+export interface IResponseAdvance<T = any> extends IResponseBase{
     data?: T;
 }
