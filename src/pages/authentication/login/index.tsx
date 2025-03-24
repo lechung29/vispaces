@@ -93,14 +93,19 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
         setState({ isLoading: true })
         const { valid, emailError, passwordError } = validateSignIn(email, password)
         if (!valid) {
-            setState({ emailError, passwordError })
+            setState({ emailError, passwordError, isLoading: false })
         } else {
-            const data = await AuthService.loginUser(email, password)
-            if (data.status === IResponseStatus.Success) {
-                setState({ isLoading: false })
-                await delay(1500).then(() => {
-                    navigate("/");
-                })
+            const data = await AuthService.loginUser({ email, password })
+            setState({ isLoading: false })
+            if (data) {
+                if (data.status === IResponseStatus.Error) {
+                    setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage})
+                } else {
+                    window.localStorage.setItem("accessToken", data?.data?.accessToken)
+                    await delay(1500).then(() => {
+                        navigate("/");
+                    })
+                }
             }
         }
     }
