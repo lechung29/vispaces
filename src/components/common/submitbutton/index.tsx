@@ -25,7 +25,7 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
     }
     return (
         <AnimatedDefaultButton
-            className={`submit-primary-button disabled:cursor-not-allowed input-stagger-item w-full h-[40px] flex justify-center items-center text-[#fff] rounded-lg ${className}`}
+            className={`submit-primary-button ${disabled && "disabled:cursor-not-allowed"} input-stagger-item w-full h-[40px] flex justify-center items-center text-[#fff] rounded-lg ${className}`}
             whileHover={{
                 scale: 1.025,
                 transition: {
