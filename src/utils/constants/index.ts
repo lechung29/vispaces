@@ -6,6 +6,7 @@ const API_BASE_URL = "http://localhost:5000/api/v1";
 const API_ROUTE = {
     LOGIN: "/auth/login",
     SIGNUP: "/auth/register",
+    REFRESH_TOKEN: "/auth/refresh-token",
 };
 
 const LOCATION = {
