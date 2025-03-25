@@ -13,6 +13,8 @@ import { AuthService } from '@/services';
 import { delay } from '@/utils';
 import SubmitButton from '@/components/common/submitbutton';
 import { IResponseStatus } from '@/types/request';
+import { useAppDispatch } from '@/redux/store/store';
+import { showNotification } from '@/redux/reducers';
 
 interface ISignUpViewProps { }
 
@@ -28,6 +30,7 @@ interface ISignUpViewState {
     showPassword: boolean;
     showConfirmPassword: boolean;
     isLoading: boolean;
+    isDisabledInput: boolean;
 }
 
 const initialState: ISignUpViewState = {
@@ -42,12 +45,14 @@ const initialState: ISignUpViewState = {
     showPassword: false,
     showConfirmPassword: false,
     isLoading: false,
+    isDisabledInput: false,
 }
 
 const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
     const [state, setState] = useImmerState<ISignUpViewState>(initialState)
-    const { email, displayName, password, confirmPassword, showPassword, showConfirmPassword, confirmPasswordError, displayNameError, emailError, passwordError, isLoading } = state
+    const { email, displayName, password, confirmPassword, showPassword, showConfirmPassword, confirmPasswordError, displayNameError, emailError, passwordError, isLoading, isDisabledInput } = state
     const [scope, animate] = useAnimate<HTMLDivElement>();
 
     useEffect(() => {
@@ -105,21 +110,31 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
         })
     }
 
+    const isDisabledSubmit = isDisabledInput || isLoading
+
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        setState({ isLoading: true })
+        setState({ isLoading: true, isDisabledInput: true })
         const { valid, emailError, displayNameError, passwordError, confirmPasswordError } = validateSignUp(email, displayName, password, confirmPassword)
         if (!valid) {
-            setState({ emailError, displayNameError, passwordError, confirmPasswordError, isLoading: false })
+            await delay(1500).then(() => {
+                setState({ emailError, displayNameError, passwordError, confirmPasswordError, isLoading: false, isDisabledInput: false })
+            })
         } else {
             const data = await AuthService.registerUser({ email, displayName, password })
-            setState({ isLoading: false })
             if (data) {
                 if (data.status === IResponseStatus.Error) {
-                    setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage })
+                    await delay(1500).then(() => {
+                        setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage, isLoading: false, isDisabledInput: false })
+                    })
                 } else {
                     await delay(1500).then(() => {
-                        navigate("/login");
+                        dispatch(showNotification({type: "success", message: data.message}))
+                        setState({ isLoading: false })
+                    }).then(async() => {
+                        await delay(1500).then(() => {
+                            navigate("/login");
+                        })
                     })
                 }
             }
@@ -127,10 +142,7 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
     }
 
     return (
-        <motion.section
-            className='common-auth-container w-screen min-h-screen h-full flex items-center justify-center py-3 px-2'
-            ref={scope}
-        >
+        <motion.section ref={scope}>
             <motion.form className='lg:w-[400px] w-[320px] h-auto max-h-[600px] px-5 pt-3 pb-8 rounded-3xl bg-white flex flex-col gap-4 animation-auth-form'>
                 <motion.figure className='common-login-logo w-full h-auto flex justify-center'>
                     <motion.img
@@ -152,6 +164,7 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                         error={emailError}
                         onChange={onChangeInput}
                         whileHover={{ scale: 1.025 }}
+                        disabled={isDisabledInput}
                     />
                     <AnimatedTextInput
                         className='common-validation-input input-stagger-item'
@@ -164,6 +177,7 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                         error={displayNameError}
                         onChange={onChangeInput}
                         whileHover={{ scale: 1.025 }}
+                        disabled={isDisabledInput}
                     />
                     <AnimatedTextInput
                         className='common-validation-input input-stagger-item'
@@ -178,6 +192,7 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                         rightSection={passwordIcon(showPassword, onChangeShowPassword)}
                         onChange={onChangeInput}
                         whileHover={{ scale: 1.025 }}
+                        disabled={isDisabledInput}
                     />
                     <AnimatedTextInput
                         className='common-validation-input input-stagger-item'
@@ -192,8 +207,10 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                         rightSection={passwordIcon(showConfirmPassword, onChangeShowConfirmPassword)}
                         onChange={onChangeInput}
                         whileHover={{ scale: 1.025 }}
+                        disabled={isDisabledInput}
                     />
                     <SubmitButton 
+                        disabled={isDisabledSubmit}
                         title='Sign up'
                         isLoading={isLoading}
                         onClick={handleSubmit}

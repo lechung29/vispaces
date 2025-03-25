@@ -25,6 +25,7 @@ interface ILoginViewState {
     passwordError: string;
     showPassword: boolean;
     isLoading: boolean;
+    isDisabledInput: boolean;
 }
 
 const initialState: ILoginViewState = {
@@ -34,13 +35,14 @@ const initialState: ILoginViewState = {
     passwordError: '',
     showPassword: false,
     isLoading: false,
+    isDisabledInput: false,
 }
 
 const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const [state, setState] = useImmerState<ILoginViewState>(initialState)
-    const { email, password, emailError, passwordError, showPassword, isLoading } = state;
+    const { email, password, emailError, passwordError, showPassword, isLoading, isDisabledInput } = state;
     const [scope, animate] = useAnimate<HTMLDivElement>();
 
     useEffect(() => {
@@ -93,31 +95,38 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        setState({ isLoading: true })
+        setState({ isLoading: true, isDisabledInput: true })
         const { valid, emailError, passwordError } = validateSignIn(email, password)
         if (!valid) {
-            setState({ emailError, passwordError, isLoading: false })
+            await delay(1500).then(() => {
+                setState({ emailError, passwordError, isLoading: false, isDisabledInput: false })
+            })
         } else {
             const data = await AuthService.loginUser({ email, password })
-            setState({ isLoading: false })
             if (data) {
                 if (data.status === IResponseStatus.Error) {
-                    setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage})
-                } else {
-                    dispatch(showNotification({type: "info", message: data.message}))
-                    window.localStorage.setItem("accessToken", data?.data?.accessToken)
                     await delay(1500).then(() => {
-                        navigate("/");
+                        setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage, isLoading: false, isDisabledInput: false})
+                    })
+                } else {
+                    await delay(1500).then(() => {
+                        dispatch(showNotification({type: "success", message: data.message}))
+                        window.localStorage.setItem("accessToken", data?.data?.accessToken)
+                        setState({ isLoading: false })
+                    }).then(async() => {
+                        await delay(1500).then(() => {
+                            navigate("/");
+                        })
                     })
                 }
             }
         }
     }
 
+    const isDisabledSubmit = isDisabledInput || isLoading
+
     return (
-        <motion.section
-            ref={scope}
-        >
+        <motion.section ref={scope}>
             <motion.form className='lg:w-[400px] w-[320px] h-auto px-5 pt-3 pb-8 rounded-3xl bg-white flex flex-col gap-4 animation-auth-form'>
                 <motion.figure className='common-login-logo w-full h-auto flex justify-center'>
                     <motion.img
@@ -139,7 +148,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                         error={emailError}
                         onChange={onChangeInput}
                         whileHover={{ scale: 1.025 }}
-
+                        disabled={isDisabledInput}
                     />
                     <AnimatedTextInput
                         className='common-validation-input input-stagger-item'
@@ -154,8 +163,10 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                         type={showPassword ? "text" : "password"}
                         rightSection={passwordIcon(showPassword)}
                         whileHover={{ scale: 1.025 }}
+                        disabled={isDisabledInput}
                     />
-                    <SubmitButton 
+                    <SubmitButton
+                        disabled={isDisabledSubmit} 
                         title='Sign in'
                         isLoading={isLoading}
                         onClick={handleSubmit}
