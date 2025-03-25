@@ -195,7 +195,7 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                     />
                     <SubmitButton 
                         title='Sign up'
-                        disabled={isLoading}
+                        isLoading={isLoading}
                         onClick={handleSubmit}
                     />
                 </motion.section>

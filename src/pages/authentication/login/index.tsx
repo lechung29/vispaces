@@ -13,6 +13,8 @@ import { AuthService } from '@/services';
 import { delay } from '@/utils';
 import SubmitButton from '@/components/common/submitbutton';
 import { IResponseStatus } from '@/types/request';
+import { useAppDispatch } from '@/redux/store/store';
+import { showNotification } from '@/redux/reducers';
 
 interface ILoginViewProps { }
 
@@ -36,6 +38,7 @@ const initialState: ILoginViewState = {
 
 const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
     const [state, setState] = useImmerState<ILoginViewState>(initialState)
     const { email, password, emailError, passwordError, showPassword, isLoading } = state;
     const [scope, animate] = useAnimate<HTMLDivElement>();
@@ -101,6 +104,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                 if (data.status === IResponseStatus.Error) {
                     setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage})
                 } else {
+                    dispatch(showNotification({type: "info", message: data.message}))
                     window.localStorage.setItem("accessToken", data?.data?.accessToken)
                     await delay(1500).then(() => {
                         navigate("/");
@@ -112,7 +116,6 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
 
     return (
         <motion.section
-            className='common-auth-container w-screen min-h-screen h-full flex items-center justify-center py-3 px-2'
             ref={scope}
         >
             <motion.form className='lg:w-[400px] w-[320px] h-auto px-5 pt-3 pb-8 rounded-3xl bg-white flex flex-col gap-4 animation-auth-form'>
@@ -154,7 +157,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                     />
                     <SubmitButton 
                         title='Sign in'
-                        disabled={isLoading}
+                        isLoading={isLoading}
                         onClick={handleSubmit}
                     />
                 </motion.section>
