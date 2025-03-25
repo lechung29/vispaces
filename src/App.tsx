@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
-import { Layout } from "./layouts";
+import { AuthLayout, Layout } from "./layouts";
 import { TitleResolver } from "./layouts"
 import { Home, Login, MessagePage, SignUp } from "./pages";
 import 'react-photo-view/dist/react-photo-view.css';
@@ -14,8 +14,10 @@ const App = () => {
                         <Route index element={<Home />} />
                         <Route path="messages" element={<MessagePage />} />
                     </Route>
-                    <Route path="login" element={<Login />} />
-                    <Route path="sign-up" element={<SignUp />} />
+                    <Route element={<AuthLayout />}>
+                        <Route path="login" element={<Login />} />
+                        <Route path="sign-up" element={<SignUp />} />
+                    </Route>
                     <Route path="*" element={<div className="text-[orange]">Page not found</div>} />
                 </Route>
             </Routes>

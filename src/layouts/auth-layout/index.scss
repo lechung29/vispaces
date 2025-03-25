@@ -1,14 +1,15 @@
-.common-layout-section {
-    position: relative;
+.common-auth-container {
+    background: linear-gradient(90deg,#d63c68,#6a82fb);  
+    background-size: 200% 200%;
+    animation: linearBackground 8s ease-in infinite;
 
     .g-notification-bar {
-        top: 10px;
+        top: 20px;
         right: 20px;
         width: auto;
         min-width: 300px;
         position: absolute;
         z-index: 100;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
         &::before {
             inset-inline-start: 0.5rem;
