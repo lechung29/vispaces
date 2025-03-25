@@ -6,26 +6,26 @@ import React from 'react'
 interface ISubmitButtonProps {
     title: string;
     onClick?: IFunc1<any, void | Promise<void>>;
-    disabled?: boolean;
+    isLoading?: boolean;
     className?: string;
 }
 
 const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
-    const { title, disabled, className } = props;
-    const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const { title, isLoading, className } = props;
+    const [isLoadingPromise, setIsLoadingPromise] = React.useState<boolean>(false)
 
     const handleClick = (event) => {
-        setIsLoading(true)
+        setIsLoadingPromise(true)
         const suspensePromise: void | Promise<void> = props.onClick?.(event)
         if (suspensePromise instanceof Promise) {
-            suspensePromise.finally(() => setIsLoading(false));
+            suspensePromise.finally(() => setIsLoadingPromise(false));
             return;
         }
-        setIsLoading(false);
+        setIsLoadingPromise(false);
     }
     return (
         <AnimatedDefaultButton
-            className={`submit-primary-button ${disabled && "disabled:cursor-not-allowed"} input-stagger-item w-full h-[40px] flex justify-center items-center text-[#fff] rounded-lg ${className}`}
+            className={`submit-primary-button ${isLoading && "disabled:cursor-not-allowed"} input-stagger-item w-full h-[40px] flex justify-center items-center text-[#fff] rounded-lg ${className}`}
             whileHover={{
                 scale: 1.025,
                 transition: {
@@ -33,10 +33,10 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
                     stiffness: 2000,
                 }
             }}
-            disabled={disabled}
+            disabled={isLoading || isLoadingPromise}
             onClick={handleClick}
         >
-            {isLoading ? <Loader color="#fff" size={18} /> : title}
+            {(isLoading) ? <Loader color="#fff" size={18} /> : title}
         </AnimatedDefaultButton>
     )
 }
