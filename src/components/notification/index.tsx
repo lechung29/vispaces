@@ -1,11 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { hideNotification, updateDuration } from "@/redux/reducers";
 import { useAppDispatch } from "@/redux/store/store";
-import { Notification } from "@mantine/core";
 import { IoCloseCircle } from "react-icons/io5";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { IoWarning } from "react-icons/io5";
 import { IoInformationCircle } from "react-icons/io5";
+import { motion, useAnimate } from 'framer-motion';
+import { Notification } from "../animatedComponent";
 
 export interface INotificationProps {
     type: "success" | "error" | "warning" | "info";
@@ -17,7 +18,8 @@ export interface INotificationProps {
 const NotificationView: React.FunctionComponent<INotificationProps> = (props) => {
     const { type, message, noStatusIcon = false, duration } = props
     const dispatch = useAppDispatch()
-
+    const [scope, animate] = useAnimate<HTMLDivElement>();
+    
     const notificationProps = useMemo(() => {
         let color: string = ""
         let icon: JSX.Element = <></>
@@ -51,19 +53,37 @@ const NotificationView: React.FunctionComponent<INotificationProps> = (props) =>
         return noStatusIcon ? { ...defaultProps, color: color } : { ...defaultProps, icon: icon }
     }, [noStatusIcon, type])
 
+    useEffect(() => {
+        if (scope.current && duration === 5000) {
+            animate(scope.current.querySelectorAll(".g-notification-bar"), {
+                    opacity: [0, 1],
+                    scale: [0, 1],
+                },
+                {
+                    delay: 0.25,
+                    stiffness: 80,
+                    duration: 1,
+                    ease: "easeIn",
+                    type: "spring",
+                }
+            );
+        }
+    }, [scope, duration]);
+
     React.useEffect(() => {
         if (duration === 0) {
             dispatch(hideNotification())
             return;
         }
-        console.log(duration)
         const interval = setInterval(() => {
-            dispatch(updateDuration(duration - 1000))
-        }, 1000)
+            dispatch(updateDuration(duration - 500))
+        }, 500)
         return () => clearInterval(interval)
     }, [duration])
 
-    return <Notification {...notificationProps}> {message} </Notification>
+    return <motion.section ref={scope}>
+        <Notification {...notificationProps}> {message} </Notification>
+    </motion.section>
 };
 
 export { NotificationView as Notification };

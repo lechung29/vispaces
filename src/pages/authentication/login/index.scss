@@ -67,33 +67,10 @@
     }
 }
 
-.submit-primary-button {
-    background: linear-gradient(135deg,#d63c68,#6a82fb)!important; 
-    background-size: 200% 200%!important;
-
-    &:hover {
-        animation: linearBackground 1.5s ease-in infinite !important;
-    } 
-}
-
 .auth-google-button-icon {
     font-size: 24px;
 }
 
-
-
-
-@keyframes linearBackground {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%; 
-    }
-}
 
 
 

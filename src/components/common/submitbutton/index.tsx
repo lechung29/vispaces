@@ -1,17 +1,18 @@
 import { AnimatedDefaultButton } from '@/components/animatedComponent';
+import LoadingIcon from '@/components/icons/loadingicon';
 import { IFunc1 } from '@/types/Function';
-import { Loader } from '@mantine/core';
 import React from 'react'
-
+import "./index.scss"
 interface ISubmitButtonProps {
     title: string;
     onClick?: IFunc1<any, void | Promise<void>>;
     isLoading?: boolean;
+    disabled?: boolean;
     className?: string;
 }
 
 const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
-    const { title, isLoading, className } = props;
+    const { title, isLoading, className, disabled } = props;
     const [isLoadingPromise, setIsLoadingPromise] = React.useState<boolean>(false)
 
     const handleClick = (event) => {
@@ -23,9 +24,13 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
         }
         setIsLoadingPromise(false);
     }
+    const isLoadingValue = React.useMemo(() => {
+        return isLoading !== undefined ? isLoading : isLoadingPromise
+    }, [isLoading, isLoadingPromise])
+    
     return (
         <AnimatedDefaultButton
-            className={`submit-primary-button ${isLoading && "disabled:cursor-not-allowed"} input-stagger-item w-full h-[40px] flex justify-center items-center text-[#fff] rounded-lg ${className}`}
+            className={`submit-primary-button ${(disabled) && "disabled:cursor-not-allowed disabled:!opacity-75"} input-stagger-item w-full h-[40px] flex justify-center items-center text-[#fff] rounded-lg ${className}`}
             whileHover={{
                 scale: 1.025,
                 transition: {
@@ -33,10 +38,10 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
                     stiffness: 2000,
                 }
             }}
-            disabled={isLoading || isLoadingPromise}
+            disabled={disabled}
             onClick={handleClick}
         >
-            {(isLoading) ? <Loader color="#fff" size={18} /> : title}
+            {isLoadingValue ? <LoadingIcon withLoadingText={true} color="white" size={20} /> : title}
         </AnimatedDefaultButton>
     )
 }

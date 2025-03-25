@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { TextInput, PasswordInput, Avatar, ActionIcon, Modal, Button } from "@mantine/core";
+import { TextInput, PasswordInput, Avatar, ActionIcon, Modal, Button, Notification } from "@mantine/core";
 
 const AnimatedTextInput = motion(TextInput);
 
@@ -15,6 +15,8 @@ const AnimatedIconButton = motion(ActionIcon as any)
 
 const AnimatedDialog = motion(Modal)
 
+const AnimatedNotification = motion(Notification)
+
 export {
     AnimatedTextInput,
     AnimatedButton,
@@ -22,5 +24,6 @@ export {
     AnimatedAvatar,
     AnimatedIconButton,
     AnimatedDialog,
-    AnimatedDefaultButton
+    AnimatedDefaultButton,
+    AnimatedNotification as Notification
 }
