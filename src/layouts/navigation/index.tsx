@@ -251,8 +251,8 @@ const NavigationView: React.FunctionComponent = () => {
             icon: <FaRegCircleUser className="common-navigation-icon" />
         },
         {
-            title: "Settings",
-            path: "/settings",
+            title: "Account settings",
+            path: "/account-settings",
             fromUserCard: true,
             icon: <IoSettingsOutline className="common-navigation-icon" />
         },
