@@ -17,6 +17,7 @@ const App = () => {
                     <Route element={<ProtectedRoute />}>
                         <Route element={<Layout />} >
                             <Route path="messages" element={<MessagePage />} />
+                            <Route path="account-settings" element={<MessagePage />} />
                         </Route>
                     </Route>
                     <Route element={<AuthLayout />}>
