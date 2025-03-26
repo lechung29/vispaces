@@ -4,6 +4,7 @@ import { AuthLayout, Layout } from "./layouts";
 import { TitleResolver } from "./layouts"
 import { Home, Login, MessagePage, SignUp } from "./pages";
 import 'react-photo-view/dist/react-photo-view.css';
+import ProtectedRoute from "./components/routes/protectedroute";
 
 const App = () => {
     return (
@@ -12,7 +13,11 @@ const App = () => {
                 <Route path="/*" element={<TitleResolver />}>
                     <Route element={<Layout />}>
                         <Route index element={<Home />} />
-                        <Route path="messages" element={<MessagePage />} />
+                    </Route>
+                    <Route element={<ProtectedRoute />}>
+                        <Route element={<Layout />} >
+                            <Route path="messages" element={<MessagePage />} />
+                        </Route>
                     </Route>
                     <Route element={<AuthLayout />}>
                         <Route path="login" element={<Login />} />
