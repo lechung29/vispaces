@@ -7,7 +7,7 @@ import { IoWarning } from "react-icons/io5";
 import { IoInformationCircle } from "react-icons/io5";
 import { motion, useAnimate } from 'framer-motion';
 import { Notification } from "../animatedComponent";
-
+import "./index.scss"
 export interface INotificationProps {
     type: "success" | "error" | "warning" | "info";
     message: string;

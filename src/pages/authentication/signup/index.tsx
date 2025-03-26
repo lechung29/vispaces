@@ -121,20 +121,15 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                 setState({ emailError, displayNameError, passwordError, confirmPasswordError, isLoading: false, isDisabledInput: false })
             })
         } else {
-            const data = await AuthService.registerUser({ email, displayName, password })
+            const [data] = await Promise.all([AuthService.registerUser({ email, displayName, password }), delay(1500)])
             if (data) {
                 if (data.status === IResponseStatus.Error) {
-                    await delay(1500).then(() => {
-                        setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage, isLoading: false, isDisabledInput: false })
-                    })
+                    setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage, isLoading: false, isDisabledInput: false })
                 } else {
-                    await delay(1500).then(() => {
-                        dispatch(showNotification({type: "success", message: data.message}))
-                        setState({ isLoading: false })
-                    }).then(async() => {
-                        await delay(1500).then(() => {
-                            navigate("/login");
-                        })
+                    dispatch(showNotification({type: "success", message: data.message}))
+                    setState({ isLoading: false })
+                    await delay(2000).then(() => {
+                        navigate("/login");
                     })
                 }
             }

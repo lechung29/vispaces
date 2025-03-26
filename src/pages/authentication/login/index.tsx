@@ -10,11 +10,11 @@ import { GoEyeClosed } from "react-icons/go";
 import { useImmerState } from '@/hooks/useImmerState';
 import { validateSignIn } from '../validation';
 import { AuthService } from '@/services';
-import { delay } from '@/utils';
+import { delay, mapUserInfoFromDataToState } from '@/utils';
 import SubmitButton from '@/components/common/submitbutton';
 import { IResponseStatus } from '@/types/request';
 import { useAppDispatch } from '@/redux/store/store';
-import { showNotification } from '@/redux/reducers';
+import { login, showNotification } from '@/redux/reducers';
 
 interface ILoginViewProps { }
 
@@ -102,21 +102,16 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                 setState({ emailError, passwordError, isLoading: false, isDisabledInput: false })
             })
         } else {
-            const data = await AuthService.loginUser({ email, password })
+            const [data] = await Promise.all([AuthService.loginUser({ email, password }), delay(1500)])
             if (data) {
                 if (data.status === IResponseStatus.Error) {
-                    await delay(1500).then(() => {
-                        setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage, isLoading: false, isDisabledInput: false})
-                    })
+                    setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage, isLoading: false, isDisabledInput: false})
                 } else {
-                    await delay(1500).then(() => {
-                        dispatch(showNotification({type: "success", message: data.message}))
-                        window.localStorage.setItem("accessToken", data?.data?.accessToken)
-                        setState({ isLoading: false })
-                    }).then(async() => {
-                        await delay(1500).then(() => {
-                            navigate("/");
-                        })
+                    dispatch(showNotification({type: "success", message: data.message}))
+                    dispatch(login(mapUserInfoFromDataToState(data.data)))
+                    setState({ isLoading: false })
+                    await delay(2000).then(() => {
+                        navigate("/");
                     })
                 }
             }
