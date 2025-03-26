@@ -14,7 +14,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import "./index.scss"
 import { Breakpoint, classNames, useMinWidth } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/redux/store/store';
-import { panelState, toggleNotificationPanel, toggleSearchPanel } from '@/redux/reducers';
+import { logout, panelState, toggleNotificationPanel, toggleSearchPanel } from '@/redux/reducers';
 import { IAction, IFunc, IFunc2 } from '@/types/Function';
 import { NotificationPanel, SearchPanel, UserButton } from '@/components';
 import { useImmerState } from '@/hooks/useImmerState';
@@ -174,7 +174,11 @@ const NavigationView: React.FunctionComponent = () => {
                     {list.map((item, index) => (<Menu.Item
                         key={index}
                         leftSection={item.icon}
-                        onClick={() => navigate(item.path!)}
+                        onClick={() => {
+                            item?.onClick
+                                ? item.onClick()
+                                : navigate(item.path!)
+                        }}
                     >
                         {item.title}
                     </Menu.Item>))}
@@ -254,7 +258,10 @@ const NavigationView: React.FunctionComponent = () => {
         },
         {
             title: "Logout",
-            path: "/login",
+            onClick: () => {
+                dispatch(logout());
+                navigate("/login")
+            },
             fromUserCard: true,
             icon: <IoLogOutOutline className="common-navigation-icon" />
         }

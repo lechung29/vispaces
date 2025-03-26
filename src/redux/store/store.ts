@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage";
 import { useDispatch, useSelector } from "react-redux";
 import PanelSlice from "../reducers/panel";
 import NotificationBarSlice from "../reducers/notificationbar";
+import UserSlice from "../reducers/user";
 
 const persistConfig: any = {
     key: "root",
@@ -16,7 +17,8 @@ const persistConfig: any = {
 
 const rootReducer = combineReducers({
     panel: PanelSlice,
-    notificationBar: NotificationBarSlice
+    notificationBar: NotificationBarSlice,
+    user: UserSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
