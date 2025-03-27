@@ -1,4 +1,5 @@
 .setting-navigation-tab-item {
+    border-bottom: 2px solid transparent;
     &:has(.active) {
         border-bottom: 2px solid #3b82f6;
         .active {
