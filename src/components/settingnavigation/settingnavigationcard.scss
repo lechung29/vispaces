@@ -1,0 +1,8 @@
+.setting-navigation-tab-item {
+    &:has(.active) {
+        border-bottom: 2px solid #3b82f6;
+        .active {
+            color: #3b82f6;
+        }
+    }
+}
