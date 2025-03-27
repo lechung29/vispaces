@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import { AuthLayout, Layout } from "./layouts";
 import { TitleResolver } from "./layouts"
-import { Home, Login, MessagePage, SignUp } from "./pages";
+import { AccountSettingsPage, Home, Login, MessagePage, SignUp } from "./pages";
 import 'react-photo-view/dist/react-photo-view.css';
 import ProtectedRoute from "./components/routes/protectedroute";
 
@@ -17,7 +17,7 @@ const App = () => {
                     <Route element={<ProtectedRoute />}>
                         <Route element={<Layout />} >
                             <Route path="messages" element={<MessagePage />} />
-                            <Route path="account-settings" element={<MessagePage />} />
+                            <Route path="account-settings" element={<AccountSettingsPage />} />
                         </Route>
                     </Route>
                     <Route element={<AuthLayout />}>
