@@ -65,7 +65,6 @@ const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
                         <TextInput
                             placeholder='Search'
                             variant={"filled"}
-                            leftSection
                             value=''
                             haveSearchIcon
                             size='sm'
