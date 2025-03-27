@@ -10,8 +10,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./settingnavigationcard.scss"
+import { classNames } from "@/utils";
 
 export interface ICommonNavigationRouterProps {
     title: string;
@@ -43,6 +44,7 @@ const SettingNavigationCard: React.FunctionComponent = () => {
             path: "/account-settings/password",
         }
     ]
+
     return (
         <motion.section className="bg-white border-slate-200 rounded-xl shadow-sm">
             <motion.section className="w-full h-auto flex items-center md:p-10 p-6 md:gap-8 gap-4">
@@ -65,7 +67,7 @@ const SettingNavigationCard: React.FunctionComponent = () => {
                 >
                     {settingNavigationRouter.map((item, index) => (
                         <SwiperSlide key={index} className="setting-navigation-tab-item !mr-0 !w-auto !h-full py-4">
-                            <NavLink className="font-semibold text-[14px] text-[#627b80] px-6 py-4" to={item.path}>{item.title}</NavLink>
+                            <Link className={classNames("font-semibold text-[14px] text-[#627b80] px-6 py-4", {"active": window.location.pathname === item.path})} to={item.path}>{item.title}</Link>
                         </SwiperSlide>
                     ))}
                 </Swiper>

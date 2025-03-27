@@ -2,9 +2,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import { AuthLayout, Layout } from "./layouts";
 import { TitleResolver } from "./layouts"
-import { AccountSettingsPage, Home, Login, MessagePage, SignUp } from "./pages";
+import { Home, Login, MessagePage, SignUp, SocialSetting, GeneralSetting, NotificationSettings, PrivacySettings, PasswordSettings } from "./pages";
 import 'react-photo-view/dist/react-photo-view.css';
 import ProtectedRoute from "./components/routes/protectedroute";
+import { SettingLayout } from "./layouts/setting-layout";
 
 const App = () => {
     return (
@@ -17,7 +18,13 @@ const App = () => {
                     <Route element={<ProtectedRoute />}>
                         <Route element={<Layout />} >
                             <Route path="messages" element={<MessagePage />} />
-                            <Route path="account-settings" element={<AccountSettingsPage />} />
+                            <Route element={<SettingLayout />} >
+                                <Route path="account-settings" element={<GeneralSetting /> }/>
+                                <Route path="account-settings/social-links" element={<SocialSetting />} />
+                                <Route path="account-settings/notifications" element={<NotificationSettings />} />
+                                <Route path="account-settings/privacy" element={<PrivacySettings />} />
+                                <Route path="account-settings/password" element={<PasswordSettings />} />
+                            </Route>
                         </Route>
                     </Route>
                     <Route element={<AuthLayout />}>

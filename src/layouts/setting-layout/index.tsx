@@ -4,11 +4,12 @@ import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { IAction } from "@/types/Function";
 import SettingNavigationCard from "@/components/settingnavigation/SettingNavigationCard";
+import SettingNavigationContent from "@/components/settingnavigation/SettingNavigationContent";
 
 
-export interface IAccountSettingsProps {}
+export interface ISettingLayoutProps {}
 
-const AccountSettingsPage: React.FunctionComponent<IAccountSettingsProps> = () => {
+const SettingLayout: React.FunctionComponent<ISettingLayoutProps> = () => {
     const navigate = useNavigate()
 
     const backToPreviousPage: IAction = () => {
@@ -23,7 +24,8 @@ const AccountSettingsPage: React.FunctionComponent<IAccountSettingsProps> = () =
             <motion.h1 className="settings-title text-[30px] text-black font-black">Settings</motion.h1>
         </motion.div>
         <SettingNavigationCard />
+        <SettingNavigationContent />
     </motion.section>;
 };
 
-export { AccountSettingsPage };
+export { SettingLayout };

@@ -1,0 +1,5 @@
+export * from "./generalsetting"
+export * from "./socialsetting"
+export * from "./notificationsetting"
+export * from "./privacysetting"
+export * from "./passwordsetting"
