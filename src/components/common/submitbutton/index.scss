@@ -1,6 +1,18 @@
 .submit-primary-button {
     background: linear-gradient(135deg,#d63c68,#6a82fb)!important; 
     background-size: 200% 200%!important;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 0.5rem;
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.75!important;
+    }
 
     &:hover {
         animation: linearBackground 1.5s ease-in infinite !important;
