@@ -162,7 +162,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                     />
                     <SubmitButton
                         disabled={isDisabledSubmit} 
-                        title='Sign in'
+                        displayText='Sign in'
                         isLoading={isLoading}
                         onClick={handleSubmit}
                     />

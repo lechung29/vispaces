@@ -9,7 +9,7 @@ import { IoShareOutline } from "react-icons/io5";
 import { AiFillLike } from "react-icons/ai";
 import { classNames } from '@/utils';
 import { IoIosArrowDown } from "react-icons/io";
-import { AnimatedButton } from '../animatedComponent';
+import { AnimatedButton, AnimatedDefaultButton } from '../animatedComponent';
 import { motion } from "framer-motion"
 
 interface ICommonPostProps {
@@ -214,8 +214,8 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                     <ActionIcon variant="transparent" size="xl" aria-label="Image">
                         <FaImage size={24} />
                     </ActionIcon>
-                    <AnimatedButton
-                        className='submit-primary-button py-1 px-3 disabled:cursor-not-allowed w-auto h-auto items-center text-[#fff] text-[14px] rounded-2xl'
+                    <AnimatedDefaultButton
+                        className=' py-1 px-3 disabled:cursor-not-allowed w-auto h-auto items-center text-[#fff] text-[14px] rounded-2xl'
                         whileHover={{
                             scale: 1.025,
                             transition: {
@@ -225,7 +225,7 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                         }}
                     >
                         Send
-                    </AnimatedButton>
+                    </AnimatedDefaultButton>
                 </motion.section>
             </Fragment>}
         </motion.section>

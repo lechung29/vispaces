@@ -3,8 +3,8 @@ import LoadingIcon from '@/components/icons/loadingicon';
 import { IFunc1 } from '@/types/Function';
 import React from 'react'
 import "./index.scss"
-interface ISubmitButtonProps {
-    title: string;
+interface ISubmitButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    displayText: string;
     onClick?: IFunc1<any, void | Promise<void>>;
     isLoading?: boolean;
     disabled?: boolean;
@@ -12,7 +12,7 @@ interface ISubmitButtonProps {
 }
 
 const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
-    const { title, isLoading, className, disabled } = props;
+    const { displayText: title, isLoading, className, disabled } = props;
     const [isLoadingPromise, setIsLoadingPromise] = React.useState<boolean>(false)
 
     const handleClick = (event) => {
