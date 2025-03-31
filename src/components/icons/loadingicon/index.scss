@@ -6,7 +6,6 @@
     .dot-spinner {
         --uib-size: 1rem;
         --uib-speed: 0.9s;
-        --uib-color: #183153;
         position: relative;
         display: flex;
         align-items: center;
@@ -31,7 +30,7 @@
         height: 20%;
         width: 20%;
         border-radius: 50%;
-        background-color: var(--uib-color);
+        background-color: var(--button-color);
         transform: scale(0);
         opacity: 0.5;
         animation: pulse0112 calc(var(--uib-speed) * 1.111) ease-in-out infinite;
@@ -95,9 +94,11 @@
     }
     
     .loading-text {
+        --font-weight: 400;
         font-size: 16px;
         white-space: nowrap;
         overflow: hidden;
+        font-weight: var(--font-weight);
         animation: typeAndDelete 4s steps(11) infinite,
             blinkCursor 0.5s step-end infinite alternate;
     }
@@ -120,7 +121,7 @@
 
 @keyframes blinkCursor {
     50% {
-        border-right-color: transparent;
+        border-right-color: var(--button-color);
     }
 }
 
