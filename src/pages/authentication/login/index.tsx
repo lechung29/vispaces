@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { Text } from '@mantine/core';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
 import { AnimatedDefaultButton, TextField, SubmitButton } from '@/components';
@@ -132,15 +131,13 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                 </motion.figure>
                 <motion.section className='w-full h-auto flex flex-col gap-3'>
                     <TextField
-                        className={"common-validation-input input-stagger-item"}
-                        size={"md"}
-                        variant={"filled"}
-                        placeholder={"Email"}
-                        name={"email"}
+                        className="common-validation-input input-stagger-item"
+                        variant="soft"
+                        placeholder="Email"
+                        name="email"
                         value={email}
-                        error={emailError}
+                        // error={emailError}
                         disabled={isDisabledInput}
-                        withAnimation={true}
                         onChange={onChangeInput}
                         onClear={() => setState({
                             email: "",
@@ -148,28 +145,24 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                         })}
                     />
                     <TextField
-                        className={"common-validation-input input-stagger-item"}
-                        size={"md"}
-                        variant={"filled"}
-                        placeholder={"Password"}
-                        name={"password"}
+                        className="common-validation-input input-stagger-item"
+                        variant="soft"
+                        placeholder="Password"
+                        name="password"
                         value={password}
-                        error={passwordError}
+                        // error={passwordError}
                         onChange={onChangeInput}
                         type={showPassword ? "text" : "password"}
                         rightSection={passwordIcon(showPassword)}
                         disabled={isDisabledInput}
                     />
                     <SubmitButton
-                        className={'input-stagger-item'}
-                        radius={'xl'}
-                        displayText={'Sign in'}
+                        className="input-stagger-item"
+                        displayText="'Sign in"
                         disabled={isDisabledSubmit} 
                         isLoading={isLoading}
                         onClick={handleSubmit}
-                        fullWidth={true}
                         buttonHeight={40}
-                        withAnimation={true}
                         childrenProps={{
                             withLoadingText: true,
                         }}
@@ -191,13 +184,13 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                     </AnimatedDefaultButton>
                 </motion.section>
                 <motion.section className='w-full h-auto flex items-center justify-center input-stagger-item gap-2'>
-                    <Text
+                    {/* <Text
                         size="sm"
                         fw={500}
                         c="#94a3b8"
                     >
                         No account?
-                    </Text>
+                    </Text> */}
                     <Link to={"/sign-up"} className='font-normal text-[14px] hover:font-medium hover:text-[#4763ff]'>
                         John now
                     </Link>

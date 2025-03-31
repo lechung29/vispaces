@@ -1,4 +1,4 @@
-import { Avatar, Divider, FloatingPosition, Menu, ScrollArea, Stack, Tooltip } from '@mantine/core'
+// import { Avatar, Divider, FloatingPosition, Menu, ScrollArea, Stack, Tooltip } from '@mantine/core'
 import React, { Fragment, useRef } from 'react'
 import { motion } from "framer-motion"
 import { AiOutlineHome } from "react-icons/ai";
@@ -18,6 +18,7 @@ import { logout, panelState, toggleNotificationPanel, toggleSearchPanel } from '
 import { IAction, IFunc, IFunc2 } from '@/types/Function';
 import { NotificationPanel, SearchPanel, UserButton } from '@/components';
 import { useImmerState } from '@/hooks/useImmerState';
+import { Tooltip } from '@radix-ui/themes';
 
 interface INavigateRouter {
     title: string;
@@ -82,33 +83,33 @@ const NavigationView: React.FunctionComponent = () => {
 
         return (!isLarge || openSearchPanel || openNotificationsPanel)
             ? <Tooltip
-                label={item.title}
+                content={item.title}
                 style={{
                     color: "white",
                     background: "linear-gradient(90deg,#d63c68,#6a82fb)",
                     fontSize: "13px",
                     boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
                 }}
-                styles={{
-                    arrow: {
-                        background: "#d63c68"
-                    }
-                }}
-                position={"right"}
-                color="rgba(255, 255, 255, 1)"
-                openDelay={100}
-                closeDelay={100}
-                arrowSize={6}
-                transitionProps={{
-                    transition: 'fade-right',
-                    duration: 300
-                }}
-                withArrow
-                events={{
-                    focus: true,
-                    hover: true,
-                    touch: true,
-                }}
+                // style={{
+                //     arrow: {
+                //         background: "#d63c68"
+                //     }
+                // }}
+                // position={"right"}
+                // color="rgba(255, 255, 255, 1)"
+                // openDelay={100}
+                // closeDelay={100}
+                // arrowSize={6}
+                // transitionProps={{
+                //     transition: 'fade-right',
+                //     duration: 300
+                // }}
+                // withArrow
+                // events={{
+                //     focus: true,
+                //     hover: true,
+                //     touch: true,
+                // }}
             >
                 {children}
             </Tooltip>

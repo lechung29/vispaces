@@ -1,87 +1,79 @@
 /** @format */
 
-import { classNames, commonTextFieldAnimationProps } from "@/utils";
-import { rem, TextInput, TextInputProps } from "@mantine/core";
+import { classNames } from "@/utils";
 import React from "react";
 import { MdSearch } from "react-icons/md";
 import "./index.scss";
-import { motion } from "framer-motion";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { useControllableState } from "@/hooks/useControlLabelState";
 import { IAction } from "@/types/Function";
+import { TextField } from "@radix-ui/themes";
+import { RootProps } from "@radix-ui/themes/components/text-field";
 
-export interface ITextInputProps extends Omit<TextInputProps, "onChange"> {
+export interface ITextInputProps extends Omit<RootProps, "onChange" | "value"> {
     haveSearchIcon?: boolean;
-    withAnimation?: boolean;
+    leftSection?: JSX.Element;
+    rightSection?: JSX.Element;
+    value?: string;
     onChange?: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
-    onClear?: IAction
+    onClear?: IAction;
 }
 
-const TextField: React.FunctionComponent<ITextInputProps> = (props) => {
+const TextFieldView: React.FunctionComponent<ITextInputProps> = (props) => {
     const { 
         className, 
-        size = "xl", 
-        radius = "md", 
-        mt = "lg",
-        variant = "filled", 
+        size = "3", 
+        radius = "full", 
+        variant = "soft", 
+        haveSearchIcon = false,
         leftSection, 
         rightSection,
-        leftSectionPointerEvents,
-        rightSectionPointerEvents,
-        haveSearchIcon = false, 
-        withAnimation = false, 
-        value,
-        onChange,
-        onClear,
+        value, 
+        onChange, 
+        onClear, 
         ...rest 
     } = props;
 
     const [internalInputValue, setInternalInputValue] = useControllableState<string>({
-        value: String(value),
-        defaultValue: String(value),
+        value: value,
+        defaultValue: value,
         onChange: (value, event) => {
             onChange?.(value, event);
-        }
-    })
+        },
+    });
 
     const inputLeftSection = React.useMemo(() => {
-        return haveSearchIcon ? <MdSearch style={{ width: rem(20), height: rem(20) }} /> : leftSection;
+        return (haveSearchIcon || leftSection)
+            ? haveSearchIcon 
+                ? <MdSearch style={{ width: 20, height: 20 }} /> 
+                : leftSection
+            : <></>
     }, []);
 
     const inputRightSection = React.useMemo(() => {
-        return (internalInputValue && onClear) 
-            ? <IoCloseCircleSharp onClick={onClear} style={{ width: rem(16), height: rem(16) }} /> 
+        return onClear 
+            ? internalInputValue
+                ? <IoCloseCircleSharp onClick={ onClear } style={{ width: 16, height: 16 }} />
+                : <></>
             : rightSection
-    }, [internalInputValue, onClear])
+    }, [] )
 
-    const TextInputComponent = withAnimation ? motion(TextInput as any) : TextInput;
-
-    const getTextInputProps = () => {
-        const animationProps = withAnimation ? commonTextFieldAnimationProps : {}
-        return {
-            ...rest,
-            ...animationProps,
-            className: classNames("text-input-wrapper", className),
-            size: size,
-            radius: radius,
-            mt: mt,
-            value: internalInputValue,
-            onChange: (event) => {
-                setInternalInputValue(event.target.value, event)
-            },
-            leftSection: inputLeftSection,
-            rightSection: inputRightSection,
-            rightSectionPointerEvents: rightSectionPointerEvents || "all",
-        };
-    };
-    
     return (
-        <TextInputComponent
-            {...getTextInputProps()}
-        />
+        <TextField.Root
+            {...rest}
+            className={classNames("text-input-wrapper", className)}
+            size={size}
+            radius={radius}
+            variant={variant}
+            value={internalInputValue}
+            onChange={(event) => {
+                setInternalInputValue(event.target.value, event);
+            }}
+        >
+            <TextField.Slot>{inputLeftSection}</TextField.Slot>
+            <TextField.Slot>{inputRightSection}</TextField.Slot>
+        </TextField.Root>
     );
 };
 
-export {
-    TextField
-}
+export { TextFieldView as TextField };

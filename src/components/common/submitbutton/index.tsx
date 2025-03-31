@@ -2,21 +2,20 @@ import LoadingIcon, { IIconProps } from '@/components/icons/loadingicon';
 import { IFunc1 } from '@/types/Function';
 import React from 'react'
 import "./index.scss"
-import { classNames, primaryButtonAnimationProps } from '@/utils';
-import { Button, ButtonProps } from '@mantine/core';
-import { motion } from 'framer-motion';
+import { classNames } from '@/utils';
+import { Button, ButtonProps } from '@radix-ui/themes';
 
 export interface ISubmitButtonChildrenProps extends IIconProps {
 }
 
-interface ISubmitButtonProps extends Omit<ButtonProps, "h" | "variant"> {
+interface ISubmitButtonProps extends Omit<ButtonProps, "variant" | "color" | "loading" | "radius"> {
     displayText?: string;
     onClick?: IFunc1<any, void | Promise<void>>;
     isLoading?: boolean;
     className?: string;
-    buttonHeight?: number;
+    buttonHeight?: number | string;
+    buttonWidth?: number | string;
     childrenProps?: ISubmitButtonChildrenProps;
-    withAnimation?: boolean;
 }
 
 const defaultChildrenProps: ISubmitButtonChildrenProps = {
@@ -34,8 +33,8 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
         disabled, 
         children, 
         buttonHeight = 40, 
+        buttonWidth = "auto",
         childrenProps = {},
-        withAnimation = false,
         ...rest 
     } = props;
     const mergeChildrenProps = {...defaultChildrenProps, ...childrenProps };
@@ -55,24 +54,20 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
     const isLoadingValue = React.useMemo(() => {
         return isLoading !== undefined ? isLoading : isLoadingPromise
     }, [isLoading, isLoadingPromise])
-
-    const ButtonComponent = withAnimation ? motion(Button as any) : Button
-
-    const getButtonProps = () => {
-        const animationProps = withAnimation ? primaryButtonAnimationProps : {}
-        return {
-            ...rest,
-            ...animationProps,
-            className: classNames("submit-primary-button", className ),
-            disabled: disabled,
-            onClick: handleClick,
-            h: buttonHeight
-        }
-    }
     
     return (
-        <ButtonComponent
-            {...getButtonProps()}
+        <Button
+            {...rest}
+            variant="solid"
+            radius="full"
+            style={{
+                ...props.style,
+                height: (typeof buttonHeight === "number" )? `${buttonHeight}px` : buttonHeight,
+                width: (typeof buttonWidth === "number" )? `${buttonWidth}px` : buttonWidth
+            }}
+            className={classNames("submit-primary-button", className )}
+            disabled={disabled}
+            onClick={handleClick}
         >
             {isLoadingValue 
                 ? <LoadingIcon 
@@ -83,7 +78,7 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
                 /> 
                 : displayText || children
             }
-        </ButtonComponent>
+        </Button>
     )
 }
 
