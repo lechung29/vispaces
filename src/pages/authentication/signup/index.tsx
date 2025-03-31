@@ -213,6 +213,7 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                         onClick={handleSubmit}
                         fullWidth={true}
                         buttonHeight={40}
+                        withAnimation={true}
                         childrenProps={{
                             withLoadingText: true,
                         }}

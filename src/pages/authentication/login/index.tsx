@@ -169,6 +169,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                         onClick={handleSubmit}
                         fullWidth={true}
                         buttonHeight={40}
+                        withAnimation={true}
                         childrenProps={{
                             withLoadingText: true,
                         }}

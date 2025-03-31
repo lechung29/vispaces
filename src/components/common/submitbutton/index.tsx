@@ -16,6 +16,7 @@ interface ISubmitButtonProps extends Omit<ButtonProps, "h" | "variant"> {
     className?: string;
     buttonHeight?: number;
     childrenProps?: ISubmitButtonChildrenProps;
+    withAnimation?: boolean;
 }
 
 const defaultChildrenProps: ISubmitButtonChildrenProps = {
@@ -34,6 +35,7 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
         children, 
         buttonHeight = 40, 
         childrenProps = {},
+        withAnimation = false,
         ...rest 
     } = props;
     const mergeChildrenProps = {...defaultChildrenProps, ...childrenProps };
@@ -54,28 +56,30 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
         return isLoading !== undefined ? isLoading : isLoadingPromise
     }, [isLoading, isLoadingPromise])
 
-    const ButtonComponent = motion(Button as any)
+    const ButtonComponent = withAnimation ? motion(Button as any) : Button
+    const getButtonProps = () => {
+        const animationProps = withAnimation
+            ? { whileHover: {
+                    scale: 1.025,
+                    transition: {
+                        type: "spring",
+                        stiffness: 2000,
+                    }
+                }
+            } : {}
+        return {
+            ...rest,
+            ...animationProps,
+            className: classNames("submit-primary-button", className ),
+            disabled: disabled,
+            onClick: handleClick,
+            h: buttonHeight
+        }
+    }
     
     return (
         <ButtonComponent
-            {...rest}
-            className={classNames("submit-primary-button", className )}
-            style={{
-                ...props.style,
-                "--button-color": color,
-                "--text-size": `${size}px`,
-                "--font-weight": fontWeight
-            }}
-            whileHover={{
-                scale: 1.025,
-                transition: {
-                    type: "spring",
-                    stiffness: 2000,
-                }
-            }}
-            disabled={disabled}
-            onClick={handleClick}
-            h={buttonHeight}
+            {...getButtonProps()}
         >
             {isLoadingValue 
                 ? <LoadingIcon 
