@@ -1,4 +1,5 @@
-import { Avatar } from '@mantine/core'
+
+import { Avatar } from '@radix-ui/themes';
 import React from 'react'
 import { IoCamera } from "react-icons/io5";
 
@@ -10,8 +11,9 @@ const UpdateAvatar: React.FunctionComponent<IUpdateAvatarProps> = () => {
         <Avatar
             src="/src/assets/avatar.jpg"
             alt="it's me"
-            size="xl"
+            size="5"
             className='rounded-3xl'
+            fallback
         />
         <IoCamera className='absolute -right-1 -bottom-1 text-white border-4 border-white rounded-3xl bg-[#475569] w-8 h-8 p-[4px]'/>
     </div>

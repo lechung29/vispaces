@@ -3,8 +3,8 @@ import NewPost from '@/components/newpost'
 import StoryList from '@/components/storylist'
 import React from 'react'
 import { motion } from "framer-motion"
-import { ScrollArea } from '@mantine/core'
 import { OnlineFriend, PeopleMightKnow } from '@/components'
+import { ScrollArea } from '@radix-ui/themes'
 
 interface IHomePageProps {
 
@@ -25,7 +25,7 @@ const HomeView: React.FunctionComponent<IHomePageProps> = (_props) => {
 
                 </motion.article>
                 <motion.article className='w-[40%] h-auto sticky top-4'>
-                    <ScrollArea h={"100vh"} w={"100%"} type='never'>
+                    <ScrollArea type='hover'>
                         <motion.section className='flex items-center justify-center flex-col gap-7 pb-10'>
                             <PeopleMightKnow />
                             <OnlineFriend />
