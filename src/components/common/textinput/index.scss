@@ -1,4 +1,7 @@
 .text-input-wrapper {
+    margin-top: 0!important;
+    flex: 1;
+    
     .mantine-Input-input:focus-within {
         outline: none;
         border: 1.75px solid #4d4b4b;

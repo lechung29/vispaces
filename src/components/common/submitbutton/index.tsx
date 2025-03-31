@@ -7,7 +7,7 @@ import { Button, ButtonProps } from '@mantine/core';
 import { motion } from 'framer-motion';
 
 export interface ISubmitButtonChildrenProps extends IIconProps {
-    }
+}
 
 interface ISubmitButtonProps extends Omit<ButtonProps, "h" | "variant"> {
     displayText?: string;
