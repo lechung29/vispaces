@@ -2,7 +2,7 @@ import LoadingIcon, { IIconProps } from '@/components/icons/loadingicon';
 import { IFunc1 } from '@/types/Function';
 import React from 'react'
 import "./index.scss"
-import { classNames } from '@/utils';
+import { classNames, primaryButtonAnimationProps } from '@/utils';
 import { Button, ButtonProps } from '@mantine/core';
 import { motion } from 'framer-motion';
 
@@ -57,16 +57,9 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
     }, [isLoading, isLoadingPromise])
 
     const ButtonComponent = withAnimation ? motion(Button as any) : Button
+
     const getButtonProps = () => {
-        const animationProps = withAnimation
-            ? { whileHover: {
-                    scale: 1.025,
-                    transition: {
-                        type: "spring",
-                        stiffness: 2000,
-                    }
-                }
-            } : {}
+        const animationProps = withAnimation ? primaryButtonAnimationProps : {}
         return {
             ...rest,
             ...animationProps,
@@ -94,4 +87,6 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
     )
 }
 
-export default SubmitButton
+export {
+    SubmitButton
+}

@@ -1,6 +1,6 @@
 /** @format */
 
-export const commonAnimationProps = {
+export const primaryButtonAnimationProps = {
     whileHover: {
         scale: 1.025,
         transition: {
@@ -9,3 +9,9 @@ export const commonAnimationProps = {
         },
     },
 };
+
+export const commonTextFieldAnimationProps = {
+    whileHover: {
+        scale: 1.025,
+    },
+}

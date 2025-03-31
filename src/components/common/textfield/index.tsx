@@ -1,6 +1,6 @@
 /** @format */
 
-import { classNames, commonAnimationProps } from "@/utils";
+import { classNames, commonTextFieldAnimationProps } from "@/utils";
 import { rem, TextInput, TextInputProps } from "@mantine/core";
 import React from "react";
 import { MdSearch } from "react-icons/md";
@@ -8,29 +8,31 @@ import "./index.scss";
 import { motion } from "framer-motion";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { useControllableState } from "@/hooks/useControlLabelState";
+import { IAction } from "@/types/Function";
 
 export interface ITextInputProps extends Omit<TextInputProps, "onChange"> {
     haveSearchIcon?: boolean;
     withAnimation?: boolean;
-    withClearButton?: boolean;
-    onChange(value: string, event: React.ChangeEventHandler<HTMLInputElement>);
+    onChange?: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
+    onClear?: IAction
 }
 
-const TextInputView: React.FunctionComponent<ITextInputProps> = (props) => {
+const TextField: React.FunctionComponent<ITextInputProps> = (props) => {
     const { 
         className, 
-        size, 
-        radius, 
-        mt, 
+        size = "xl", 
+        radius = "md", 
+        mt = "lg",
+        variant = "filled", 
         leftSection, 
         rightSection,
         leftSectionPointerEvents,
         rightSectionPointerEvents,
         haveSearchIcon = false, 
         withAnimation = false, 
-        withClearButton = false,
         value,
         onChange,
+        onClear,
         ...rest 
     } = props;
 
@@ -38,7 +40,7 @@ const TextInputView: React.FunctionComponent<ITextInputProps> = (props) => {
         value: String(value),
         defaultValue: String(value),
         onChange: (value, event) => {
-            onChange(value, event);
+            onChange?.(value, event);
         }
     })
 
@@ -47,23 +49,28 @@ const TextInputView: React.FunctionComponent<ITextInputProps> = (props) => {
     }, []);
 
     const inputRightSection = React.useMemo(() => {
-        return (withClearButton) ? <IoCloseCircleSharp /> : rightSection
-    }, [])
+        return (internalInputValue && onClear) 
+            ? <IoCloseCircleSharp onClick={onClear} style={{ width: rem(16), height: rem(16) }} /> 
+            : rightSection
+    }, [internalInputValue, onClear])
 
     const TextInputComponent = withAnimation ? motion(TextInput as any) : TextInput;
+
     const getTextInputProps = () => {
-        const animationProps = withAnimation ? commonAnimationProps : {}
+        const animationProps = withAnimation ? commonTextFieldAnimationProps : {}
         return {
             ...rest,
             ...animationProps,
             className: classNames("text-input-wrapper", className),
-            size: size || "xl",
-            radius: radius || "md",
-            mt: mt || "lg",
+            size: size,
+            radius: radius,
+            mt: mt,
             value: internalInputValue,
-            onChange: setInternalInputValue,
+            onChange: (event) => {
+                setInternalInputValue(event.target.value, event)
+            },
             leftSection: inputLeftSection,
-            inputRightSection: inputRightSection,
+            rightSection: inputRightSection,
             rightSectionPointerEvents: rightSectionPointerEvents || "all",
         };
     };
@@ -75,4 +82,6 @@ const TextInputView: React.FunctionComponent<ITextInputProps> = (props) => {
     );
 };
 
-export { TextInputView as TextInput };
+export {
+    TextField
+}
