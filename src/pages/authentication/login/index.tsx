@@ -161,10 +161,17 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                         disabled={isDisabledInput}
                     />
                     <SubmitButton
+                        className={'input-stagger-item'}
+                        radius={'xl'}
+                        displayText={'Sign in'}
                         disabled={isDisabledSubmit} 
-                        displayText='Sign in'
                         isLoading={isLoading}
                         onClick={handleSubmit}
+                        fullWidth={true}
+                        buttonHeight={40}
+                        childrenProps={{
+                            withLoadingText: true,
+                        }}
                     />
                 </motion.section>
                 <motion.section className='w-full h-auto flex items-center justify-center input-stagger-item'>

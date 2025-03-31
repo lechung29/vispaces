@@ -205,10 +205,17 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                         disabled={isDisabledInput}
                     />
                     <SubmitButton 
-                        disabled={isDisabledSubmit}
-                        displayText='Sign up'
+                        className={'input-stagger-item'}
+                        radius={'xl'}
+                        displayText={'Sign up'}
+                        disabled={isDisabledSubmit} 
                         isLoading={isLoading}
                         onClick={handleSubmit}
+                        fullWidth={true}
+                        buttonHeight={40}
+                        childrenProps={{
+                            withLoadingText: true,
+                        }}
                     />
                 </motion.section>
                 <motion.section className='w-full h-auto flex items-center justify-center input-stagger-item'>
