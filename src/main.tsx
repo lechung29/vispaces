@@ -2,19 +2,15 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import '@mantine/core/styles.css';
-import { createTheme, MantineProvider } from '@mantine/core';
+import { Theme, ThemePanel } from "@radix-ui/themes";
 import { Provider } from 'react-redux';
 import { store } from './redux/store/store.ts';
 
-const theme = createTheme({
-  /** Put your mantine theme override here */
-
-});
-
 createRoot(document.getElementById('root')!).render(
-  <MantineProvider theme={theme}>
+  <Theme accentColor={"crimson"} grayColor={"sand"} radius={"large"} scaling={"95%"}>
     <Provider store={store}>
       <App />
+      <ThemePanel />
     </Provider>
-  </MantineProvider>,
+  </Theme>,
 )
