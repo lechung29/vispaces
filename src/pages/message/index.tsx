@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { ActionIcon, Avatar, Divider, ScrollArea, Title } from '@mantine/core'
 import "./index.scss"
 import { IoSettingsOutline } from "react-icons/io5";
-import { MessageItem, TextInput } from '@/components';
+import { MessageItem, TextField } from '@/components';
 import { IoCallOutline } from "react-icons/io5";
 import { HiOutlineVideoCamera } from "react-icons/hi2";
 import { PiInfo } from "react-icons/pi";
@@ -27,7 +27,7 @@ const MessagePage: React.FunctionComponent<IMessagePageProps> = (_props) => {
                         </ActionIcon>
                     </motion.figure>
                     <motion.article className='w-full h-auto my-3'>
-                        <TextInput
+                        <TextField
                             variant='filled'
                             placeholder='Search'
                             haveSearchIcon

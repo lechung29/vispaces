@@ -1,17 +1,16 @@
-import React, { ChangeEvent, useEffect } from 'react';
+import React from 'react';
 import './../login/index.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { Text } from '@mantine/core';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
-import { AnimatedDefaultButton, AnimatedTextInput } from '@/components';
+import { AnimatedDefaultButton, TextField, SubmitButton } from '@/components';
 import { GoEye } from "react-icons/go";
 import { GoEyeClosed } from "react-icons/go";
 import { useImmerState } from '@/hooks/useImmerState';
 import { validateSignUp } from '../validation';
 import { AuthService } from '@/services';
 import { delay } from '@/utils';
-import SubmitButton from '@/components/common/submitbutton';
 import { IResponseStatus } from '@/types/request';
 import { useAppDispatch } from '@/redux/store/store';
 import { showNotification } from '@/redux/reducers';
@@ -55,7 +54,7 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
     const { email, displayName, password, confirmPassword, showPassword, showConfirmPassword, confirmPasswordError, displayNameError, emailError, passwordError, isLoading, isDisabledInput } = state
     const [scope, animate] = useAnimate<HTMLDivElement>();
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (scope.current) {
             animate(scope.current.querySelectorAll(".animation-auth-form"), {
                 opacity: [0, 1],
@@ -103,9 +102,9 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
         setState({ showConfirmPassword: status })
     }
 
-    const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeInput = (value: string, event: React.ChangeEvent<HTMLInputElement>) => {
         setState((draft) => {
-            draft[event.target.name] = event.target.value;
+            draft[event.target.name] = value;
             draft[event.target.name + "Error"] = ""
         })
     }
@@ -148,60 +147,48 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                     />
                 </motion.figure>
                 <motion.section className='w-full h-auto flex flex-col'>
-                    <AnimatedTextInput
-                        className='common-validation-input input-stagger-item'
-                        size="md"
-                        variant="filled"
-                        radius="md"
-                        placeholder="Email"
-                        name='email'
+                    <TextField
+                        className={"common-validation-input input-stagger-item"}
+                        size={"md"}
+                        placeholder={"Email"}
+                        name={"email"}
                         value={email}
                         error={emailError}
                         onChange={onChangeInput}
-                        whileHover={{ scale: 1.025 }}
                         disabled={isDisabledInput}
                     />
-                    <AnimatedTextInput
-                        className='common-validation-input input-stagger-item'
-                        size="md"
-                        variant="filled"
-                        radius="md"
-                        placeholder="Display name"
-                        name='displayName'
+                    <TextField
+                        className={"common-validation-input input-stagger-item"}
+                        size={"md"}
+                        placeholder={"Display name"}
+                        name={"displayName"}
                         value={displayName}
                         error={displayNameError}
                         onChange={onChangeInput}
-                        whileHover={{ scale: 1.025 }}
                         disabled={isDisabledInput}
                     />
-                    <AnimatedTextInput
-                        className='common-validation-input input-stagger-item'
-                        size="md"
-                        variant="filled"
-                        radius="md"
-                        placeholder="Password"
-                        name='password'
+                    <TextField
+                        className={"common-validation-input input-stagger-item"}
+                        size={"md"}
+                        placeholder={"Password"}
+                        name={"password"}
                         value={password}
                         error={passwordError}
                         type={showPassword ? "text" : "password"}
                         rightSection={passwordIcon(showPassword, onChangeShowPassword)}
                         onChange={onChangeInput}
-                        whileHover={{ scale: 1.025 }}
                         disabled={isDisabledInput}
                     />
-                    <AnimatedTextInput
-                        className='common-validation-input input-stagger-item'
-                        size="md"
-                        variant="filled"
-                        radius="md"
-                        placeholder="Confirm password"
-                        name='confirmPassword'
+                    <TextField
+                        className={"common-validation-input input-stagger-item"}
+                        size={"md"}
+                        placeholder={"Confirm password"}
+                        name={"confirmPassword"}
                         value={confirmPassword}
                         error={confirmPasswordError}
                         type={showConfirmPassword ? "text" : "password"}
                         rightSection={passwordIcon(showConfirmPassword, onChangeShowConfirmPassword)}
                         onChange={onChangeInput}
-                        whileHover={{ scale: 1.025 }}
                         disabled={isDisabledInput}
                     />
                     <SubmitButton 

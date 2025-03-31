@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { TextInput } from "@/components";
+import { TextField } from "@/components";
 import { Select, Textarea } from "@mantine/core";
 
 const GeneralSetting: React.FunctionComponent = () => {
@@ -12,7 +12,7 @@ const GeneralSetting: React.FunctionComponent = () => {
                 <motion.div className="md:flex items-center gap-10 text-[#4b5563] text-[14px]">
                     <motion.label className="md:w-32 text-right font-medium">Display name</motion.label>
                     <motion.div className="flex-1 max-md:mt-4">
-                        <TextInput
+                        <TextField
                             className="placeholder:text-[14px]"
                             size="md"
                             variant="filled"
@@ -26,7 +26,7 @@ const GeneralSetting: React.FunctionComponent = () => {
                 <motion.div className="md:flex items-center gap-10 text-[#4b5563] text-[14px]">
                     <motion.label className="md:w-32 text-right font-medium">Email</motion.label>
                     <motion.div className="flex-1 max-md:mt-4">
-                        <TextInput
+                        <TextField
                             className="placeholder:text-[14px]"
                             size="md"
                             variant="filled"
