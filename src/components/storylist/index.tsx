@@ -13,8 +13,8 @@ import { useImmerState } from "@/hooks/useImmerState";
 import { GrFormNext } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
 import { classNames } from "@/utils";
-import { Title } from "@mantine/core";
 import { motion } from "framer-motion"
+import { Text } from "@radix-ui/themes";
 
 export interface IStoryListProps {
     items?: any[];
@@ -57,7 +57,7 @@ const StoryList: React.FunctionComponent<IStoryListProps> = (_props) => {
     }
     return (
         <motion.section>
-            <Title className="!mx-14 !text-[24px] !font-bold">Stories</Title>
+            <Text className="!mx-14 !text-[24px] !font-bold">Stories</Text>
             <motion.article className="flex items-center justify-start">
                 <AnimatedIconButton
                     variant="subtle"

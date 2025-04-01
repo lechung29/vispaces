@@ -1,26 +1,26 @@
 import { motion } from "framer-motion";
-import { TextInput, PasswordInput, Avatar, ActionIcon, Modal, Button, Notification } from "@mantine/core";
+import { SubmitButton, TextField } from "../common";
+import { Avatar, Dialog, IconButton } from "@radix-ui/themes";
 
-const AnimatedTextInput = motion(TextInput);
+const AnimatedTextInput = motion(TextField as any);
 
-const AnimatedButton = motion(Button as any);
+const AnimatedButton = motion(SubmitButton as any); 
 
 const AnimatedDefaultButton = motion("button");
 
-const AnimatedPasswordInput = motion(PasswordInput);
+// const AnimatedPasswordInput = motion(PasswordInput);
 
 const AnimatedAvatar = motion(Avatar as any);
 
-const AnimatedIconButton = motion(ActionIcon as any)
+const AnimatedIconButton = motion(IconButton as any)
 
-const AnimatedDialog = motion(Modal)
+const AnimatedDialog = motion(Dialog as any)
 
-const AnimatedNotification = motion(Notification)
+const AnimatedNotification = motion("div")
 
 export {
     AnimatedTextInput,
     AnimatedButton,
-    AnimatedPasswordInput,
     AnimatedAvatar,
     AnimatedIconButton,
     AnimatedDialog,
