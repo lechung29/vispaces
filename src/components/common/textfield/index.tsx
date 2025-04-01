@@ -9,8 +9,9 @@ import { useControllableState } from "@/hooks/useControlLabelState";
 import { IAction } from "@/types/Function";
 import { TextField } from "@radix-ui/themes";
 import { RootProps } from "@radix-ui/themes/components/text-field";
+import { motion } from "framer-motion";
 
-export interface ITextInputProps extends Omit<RootProps, "onChange" | "value"> {
+export interface ITextInputProps extends Omit<RootProps, "onChange" | "value" | "autoComplete"> {
     haveSearchIcon?: boolean;
     leftSection?: JSX.Element;
     rightSection?: JSX.Element;
@@ -20,19 +21,7 @@ export interface ITextInputProps extends Omit<RootProps, "onChange" | "value"> {
 }
 
 const TextFieldView: React.FunctionComponent<ITextInputProps> = (props) => {
-    const { 
-        className, 
-        size = "3", 
-        radius = "full", 
-        variant = "soft", 
-        haveSearchIcon = false,
-        leftSection, 
-        rightSection,
-        value, 
-        onChange, 
-        onClear, 
-        ...rest 
-    } = props;
+    const { className, size = "3", radius = "full", variant = "soft", haveSearchIcon = false, leftSection, rightSection, value, onChange, onClear, ...rest } = props;
 
     const [internalInputValue, setInternalInputValue] = useControllableState<string>({
         value: value,
@@ -43,20 +32,42 @@ const TextFieldView: React.FunctionComponent<ITextInputProps> = (props) => {
     });
 
     const inputLeftSection = React.useMemo(() => {
-        return (haveSearchIcon || leftSection)
-            ? haveSearchIcon 
-                ? <MdSearch style={{ width: 20, height: 20 }} /> 
-                : leftSection
-            : <></>
-    }, []);
+        return haveSearchIcon || leftSection ? haveSearchIcon ? <MdSearch style={{ width: 20, height: 20 }} /> : leftSection : <></>;
+    }, [leftSection, haveSearchIcon]);
 
     const inputRightSection = React.useMemo(() => {
-        return onClear 
-            ? internalInputValue
-                ? <IoCloseCircleSharp onClick={ onClear } style={{ width: 16, height: 16 }} />
-                : <></>
-            : rightSection
-    }, [] )
+        return onClear ? (
+            internalInputValue ? (
+                <motion.div
+                    tabIndex={0}
+                    whileHover={{
+                        // scale: [1.025, 0.975, 1],
+                        rotate: 360,
+                        transition: {
+                            repeat: Infinity,
+                            duration: "2000ms",
+                            ease: "easeInOut",
+                        },
+                    }}
+                >
+                    <IoCloseCircleSharp
+                        aria-label="Clear"
+                        onClick={onClear}
+                        style={{
+                            width: 20,
+                            height: 20,
+                            cursor: "pointer",
+                            color: "var(--primary-icon-color)",
+                        }}
+                    />
+                </motion.div>
+            ) : (
+                <></>
+            )
+        ) : (
+            rightSection
+        );
+    }, [internalInputValue, rightSection, onClear]);
 
     return (
         <TextField.Root
@@ -66,6 +77,7 @@ const TextFieldView: React.FunctionComponent<ITextInputProps> = (props) => {
             radius={radius}
             variant={variant}
             value={internalInputValue}
+            autoComplete="off"
             onChange={(event) => {
                 setInternalInputValue(event.target.value, event);
             }}
