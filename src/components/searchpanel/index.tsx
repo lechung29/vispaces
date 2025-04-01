@@ -2,13 +2,13 @@ import { IAction } from '@/types/Function'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { motion } from "framer-motion"
 import "./index.scss"
-import { ActionIcon, Divider, ScrollArea, Title } from '@mantine/core'
 import { IoCloseOutline } from "react-icons/io5";
 import { TooltipItem } from '@/utils'
 import { SearchItem } from '../searchitem'
 import { AnimatedButton } from '../animatedComponent'
 import { IoIosArrowRoundDown } from "react-icons/io";
 import { TextField } from '../common'
+import { IconButton, ScrollArea, Text } from '@radix-ui/themes';
 
 export interface ISearchPanelProps {
     isOpen: boolean
@@ -37,16 +37,16 @@ const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
     }, [])
 
     const closeButton = useMemo(() => {
-        return <ActionIcon
+        return <IconButton
             color='gray'
             tabIndex={0}
-            size="xl"
-            variant="transparent"
+            size="3"
+            variant="soft"
             aria-label="Close"
             onClick={onClose}
         >
             <IoCloseOutline style={{ width: '70%', height: '70%' }} />
-        </ActionIcon>
+        </IconButton>
     }, [])
 
     return (
@@ -55,31 +55,31 @@ const SearchPanelView: React.FunctionComponent<ISearchPanelProps> = (props) => {
             ref={panelRef}
             className='search-panel-section w-96 h-[100vh] bg-white absolute top-0 bottom-0 left-[100%] z-10'
         >
-            <ScrollArea w={"100%"} h={"100vh"} scrollbarSize={8} type='hover'>
+            <ScrollArea type='hover'>
                 <motion.section className='w-full h-full py-5'>
                     <motion.header className='w-full h-full flex items-center justify-between px-4'>
-                        <Title tabIndex={0} className='!font-medium !text-[22px] text-[#3f4854]'>{headerTitle}</Title>
+                        <Text tabIndex={0} className='!font-medium !text-[22px] text-[#3f4854]'>{headerTitle}</Text>
                         {TooltipItem(closeButton, "Close")}
                     </motion.header>
                     <motion.article className='w-full h-auto my-3 px-4'>
                         <TextField
                             placeholder='Search'
-                            variant={"filled"}
+                            variant={"soft"}
                             value=''
                             haveSearchIcon
-                            size='sm'
+                            size='3'
                             onChange={() => console.log("1134")}
                         />
                     </motion.article>
-                    <Divider
+                    {/* <Divider
                         className='w-full'
                         my="md"
                         color="#f3f4f6"
                         size={"xs"}
-                    />
+                    /> */}
                     <motion.article className='w-full h-auto px-4 my-2 flex items-center justify-between'>
-                        <Title tabIndex={0} className='!text-[17px] !text-[#4b5563] font-medium'>Recent</Title>
-                        <Title tabIndex={0} className='!text-[15px] !text-blue-500 font-normal select-none cursor-pointer'>Clear all</Title>
+                        <Text tabIndex={0} className='!text-[17px] !text-[#4b5563] font-medium'>Recent</Text>
+                        <Text tabIndex={0} className='!text-[15px] !text-blue-500 font-normal select-none cursor-pointer'>Clear all</Text>
                     </motion.article>
                     <motion.article className='w-full h-auto px-4 my-5 flex flex-col gap-1'>
                         <SearchItem isFollowed={false} />

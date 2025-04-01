@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react'
 import { motion } from "framer-motion"
-import { Avatar, Button, Loader, Title } from '@mantine/core'
+// import { Avatar, Button, Loader, Title } from '@mantine/core'
 import { useImmerState } from '@/hooks/useImmerState'
 import { IFunc } from '@/types/Function'
 import { classNames, delay } from '@/utils'
+import { Avatar, Button, Text } from '@radix-ui/themes'
 
 interface INewFollowerItemProps {
 
@@ -33,7 +34,7 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
         let textColor: string = ""
         switch (followStatus) {
             case FollowButtonState.Following:
-                title = <Loader size={14} color="rgba(255, 255, 255, 1)" />
+                // title = <Loader size={14} color="rgba(255, 255, 255, 1)" />
                 background = "#228be6"
                 textColor = "#fff"
                 break;
@@ -87,21 +88,22 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
                     src="/src/assets/avatar.jpg"
                     alt="it's me"
                     className='cursor-pointer'
+                    fallback
                 />
                 <motion.figcaption className='w-max flex flex-col'>
-                    <Title className='!text-[14px] !font-semibold'>Bach Le</Title>
-                    <Title className='!text-[12px] !text-[#6b7280] !font-medium'>Suggested For You</Title>
+                    <Text className='!text-[14px] !font-semibold'>Bach Le</Text>
+                    <Text className='!text-[12px] !text-[#6b7280] !font-medium'>Suggested For You</Text>
                 </motion.figcaption>
             </motion.article>
             <Button
                 className={classNames(`!px-3 !text-[${followButtonProperties.textColor}] overflow-hidden cursor-pointer !text-[12px] !w-[80px] !h-[32px] !py-[6px]`, {
                     "!cursor-not-allowed": followStatus === FollowButtonState.Following
                 })}
-                fw={500}
-                variant='filled'
-                radius={"xl"}
+                // fw={500}
+                variant='soft'
+                radius={"full"}
                 onClick={onFollowUser}
-                color={followButtonProperties.background}
+                // color={followButtonProperties.background}
             >
                 {followButtonProperties.title}
             </Button>

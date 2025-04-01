@@ -1,4 +1,3 @@
-import { ActionIcon, Avatar, Badge, CloseButton, Divider, Image, Input, Title, Tooltip } from '@mantine/core'
 import React, { Fragment, useState } from 'react'
 import { PostActionMenu } from '../postactionmenu'
 import { FaImage } from "react-icons/fa6";
@@ -9,8 +8,10 @@ import { IoShareOutline } from "react-icons/io5";
 import { AiFillLike } from "react-icons/ai";
 import { classNames } from '@/utils';
 import { IoIosArrowDown } from "react-icons/io";
-import { AnimatedButton, AnimatedDefaultButton } from '../animatedComponent';
+import { AnimatedDefaultButton } from '../animatedComponent';
 import { motion } from "framer-motion"
+import { Avatar, Badge, Button, IconButton, Text, Tooltip } from '@radix-ui/themes';
+import { TextField } from '../common/textfield';
 
 interface ICommonPostProps {
 
@@ -35,10 +36,11 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                         src="/src/assets/avatar.jpg"
                         alt="it's me"
                         className='cursor-pointer'
+                        fallback
                     />
                     <motion.figcaption className='flex flex-col'>
-                        <Title className='!text-[14px] !font-semibold'>Killian Le</Title>
-                        <Title className='!text-[12px] !font-medium !text-[#6b7280]'>2 hours ago</Title>
+                        <Text className='!text-[14px] !font-semibold'>Killian Le</Text>
+                        <Text className='!text-[12px] !font-medium !text-[#6b7280]'>2 hours ago</Text>
                     </motion.figcaption>
                 </motion.figure>
                 <motion.section hidden className='post-action-menu flex items-center justify-center'>
@@ -46,10 +48,10 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                 </motion.section>
             </motion.header>
             <motion.article className='post-content-row w-full flex flex-col gap-3'>
-                <Title className='!text-[13px] !font-normal' >Tôi buồn ngủ quá</Title>
+                <Text className='!text-[13px] !font-normal' >Tôi buồn ngủ quá</Text>
                 <PhotoProvider>
                     <PhotoView src="/src/assets/b38bfc6b-06f6-4336-9487-bdd473466643.jpg">
-                        <Image
+                        {/* <Image
                             radius="md"
                             h="auto"
                             w="100%"
@@ -57,7 +59,7 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                             className='cursor-pointer'
                             // src="/src/assets/background.jpg"
                             src="/src/assets/b38bfc6b-06f6-4336-9487-bdd473466643.jpg"
-                        />
+                        /> */}
                         {/* <video src='/src/assets/ViSpace _ Home - Google Chrome 2024-12-03 13-17-13.mp4' controls  autoPlay> */}
 
                         {/* </video> */}
@@ -68,75 +70,76 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                 <motion.section className='flex items-center justify-center gap-2'>
                     <motion.section className='flex items-center justify-center gap-1'>
                         <Tooltip
-                            withArrow
-                            transitionProps={{ duration: 200 }}
-                            label="Like"
+                            // withArrow
+                            // transitionProps={{ duration: 200 }}
+                            content="Like"
                         >
-                            <ActionIcon
-                                variant="light"
-                                size="md"
-                                radius="xl"
-                                color={isLike ? "red" : "#6b7280"}
+                            <Button
+                                // variant="light"
+                                // size="md"
+                                // radius="xl"
+                                // color={isLike ? "red" : "#6b7280"}
                                 aria-label="Like"
                                 onClick={handleLikeClick}
                             >
                                 <IoHeartSharp size={20} />
-                            </ActionIcon>
+                            </Button>
                         </Tooltip>
-                        <Title className='post-total-like !text-[#6b7280] !font-medium !text-[13px]'>1,380</Title>
+                        <Text className='post-total-like !text-[#6b7280] !font-medium !text-[13px]'>1,380</Text>
                     </motion.section>
                     <motion.section className='flex items-center justify-center gap-1'>
                         <Tooltip
-                            withArrow
-                            transitionProps={{ duration: 200 }}
-                            label="Comment"
+                            // withArrow
+                            // transitionProps={{ duration: 200 }}
+                            content="Comment"
                         >
-                            <ActionIcon
-                                variant="light"
-                                size="md"
-                                radius="xl"
-                                color={isOpenComment ? "blue" : "#6b7280"}
+                            <IconButton
+                                // variant="light"
+                                // size="md"
+                                // radius="xl"
+                                // color={isOpenComment ? "blue" : "#6b7280"}
                                 aria-label="Like"
                                 onClick={handleCommentClick}
                             >
                                 <FaCommentDots size={20} />
-                            </ActionIcon>
+                            </IconButton>
                         </Tooltip>
-                        <Title className='post-total-like !text-[#6b7280] !font-medium !text-[13px]'>260</Title>
+                        <Text className='post-total-like !text-[#6b7280] !font-medium !text-[13px]'>260</Text>
                     </motion.section>
                 </motion.section>
                 <motion.section className='flex items-center justify-center'>
                     <Tooltip
-                        withArrow
-                        transitionProps={{ duration: 200 }}
-                        label="Share"
+                        // withArrow
+                        // transitionProps={{ duration: 200 }}
+                        content="Share"
                     >
-                        <ActionIcon
-                            variant="subtle"
-                            size="md"
-                            radius="xl"
-                            color={"#6b7280"}
+                        <IconButton
+                            // variant="subtle"
+                            // size="md"
+                            // radius="xl"
+                            // color={"#6b7280"}
                             aria-label="Like"
                         >
                             <IoShareOutline size={20} />
-                        </ActionIcon>
+                        </IconButton>
                     </Tooltip>
                 </motion.section>
             </motion.section>
             {isOpenComment && <Fragment>
-                <Divider className='w-full' my="0" size={"xs"} />
+                {/* <Divider className='w-full' my="0" size={"xs"} /> */}
                 <motion.section className='post-comment-section w-full flex flex-col gap-2'>
                     <motion.section className='comment-item w-full flex items-start justify-center gap-3'>
                         <Avatar
-                            size={"sm"}
+                            // size={"sm"}
                             src="/src/assets/avatar.jpg"
                             alt="it's me"
                             className='cursor-pointer'
+                            fallback
                         />
                         <motion.section className='flex flex-col flex-1 gap-1'>
                             <motion.section className='flex flex-col w-max px-3 py-2 bg-[#e7e8e8] rounded-2xl relative'>
-                                <Title className='!text-[14px] !font-semibold'>Killian Le</Title>
-                                <Title className='!text-[14px] !font-normal'>Wow, You are so talented and creative.</Title>
+                                <Text className='!text-[14px] !font-semibold'>Killian Le</Text>
+                                <Text className='!text-[14px] !font-normal'>Wow, You are so talented and creative.</Text>
                                 <Badge
                                     className={`absolute right-[-25px] bottom-[-10px]`}
                                     color="blue"
@@ -148,23 +151,24 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                                 </Badge>
                             </motion.section>
                             <motion.section className='flex items-center justify-start gap-4 w-full'>
-                                <Title className={classNames('!text-[12px] cursor-pointer !font-medium', { "!text-[#6b7280]": true })}>Like</Title>
-                                <Title className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Edit</Title>
-                                <Title className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Delete</Title>
+                                <Text className={classNames('!text-[12px] cursor-pointer !font-medium', { "!text-[#6b7280]": true })}>Like</Text>
+                                <Text className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Edit</Text>
+                                <Text className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Delete</Text>
                             </motion.section>
                         </motion.section>
                     </motion.section>
                     <motion.section className='comment-item w-full flex items-start justify-center gap-3'>
                         <Avatar
-                            size={"sm"}
+                            size={"3"}
                             src="/src/assets/avatar.jpg"
                             alt="it's me"
                             className='cursor-pointer'
+                            fallback
                         />
                         <motion.section className='flex flex-col flex-1 gap-1'>
                             <motion.section className='flex flex-col w-max px-3 py-2 bg-[#e7e8e8] rounded-2xl relative'>
-                                <Title className='!text-[14px] !font-semibold'>Killian Le</Title>
-                                <Title className='!text-[14px] !font-normal'>Wow, You are so talented and creative.</Title>
+                                <Text className='!text-[14px] !font-semibold'>Killian Le</Text>
+                                <Text className='!text-[14px] !font-normal'>Wow, You are so talented and creative.</Text>
                                 <Badge
                                     className={`absolute right-[-25px] bottom-[-10px]`}
                                     color="blue"
@@ -176,44 +180,44 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                                 </Badge>
                             </motion.section>
                             <motion.section className='flex items-center justify-start gap-4 w-full'>
-                                <Title className={classNames('!text-[12px] cursor-pointer !font-medium', { "!text-[#6b7280]": true })}>Like</Title>
-                                <Title className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Edit</Title>
-                                <Title className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Delete</Title>
+                                <Text className={classNames('!text-[12px] cursor-pointer !font-medium', { "!text-[#6b7280]": true })}>Like</Text>
+                                <Text className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Edit</Text>
+                                <Text className='!text-[12px] cursor-pointer !font-medium !text-[#6b7280]'>Delete</Text>
                             </motion.section>
                         </motion.section>
                     </motion.section>
                     <motion.section className='flex w-full items-center justify-start gap-2'>
                         <IoIosArrowDown />
-                        <Title className='!text-[14px] !text-[#5b6270] !font-normal cursor-pointer hover:!text-blue-400'>More comment</Title>
+                        <Text className='!text-[14px] !text-[#5b6270] !font-normal cursor-pointer hover:!text-blue-400'>More comment</Text>
                     </motion.section>
                 </motion.section>
-                <Divider className='w-full' my="0" size={"xs"} />
+                {/* <Divider className='w-full' my="0" size={"xs"} /> */}
                 <motion.section className='post-comment-input w-full flex items-center justify-center gap-3'>
                     <Avatar
-                        size={"sm"}
+                        size={"3"}
                         src="/src/assets/avatar.jpg"
                         alt="it's me"
                         className='cursor-pointer'
+                        fallback
                     />
-                    <Input
+                    <TextField
                         placeholder="Add comment..."
-                        variant="unstyled"
+                        variant="soft"
                         className='!mt-0 flex-1'
                         value={commentValue}
-                        onChange={(event) => setCommentValue(event.currentTarget.value)}
-                        rightSectionPointerEvents="all"
+                        onChange={(value, _e) => setCommentValue(value)}
                         mt="md"
                         rightSection={
-                            <CloseButton
+                            <IconButton
                                 aria-label="Add comment"
                                 onClick={() => setCommentValue('')}
                                 style={{ display: commentValue ? undefined : 'none' }}
                             />
                         }
                     />
-                    <ActionIcon variant="transparent" size="xl" aria-label="Image">
+                    <IconButton variant="soft" size="3" aria-label="Image">
                         <FaImage size={24} />
-                    </ActionIcon>
+                    </IconButton>
                     <AnimatedDefaultButton
                         className=' py-1 px-3 disabled:cursor-not-allowed w-auto h-auto items-center text-[#fff] text-[14px] rounded-2xl'
                         whileHover={{

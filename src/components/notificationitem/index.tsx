@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from "framer-motion"
-import { Avatar, Indicator, Title } from '@mantine/core'
 import { IFunc } from '@/types/Function'
+import { Avatar, Text } from '@radix-ui/themes'
 
 interface ISearchItemProps {
     isRead: boolean
@@ -40,25 +40,29 @@ const NotificationItem: React.FunctionComponent<ISearchItemProps> = (props) => {
                     src="/src/assets/avatar.jpg"
                     alt="it's me"
                     className='cursor-pointer'
+                    fallback
                 />
                 <motion.div className='w-full flex flex-col'>
-                    <Title className='!text-[14px] !font-semibold'>Killian mentioned you in a comment, Killian mentioned you in a comment</Title>
-                    <Title className='!text-[12px] !text-[#6b7280] !font-medium'>4 hours ago</Title>
+                    <Text className='!text-[14px] !font-semibold'>Killian mentioned you in a comment, Killian mentioned you in a comment</Text>
+                    <Text className='!text-[12px] !text-[#6b7280] !font-medium'>4 hours ago</Text>
                 </motion.div>
             </motion.figure>
         </motion.section>
 
-        return isRead ? children : <Indicator
-            inline
-            size={14} 
-            offset={20}
-            disabled={isRead}
-            position="middle-end" 
-            color="blue" 
-            withBorder
-        >
-            {children}
-        </Indicator>
+        return (
+            <>
+                {children}
+            </>
+        )
+            // inline
+        //     size={14} 
+        //     offset={20}
+        //     disabled={isRead}
+        //     position="middle-end" 
+        //     color="blue" 
+        //     withBorder
+        // >            
+        // </Indicator>
     }
     return onRenderItem()
 }

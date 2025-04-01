@@ -2,13 +2,13 @@ import { IAction } from '@/types/Function'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { motion } from "framer-motion"
 import "./index.scss"
-import { ActionIcon, Divider, ScrollArea, Title } from '@mantine/core'
 import { IoCloseOutline } from "react-icons/io5";
 import { TooltipItem } from '@/utils'
 import { AnimatedButton } from '../animatedComponent'
 import { IoIosArrowRoundDown } from "react-icons/io";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { NotificationItem } from '../notificationitem'
+import { IconButton, ScrollArea, Text } from '@radix-ui/themes';
 
 export interface INotificationPanelProps {
     isOpen: boolean
@@ -37,29 +37,29 @@ const NotificationPanelView: React.FunctionComponent<INotificationPanelProps> = 
     }, [])
 
     const closeButton = useMemo(() => {
-        return <ActionIcon
+        return <IconButton
             color='gray'
             tabIndex={0}
-            size="xl"
-            variant="transparent"
+            size="3"
+            variant="soft"
             aria-label="Close"
             onClick={onClose}
         >
             <IoCloseOutline style={{ width: '70%', height: '70%' }} />
-        </ActionIcon>
+        </IconButton>
     }, [])
 
     const checkMarkAsReadButton = useMemo(() => {
-        return <ActionIcon
+        return <IconButton
             color='gray'
             tabIndex={0}
-            size="xl"
-            variant="transparent"
+            size="3"
+            variant="soft"
             aria-label="Mark as read"
             onClick={() => console.log("hello")}
         >
             <IoMdCheckmarkCircleOutline style={{ width: '50%', height: '50%' }} />
-        </ActionIcon>
+        </IconButton>
     }, [])
 
     return (
@@ -68,17 +68,17 @@ const NotificationPanelView: React.FunctionComponent<INotificationPanelProps> = 
             ref={panelRef}
             className='notification-panel-section w-96 h-[100vh] bg-white absolute top-0 bottom-0 left-[100%] z-10'
         >
-            <ScrollArea w={"100%"} h={"100vh"} scrollbarSize={8} type='hover'>
+            <ScrollArea type='hover'>
                 <motion.section className='w-full h-full py-5'>
                     <motion.header className='w-full h-full flex items-center justify-between px-4'>
-                        <Title tabIndex={0} className='!font-medium !text-[22px] text-[#3f4854]'>{headerTitle}</Title>
+                        <Text tabIndex={0} className='!font-medium !text-[22px] text-[#3f4854]'>{headerTitle}</Text>
                         <motion.article className='w-auto flex items-center justify-center gap-1'>
                             {TooltipItem(checkMarkAsReadButton, "Mark as read")}
                             {TooltipItem(closeButton, "Close")}
                         </motion.article>
                     </motion.header>
                     <motion.article className='w-full h-auto px-4 my-5 flex items-center justify-start'>
-                        <Title tabIndex={0} className='!text-[15px] !text-[#4b5563] font-medium'>New</Title>
+                        <Text tabIndex={0} className='!text-[15px] !text-[#4b5563] font-medium'>New</Text>
                     </motion.article>
                     <motion.article className='w-full h-auto px-4 my-5 flex flex-col gap-1'>
                         <NotificationItem isRead={false}/>
@@ -86,9 +86,9 @@ const NotificationPanelView: React.FunctionComponent<INotificationPanelProps> = 
                         <NotificationItem isRead={false}/>
                         <NotificationItem isRead={false}/>
                     </motion.article>
-                    <Divider className='w-full' my="0" size={"xs"} />
+                    {/* <Divider className='w-full' my="0" size={"xs"} /> */}
                     <motion.article className='w-full h-auto px-4 my-5 flex items-center justify-start'>
-                        <Title tabIndex={0} className='!text-[15px] !text-[#4b5563] font-medium'>This Week</Title>
+                        <Text tabIndex={0} className='!text-[15px] !text-[#4b5563] font-medium'>This Week</Text>
                     </motion.article>
                     <motion.article className='w-full h-auto px-4 my-5 flex flex-col gap-1'>
                         <NotificationItem isRead={false}/>
