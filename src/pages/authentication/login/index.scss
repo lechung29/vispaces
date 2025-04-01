@@ -1,6 +1,8 @@
 
 .common-validation-input {
-    padding-bottom: 1rem;
+    padding: 8px 4px;
+    box-shadow: var(--common-box-shadow);
+
     input.mantine-Input-input {
         color: #000;
         font-weight: 400;
@@ -65,6 +67,10 @@
 
 .auth-google-button-icon {
     font-size: 24px;
+}
+
+.animation-auth-form {
+    background-color: var(--auth-sub-background-color);
 }
 
 

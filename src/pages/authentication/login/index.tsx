@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
-import { AnimatedDefaultButton, TextField, SubmitButton } from '@/components';
+import { AnimatedDefaultButton, AnimationSubmitButton, AnimationTextField } from '@/components';
 import { GoEye } from "react-icons/go";
 import { GoEyeClosed } from "react-icons/go";
 import { useImmerState } from '@/hooks/useImmerState';
@@ -118,9 +118,17 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
 
     const isDisabledSubmit = isDisabledInput || isLoading
 
+    const [theme, setTheme] = useState<"light" | "dark">("light")
+
     return (
         <motion.section ref={scope}>
-            <motion.form className='lg:w-[400px] w-[320px] h-auto px-5 pt-3 pb-8 rounded-3xl bg-white flex flex-col gap-4 animation-auth-form'>
+            <button onClick={() => {
+                    setTheme(theme === "dark" ? "light" : "dark")
+                    document.documentElement.classList.toggle("dark", theme === "dark");
+                }}>
+                    Theme
+                </button>
+            <motion.form className='lg:w-[400px] w-[320px] h-auto px-5 pt-3 pb-8 rounded-3xl flex flex-col gap-4 animation-auth-form'>
                 <motion.figure className='common-login-logo w-full h-auto flex justify-center'>
                     <motion.img
                         className='h-[100px] object-cover cursor-pointer input-stagger-item'
@@ -129,8 +137,8 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                         onClick={() => navigate("/")}
                     />
                 </motion.figure>
-                <motion.section className='w-full h-auto flex flex-col gap-3'>
-                    <TextField
+                <motion.section className='w-full h-auto flex flex-col gap-4'>
+                    <AnimationTextField
                         className="common-validation-input input-stagger-item"
                         variant="soft"
                         placeholder="Email"
@@ -144,7 +152,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                             emailError: "",
                         })}
                     />
-                    <TextField
+                    <AnimationTextField
                         className="common-validation-input input-stagger-item"
                         variant="soft"
                         placeholder="Password"
@@ -156,9 +164,9 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                         rightSection={passwordIcon(showPassword)}
                         disabled={isDisabledInput}
                     />
-                    <SubmitButton
+                    <AnimationSubmitButton
                         className="input-stagger-item"
-                        displayText="'Sign in"
+                        displayText="Sign in"
                         disabled={isDisabledSubmit} 
                         isLoading={isLoading}
                         onClick={handleSubmit}

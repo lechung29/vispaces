@@ -1,20 +1,29 @@
 .text-input-wrapper {
-    margin-top: 0!important;
     flex: 1;
-
-    input.mantine-Input-input {
-        color: #000;
-        font-weight: 400;
-        font-size: 14px;
-    }
+    color: var(--default-black-color);
+    background-color: var(--primary-input-background-color);
     
-    .mantine-Input-input:focus-within {
+    &:focus-within {
         outline: none;
         border: none;
     }
 
-    .mantine-Input-input:focus {
+    &:focus {
         outline: none;
         border: none;
+    }
+
+    &:focus-visible {
+        outline: none;
+        border: none;
+    }
+
+    input {
+        font-size: 14px;
+        font-weight: 400;
+        &::placeholder {
+            color: var(--default-black-color);
+            font-weight: 500;
+        }
     }
 }

@@ -8,7 +8,7 @@ import { Button, ButtonProps } from '@radix-ui/themes';
 export interface ISubmitButtonChildrenProps extends IIconProps {
 }
 
-interface ISubmitButtonProps extends Omit<ButtonProps, "variant" | "color" | "loading" | "radius"> {
+export interface ISubmitButtonProps extends Omit<ButtonProps, "variant" | "color" | "loading" | "radius"> {
     displayText?: string;
     onClick?: IFunc1<any, void | Promise<void>>;
     isLoading?: boolean;
