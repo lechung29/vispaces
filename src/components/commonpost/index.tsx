@@ -11,7 +11,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { AnimatedDefaultButton } from '../animatedComponent';
 import { motion } from "framer-motion"
 import { Avatar, Badge, Button, IconButton, Text, Tooltip } from '@radix-ui/themes';
-import { TextField } from '../common/textfield';
+import { TextField } from '../common/textfield/TextField';
 
 interface ICommonPostProps {
 

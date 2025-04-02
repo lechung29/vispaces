@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { TextField, ITextInputProps } from "../../textfield";
+import { TextField, ITextInputProps } from "../../textfield/TextField";
 import { motion } from "framer-motion";
 
 const AnimationTextField: React.FunctionComponent<ITextInputProps> = (props) => {
