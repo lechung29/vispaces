@@ -6,9 +6,9 @@
     --auth-sub-background-color: white;
 
     /* Text */
-    --primary-text-color: black;
+    --primary-text-color: #362c2c;
     --default-white-color: white;
-    --default-black-color: black;
+    --default-black-color: #362c2c;
 
     /* Link */
     --primary-link-color: blue;
@@ -36,7 +36,7 @@
     /* Text */
     --primary-text-color: white;
     --default-white-color: white;
-    --default-black-color: black;
+    --default-black-color: #362c2c;
 
     /* Link */
     --primary-link-color: #d63c68;
