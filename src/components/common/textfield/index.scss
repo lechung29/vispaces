@@ -1,29 +1,65 @@
-.text-input-wrapper {
-    flex: 1;
-    color: var(--default-black-color);
-    background-color: var(--primary-input-background-color);
+.g-text-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+
+    .text-input-section {
+        flex: 1;
+        color: var(--default-black-color);
+        background-color: var(--primary-input-background-color);
+        
+        &:focus-within {
+            outline: none;
+            border: none;
+        }
     
-    &:focus-within {
-        outline: none;
-        border: none;
-    }
+        &:focus {
+            outline: none;
+            border: none;
+        }
+    
+        &:focus-visible {
+            outline: none;
+            border: none;
+        }
 
-    &:focus {
-        outline: none;
-        border: none;
-    }
-
-    &:focus-visible {
-        outline: none;
-        border: none;
-    }
-
-    input {
-        font-size: 14px;
-        font-weight: 400;
-        &::placeholder {
+        &:has(input:disabled) {
+            cursor: not-allowed;
+        }
+    
+        input {
+            font-size: 14px;
+            font-weight: 400;
             color: var(--default-black-color);
             font-weight: 500;
+
+            &::placeholder {
+                color: rgb(68, 66, 66);
+                font-weight: 500;
+            }
+
+            &:disabled {
+                -webkit-text-fill-color: rgb(68, 66, 66);
+                cursor: not-allowed;
+            }
         }
+
+        .g-clear-input-icon-button {
+            background-color: transparent;
+
+            &:hover {
+                background-color: transparent!important;
+            }
+        }
+
+    }
+
+    .errorMessage-input-section {
+        width: 100%;
+        font-size: 13px;
+        padding: 0 8px;
+        color: var(--errorMessage-color);
+        font-weight: 500;
     }
 }
