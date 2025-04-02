@@ -1,8 +1,9 @@
 /** @format */
 
 import React from "react";
-import { ISubmitButtonProps, SubmitButton } from "../../submitbutton";
+
 import { motion } from "framer-motion"
+import { ISubmitButtonProps, SubmitButton } from "../../submitbutton";
 
 const AnimationSubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
     const { buttonWidth, buttonHeight, ...rest } = props
