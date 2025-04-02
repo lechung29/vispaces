@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './index.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
-import { AnimationSubmitButton, AnimationTextField, ClearIconButton, defaultIconStyle, IconButton, PasswordIconButton } from '@/components';
+import { AnimationSubmitButton, AnimationTextField, ClearIconButton, defaultIconStyle, IconButton, Link, PasswordIconButton, Text } from '@/components';
 import { useImmerState } from '@/hooks/useImmerState';
 import { validateSignIn } from '../validation';
 import { AuthService } from '@/services';
@@ -13,7 +13,6 @@ import { useAppDispatch } from '@/redux/store/store';
 import { login, showNotification } from '@/redux/reducers';
 import { IoKeySharp } from "react-icons/io5";
 import { BiSolidUser } from "react-icons/bi";
-import { Text } from '@radix-ui/themes';
 
 interface ILoginViewProps { }
 
@@ -110,34 +109,32 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
 
     return (
         <motion.section ref={scope}>
-                <button onClick={() => {
-                    setTheme(theme === "dark" ? "light" : "dark")
-                    document.documentElement.classList.toggle("dark", theme === "dark");
-                }}>
-                    Theme
-                </button>
+            <button onClick={() => {
+                setTheme(theme === "dark" ? "light" : "dark")
+                document.documentElement.classList.toggle("dark", theme === "dark");
+            }}>
+                Theme
+            </button>
             <section className="animation-auth-form">
-                <div className='common-login-logo'>
+                <div className="common-login-logo">
                     <img
-                        className='common-login-logo-image input-stagger-item'
+                        className="common-login-logo-image input-stagger-item"
                         src="/src/assets/vi_space_logo.png"
                         alt="vi_space_logo"
-                        onClick={() => navigate("/")}
                     />
                 </div>
-                <div className='auth-form-content'>
+                <div className="auth-form-content">
                     <AnimationTextField
                         className="common-validation-input input-stagger-item"
-                        variant="soft"
+                        errorMessageClassName="input-stagger-item"
                         placeholder="Email"
                         name="email"
                         disabled={isDisabledInput}
                         value={email}
                         errorMessage={emailError}
-                        errorMessageClassName="input-stagger-item"
                         leftSection={<BiSolidUser style={defaultIconStyle} />}
                         rightSection={<ClearIconButton 
-                            className='g-clear-input-icon-button' 
+                            className="g-clear-input-icon-button"
                             radius="full"
                             variant="ghost" 
                             showClear={!!email}
@@ -150,17 +147,16 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                     />
                     <AnimationTextField
                         className="common-validation-input input-stagger-item"
-                        variant="soft"
+                        errorMessageClassName="input-stagger-item"
                         placeholder="Password"
                         name="password"
                         type={showPassword ? "text" : "password"}
                         disabled={isDisabledInput}
                         value={password}
                         errorMessage={passwordError}
-                        errorMessageClassName="input-stagger-item"
                         leftSection={<IoKeySharp style={defaultIconStyle}/>}
                         rightSection={<PasswordIconButton 
-                            className='g-clear-input-icon-button' 
+                            className="g-clear-input-icon-button" 
                             radius="full"
                             variant="ghost" 
                             showPassword={showPassword} 
@@ -172,7 +168,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                     />
                     <AnimationSubmitButton
                         className="input-stagger-item"
-                        displayText="Sign in"
+                        displayText="Sign In"
                         disabled={isDisabledSubmit} 
                         isLoading={isLoading}
                         onClick={handleSubmit}
@@ -182,7 +178,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                         }}
                     />
                 </div>
-                <div className='auth-form-footer-action input-stagger-item'>
+                <div className="auth-form-footer-action input-stagger-item">
                     <motion.div
                         whileHover={{
                             scale: 1.25,
@@ -195,13 +191,24 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                     >
                         <IconButton 
                             className="auth-google-button"
-                            iconElement={<FcGoogle className='auth-google-button-icon' />}
+                            iconElement={<FcGoogle className="auth-google-button-icon" />}
                         />
                     </motion.div>
                 </div>
-                <div className='auth-form-footer-link-section input-stagger-item'>
-                    <Text className="auth-form-footer-link-text">No account?</Text>
-                    <Link to="/sign-up" className='auth-form-footer-link'>John now</Link>
+                <div className="auth-form-footer-link-section input-stagger-item">
+                    <Text 
+                        className="auth-form-footer-link-text"
+                        displayText="No account?"
+                        as="p"
+                        wrap="wrap"
+                        trim="normal"
+                        truncate={true}
+                    />
+                    <Link 
+                        className="auth-form-footer-link" 
+                        to="/sign-up" 
+                        displayText="Sign Up"
+                    />
                 </div>
             </section>
         </motion.section>

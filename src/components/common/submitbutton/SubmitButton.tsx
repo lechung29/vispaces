@@ -21,7 +21,7 @@ export interface ISubmitButtonProps extends Omit<ButtonProps, "variant" | "color
 const defaultChildrenProps: ISubmitButtonChildrenProps = {
     withLoadingText: false,
     color: "white",
-    size: 16,
+    size: 14,
     fontWeight: "400"
 };
 
@@ -62,9 +62,10 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
             radius="full"
             style={{
                 ...props.style,
+                "--text-size": size,
                 height: (typeof buttonHeight === "number" )? `${buttonHeight}px` : buttonHeight,
                 width: (typeof buttonWidth === "number" )? `${buttonWidth}px` : buttonWidth
-            }}
+            } as React.CSSProperties}
             className={classNames("submit-primary-button", className )}
             disabled={disabled}
             onClick={handleClick}

@@ -15,7 +15,7 @@ export const PasswordIconButton = (props: PasswordIconButtonProps) => {
     const [internalShowPassword, setInternalShowPassword] = useControllableState<boolean>({
         value: showPassword,
         defaultValue: showPassword,
-        onChange: (value) => props.onShowPasswordChange?.(value),
+        onChange: (value) => props?.onShowPasswordChange?.(value),
     });
 
     const Icon = internalShowPassword ? GoEyeClosed : GoEye;

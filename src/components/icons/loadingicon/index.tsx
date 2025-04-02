@@ -2,6 +2,7 @@
 
 import React from "react";
 import "./index.scss";
+import { Text } from "@/components/common";
 
 export interface IIconProps {
     size?: number;
@@ -20,9 +21,15 @@ const LoadingIcon: React.FunctionComponent<Required<IIconProps>> = (props) => {
                 ))}
             </div>
             {withLoadingText && (
-                <div className="loading-text" style={{ "--button-color": color, "--font-weight": fontWeight } as React.CSSProperties}>
-                    Please waiting . . .
-                </div>
+                <Text 
+                    className="loading-text" 
+                    displayText="Please waiting . . ."
+                    as="p" 
+                    style={{ 
+                        "--button-color": color, 
+                        "--font-weight": fontWeight 
+                    } as React.CSSProperties} 
+                />
             )}
         </div>
     );

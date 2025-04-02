@@ -1,11 +1,9 @@
 import React from 'react';
 import './../login/index.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
-import { AnimatedDefaultButton, TextField, SubmitButton } from '@/components';
-import { GoEye } from "react-icons/go";
-import { GoEyeClosed } from "react-icons/go";
+import { AnimationTextField, defaultIconStyle, ClearIconButton, PasswordIconButton, AnimationSubmitButton, IconButton, Text, Link } from '@/components';
 import { useImmerState } from '@/hooks/useImmerState';
 import { validateSignUp } from '../validation';
 import { AuthService } from '@/services';
@@ -13,6 +11,9 @@ import { delay } from '@/utils';
 import { IResponseStatus } from '@/types/request';
 import { useAppDispatch } from '@/redux/store/store';
 import { showNotification } from '@/redux/reducers';
+import { BiSolidUser } from 'react-icons/bi';
+import { MdOutlineAlternateEmail } from "react-icons/md";
+import { IoKeySharp } from 'react-icons/io5';
 
 interface ISignUpViewProps { }
 
@@ -79,28 +80,6 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
         }
     }, [scope])
 
-    const passwordIcon = (status: boolean, onChangeStatus: (newStatus: boolean) => void) => {
-        const Icon = status ? GoEyeClosed : GoEye;
-        return (
-            <Icon
-                tabIndex={-1}
-                style={{ cursor: "pointer" }}
-                size={20}
-                color="gray"
-                onClick={() => onChangeStatus(!status)}
-                onMouseDown={(e) => e.preventDefault()}
-            />
-        );
-    };
-
-    const onChangeShowPassword = (status: boolean) => {
-        setState({ showPassword: status })
-    }
-
-    const onChangeShowConfirmPassword = (status: boolean) => {
-        setState({ showConfirmPassword: status })
-    }
-
     const onChangeInput = (value: string, event: React.ChangeEvent<HTMLInputElement>) => {
         setState((draft) => {
             draft[event.target.name] = value;
@@ -117,12 +96,14 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
         if (!valid) {
             await delay(1500).then(() => {
                 setState({ emailError, displayNameError, passwordError, confirmPasswordError, isLoading: false, isDisabledInput: false })
+                animate(scope.current, { x: [-10, 10, -10, 10, -5, 5, 0]}, { duration: 0.4 });
             })
         } else {
             const [data] = await Promise.all([AuthService.registerUser({ email, displayName, password }), delay(1500)])
             if (data) {
                 if (data.status === IResponseStatus.Error) {
                     setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage, isLoading: false, isDisabledInput: false })
+                    animate(scope.current, { x: [-10, 10, -10, 10, -5, 5, 0]}, { duration: 0.4 });
                 } else {
                     dispatch(showNotification({type: "success", message: data.message}))
                     setState({ isLoading: false })
@@ -134,63 +115,112 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
         }
     }
 
+    const [theme, setTheme] = React.useState<"light" | "dark">("light")
+
     return (
         <motion.section ref={scope}>
-            <motion.form className='lg:w-[400px] w-[320px] h-auto max-h-[600px] px-5 pt-3 pb-8 rounded-3xl bg-white flex flex-col gap-4 animation-auth-form'>
-                <motion.figure className='common-login-logo w-full h-auto flex justify-center'>
-                    <motion.img
-                        className='h-[100px] object-cover cursor-pointer input-stagger-item'
+            <button onClick={() => {
+                setTheme(theme === "dark" ? "light" : "dark")
+                document.documentElement.classList.toggle("dark", theme === "dark");
+            }}>
+                Theme
+            </button>
+            <section className="animation-auth-form">
+                <div className='common-login-logo'>
+                    <img
+                        className="common-login-logo-image input-stagger-item"
                         src="/src/assets/vi_space_logo.png"
                         alt="vi_space_logo"
-                        onClick={() => navigate("/")}
                     />
-                </motion.figure>
-                <motion.section className='w-full h-auto flex flex-col'>
-                    <TextField
+                </div>
+                <div className="auth-form-content">
+                    <AnimationTextField
                         className="common-validation-input input-stagger-item"
-                        variant="soft"
+                        errorMessageClassName="input-stagger-item"
                         placeholder="Email"
                         name="email"
-                        value={email}
-                        // error={emailError}
-                        onChange={onChangeInput}
                         disabled={isDisabledInput}
+                        value={email}
+                        errorMessage={emailError}
+                        leftSection={<BiSolidUser  style={defaultIconStyle} />}
+                        rightSection={<ClearIconButton 
+                            className="g-clear-input-icon-button"
+                            radius="full"
+                            variant="ghost" 
+                            showClear={!!email}
+                            onClick={() => setState({
+                                email: "",
+                                emailError: "",
+                            })}/>
+                        }
+                        onChange={onChangeInput}
                     />
-                    <TextField
+                    <AnimationTextField
                         className="common-validation-input input-stagger-item"
-                        variant="soft"
+                        errorMessageClassName="input-stagger-item"
                         placeholder="Display name"
                         name="displayName"
-                        value={displayName}
-                        // error={displayNameError}
-                        onChange={onChangeInput}
                         disabled={isDisabledInput}
+                        value={displayName}
+                        errorMessage={displayNameError}
+                        leftSection={<MdOutlineAlternateEmail style={defaultIconStyle} />}
+                        rightSection={<ClearIconButton 
+                            className="g-clear-input-icon-button"
+                            radius="full"
+                            variant="ghost" 
+                            showClear={!!displayName}
+                            onClick={() => setState({
+                                displayName: "",
+                                displayNameError: "",
+                            })}/>
+                        }
+                        onChange={onChangeInput}
                     />
-                    <TextField
+                    <AnimationTextField
                         className="common-validation-input input-stagger-item"
+                        errorMessageClassName="input-stagger-item"
                         placeholder="Password"
                         name="password"
-                        value={password}
-                        // error={passwordError}
                         type={showPassword ? "text" : "password"}
-                        rightSection={passwordIcon(showPassword, onChangeShowPassword)}
-                        onChange={onChangeInput}
                         disabled={isDisabledInput}
-                    />
-                    <TextField
+                        value={password}
+                        errorMessage={passwordError}
+                        leftSection={<IoKeySharp style={defaultIconStyle}/>}
+                        rightSection={<PasswordIconButton 
+                            className="g-clear-input-icon-button" 
+                            radius="full"
+                            variant="ghost" 
+                            showPassword={showPassword} 
+                            onShowPasswordChange={(showPassword) => {
+                                setState({ showPassword })
+                            }}/>
+                        }
+                        onChange={onChangeInput}
+                    />       
+                    <AnimationTextField
                         className="common-validation-input input-stagger-item"
-                        placeholder="Confirm password"
-                        name={"confirmPassword"}
-                        value={confirmPassword}
-                        // error={confirmPasswordError}
+                        errorMessageClassName="input-stagger-item"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
                         type={showConfirmPassword ? "text" : "password"}
-                        rightSection={passwordIcon(showConfirmPassword, onChangeShowConfirmPassword)}
-                        onChange={onChangeInput}
                         disabled={isDisabledInput}
+                        value={confirmPassword}
+                        errorMessage={confirmPasswordError}
+                        leftSection={<IoKeySharp style={defaultIconStyle}/>}
+                        rightSection={<PasswordIconButton 
+                            className="g-clear-input-icon-button" 
+                            radius="full"
+                            variant="ghost" 
+                            showPassword={showConfirmPassword} 
+                            onShowPasswordChange={(showConfirmPassword) => {
+                                setState({ showConfirmPassword })
+                            }}/>
+                        }
+                        onChange={onChangeInput}
                     />
-                    <SubmitButton 
+                    <AnimationSubmitButton
                         className="input-stagger-item"
-                        displayText="Sign up"
+                        displayText="Sign Up"
                         disabled={isDisabledSubmit} 
                         isLoading={isLoading}
                         onClick={handleSubmit}
@@ -199,10 +229,9 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                             withLoadingText: true,
                         }}
                     />
-                </motion.section>
-                <motion.section className='w-full h-auto flex items-center justify-center input-stagger-item'>
-                    <AnimatedDefaultButton
-                        className='px-2 bg-transparent auth-google-button'
+                </div>
+                <div className="auth-form-footer-action input-stagger-item">
+                    <motion.div
                         whileHover={{
                             scale: 1.25,
                             rotate: 360,
@@ -212,22 +241,28 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                             }
                         }}
                     >
-                        <FcGoogle className='auth-google-button-icon' />
-                    </AnimatedDefaultButton>
-                </motion.section>
-                <motion.section className='w-full h-auto flex items-center justify-center input-stagger-item gap-2'>
-                    {/* <Text
-                        size="sm"
-                        fw={500}
-                        c="#94a3b8"
-                    >
-                        Have an account?
-                    </Text> */}
-                    <Link to={"/login"} className='font-normal text-[14px] hover:font-medium hover:text-[#4763ff]'>
-                        Sign in
-                    </Link>
-                </motion.section>
-            </motion.form>
+                        <IconButton 
+                            className="auth-google-button"
+                            iconElement={<FcGoogle className="auth-google-button-icon" />}
+                        />
+                    </motion.div>
+                </div>
+                <div className="auth-form-footer-link-section input-stagger-item">
+                    <Text 
+                        className="auth-form-footer-link-text"
+                        displayText="Have an account?"
+                        as="p"
+                        wrap="wrap"
+                        trim="normal"
+                        truncate={true}
+                    />
+                    <Link 
+                        className="auth-form-footer-link" 
+                        to="/login" 
+                        displayText="Sign In"
+                    />
+                </div>
+            </section>
         </motion.section>
     );
 };
