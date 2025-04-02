@@ -1,7 +1,15 @@
-.common-auth-container {
+.g-common-auth-container {
     background: var(--auth-background-color);  
     background-size: 200% 200%;
     animation: linearBackground 8s ease-in infinite;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 8px;
 
     .g-notification-bar {
         top: 20px;

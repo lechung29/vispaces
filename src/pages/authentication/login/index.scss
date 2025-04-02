@@ -1,77 +1,148 @@
+.animation-auth-form {
+    width: 300px;
+    height: auto;
+    padding: 0.75rem 1.25rem 2rem;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--auth-sub-background-color);
 
-.common-validation-input {
-    padding: 8px 4px;
-    box-shadow: var(--common-box-shadow);
+    .common-login-logo {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
 
-    input.mantine-Input-input {
-        color: #000;
-        font-weight: 400;
-        font-size: 15px;
-
-        &[aria-invalid="true"] {
-            border: 1.75px solid red;
-            outline: 1.75px solid transparent;
-            outline-offset: 1.75px;
+        .common-login-logo-image {
+            height: 100px;
+            object-fit: cover;
+            cursor: pointer;
         }
+    }
+
+    .auth-form-content {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .common-validation-input {
+            padding: 8px 4px;
+            box-shadow: var(--common-box-shadow);
         
-        &::placeholder {
-            color: #4b5563;
+            input.mantine-Input-input {
+                color: #000;
+                font-weight: 400;
+                font-size: 15px;
+        
+                &[aria-invalid="true"] {
+                    border: 1.75px solid red;
+                    outline: 1.75px solid transparent;
+                    outline-offset: 1.75px;
+                }
+                
+                &::placeholder {
+                    color: #4b5563;
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+        
+                &:focus {
+                    &[aria-invalid="true"] {
+                        border: 2px solid red;
+                        outline: 2px solid transparent;
+                        outline-offset: 2px;
+                    }
+                }
+        
+            }
+        
+            input.mantine-PasswordInput-innerInput {
+                color: #000;
+                font-weight: 400;
+                
+                &::placeholder {
+                    color: #4b5563;
+                    font-weight: 500;
+                    font-size: 15px;
+                }
+        
+                &[aria-invalid="true"] {
+                    border: 1.75px solid red;
+                    outline: 1.75px solid transparent;
+                    outline-offset: 1.75px;
+                }
+        
+                &:focus {
+                    border: 1.75px solid #000;
+                    outline: 1.75px solid transparent;
+                    outline-offset: 1.75px;
+        
+                    &[aria-invalid="true"] {
+                        border: 2px solid red;
+                        outline: 2px solid transparent;
+                        outline-offset: 2px;
+                    }
+                }
+            }
+        
+            .mantine-PasswordInput-input:focus-within {
+                border: none;
+                outline: 1.75px solid transparent;
+            }
+        }
+    }
+
+    .auth-form-footer-action {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .auth-google-button {
+            padding: 0 0.25rem;
+            background-color: transparent;
+
+            &-icon {
+                font-size: 24px;
+            }
+        }
+    }
+
+    .auth-form-footer-link-section {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        .auth-form-footer-link-text {
             font-weight: 500;
             font-size: 14px;
+            color: var(--primary-text-color);
         }
 
-        &:focus {
-            &[aria-invalid="true"] {
-                border: 2px solid red;
-                outline: 2px solid transparent;
-                outline-offset: 2px;
-            }
-        }
+        .auth-form-footer-link {
+            font-weight: 400;
+            font-size: 14px;
 
-    }
-
-    input.mantine-PasswordInput-innerInput {
-        color: #000;
-        font-weight: 400;
-        
-        &::placeholder {
-            color: #4b5563;
-            font-weight: 500;
-            font-size: 15px;
-        }
-
-        &[aria-invalid="true"] {
-            border: 1.75px solid red;
-            outline: 1.75px solid transparent;
-            outline-offset: 1.75px;
-        }
-
-        &:focus {
-            border: 1.75px solid #000;
-            outline: 1.75px solid transparent;
-            outline-offset: 1.75px;
-
-            &[aria-invalid="true"] {
-                border: 2px solid red;
-                outline: 2px solid transparent;
-                outline-offset: 2px;
+            &:hover {
+                font-weight: 500;
+                color: var(--primary-link-color);
             }
         }
     }
 
-    .mantine-PasswordInput-input:focus-within {
-        border: none;
-        outline: 1.75px solid transparent;
+    @media screen and (min-width: 992px) {
+        width: 350px;
     }
 }
 
-.auth-google-button-icon {
-    font-size: 24px;
-}
 
-.animation-auth-form {
-    background-color: var(--auth-sub-background-color);
-}
 
 
 
