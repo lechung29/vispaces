@@ -3,9 +3,7 @@ import './index.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { FcGoogle } from "react-icons/fc";
-import { AnimatedDefaultButton, AnimationSubmitButton, AnimationTextField } from '@/components';
-import { GoEye } from "react-icons/go";
-import { GoEyeClosed } from "react-icons/go";
+import { AnimationSubmitButton, AnimationTextField, ClearIconButton, defaultIconStyle, IconButton, PasswordIconButton } from '@/components';
 import { useImmerState } from '@/hooks/useImmerState';
 import { validateSignIn } from '../validation';
 import { AuthService } from '@/services';
@@ -13,6 +11,9 @@ import { delay, mapUserInfoFromDataToState } from '@/utils';
 import { IResponseStatus } from '@/types/request';
 import { useAppDispatch } from '@/redux/store/store';
 import { login, showNotification } from '@/redux/reducers';
+import { IoKeySharp } from "react-icons/io5";
+import { BiSolidUser } from "react-icons/bi";
+import { Text } from '@radix-ui/themes';
 
 interface ILoginViewProps { }
 
@@ -69,21 +70,6 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
         }
     }, [scope])
 
-    const passwordIcon = (status: boolean) => {
-        const Icon = status ? GoEyeClosed : GoEye;
-
-        return (
-            <Icon
-                tabIndex={-1}
-                style={{ cursor: "pointer" }}
-                size={20}
-                color="gray"
-                onClick={() => setState({ showPassword: !status })}
-                onMouseDown={(e) => e.preventDefault()}
-            />
-        );
-    };
-
     const onChangeInput = (value: string, event: React.ChangeEvent<HTMLInputElement>) => {
         setState((draft) => {
             draft[event.target.name] = value;
@@ -98,12 +84,14 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
         if (!valid) {
             await delay(1500).then(() => {
                 setState({ emailError, passwordError, isLoading: false, isDisabledInput: false })
+                animate(scope.current, { x: [-10, 10, -10, 10, -5, 5, 0]}, { duration: 0.4 });
             })
         } else {
             const [data] = await Promise.all([AuthService.loginUser({ email, password }), delay(1500)])
             if (data) {
                 if (data.status === IResponseStatus.Error) {
                     setState({ [`${data?.fieldError?.fieldName}Error`]: data?.fieldError?.errorMessage, isLoading: false, isDisabledInput: false})
+                    animate(scope.current, { x: [-10, 10, -10, 10, -5, 5, 0] }, { duration: 0.4 });
                 } else {
                     dispatch(showNotification({type: "success", message: data.message}))
                     dispatch(login(mapUserInfoFromDataToState(data.data)))
@@ -122,47 +110,65 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
 
     return (
         <motion.section ref={scope}>
-            <button onClick={() => {
+                <button onClick={() => {
                     setTheme(theme === "dark" ? "light" : "dark")
                     document.documentElement.classList.toggle("dark", theme === "dark");
                 }}>
                     Theme
                 </button>
-            <motion.form className='lg:w-[400px] w-[320px] h-auto px-5 pt-3 pb-8 rounded-3xl flex flex-col gap-4 animation-auth-form'>
-                <motion.figure className='common-login-logo w-full h-auto flex justify-center'>
-                    <motion.img
-                        className='h-[100px] object-cover cursor-pointer input-stagger-item'
+            <section className="animation-auth-form">
+                <div className='common-login-logo'>
+                    <img
+                        className='common-login-logo-image input-stagger-item'
                         src="/src/assets/vi_space_logo.png"
                         alt="vi_space_logo"
                         onClick={() => navigate("/")}
                     />
-                </motion.figure>
-                <motion.section className='w-full h-auto flex flex-col gap-4'>
+                </div>
+                <div className='auth-form-content'>
                     <AnimationTextField
                         className="common-validation-input input-stagger-item"
                         variant="soft"
                         placeholder="Email"
                         name="email"
-                        value={email}
-                        // error={emailError}
                         disabled={isDisabledInput}
+                        value={email}
+                        errorMessage={emailError}
+                        errorMessageClassName="input-stagger-item"
+                        leftSection={<BiSolidUser style={defaultIconStyle} />}
+                        rightSection={<ClearIconButton 
+                            className='g-clear-input-icon-button' 
+                            radius="full"
+                            variant="ghost" 
+                            showClear={!!email}
+                            onClick={() => setState({
+                                email: "",
+                                emailError: "",
+                            })}/>
+                        }
                         onChange={onChangeInput}
-                        onClear={() => setState({
-                            email: "",
-                            emailError: "",
-                        })}
                     />
                     <AnimationTextField
                         className="common-validation-input input-stagger-item"
                         variant="soft"
                         placeholder="Password"
                         name="password"
-                        value={password}
-                        // error={passwordError}
-                        onChange={onChangeInput}
                         type={showPassword ? "text" : "password"}
-                        rightSection={passwordIcon(showPassword)}
                         disabled={isDisabledInput}
+                        value={password}
+                        errorMessage={passwordError}
+                        errorMessageClassName="input-stagger-item"
+                        leftSection={<IoKeySharp style={defaultIconStyle}/>}
+                        rightSection={<PasswordIconButton 
+                            className='g-clear-input-icon-button' 
+                            radius="full"
+                            variant="ghost" 
+                            showPassword={showPassword} 
+                            onShowPasswordChange={(showPassword) => {
+                                setState({ showPassword })
+                            }}/>
+                        }
+                        onChange={onChangeInput}
                     />
                     <AnimationSubmitButton
                         className="input-stagger-item"
@@ -175,10 +181,9 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                             withLoadingText: true,
                         }}
                     />
-                </motion.section>
-                <motion.section className='w-full h-auto flex items-center justify-center input-stagger-item'>
-                    <AnimatedDefaultButton
-                        className='px-2 bg-transparent auth-google-button'
+                </div>
+                <div className='auth-form-footer-action input-stagger-item'>
+                    <motion.div
                         whileHover={{
                             scale: 1.25,
                             rotate: 360,
@@ -188,22 +193,17 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                             }
                         }}
                     >
-                        <FcGoogle className='auth-google-button-icon' />
-                    </AnimatedDefaultButton>
-                </motion.section>
-                <motion.section className='w-full h-auto flex items-center justify-center input-stagger-item gap-2'>
-                    {/* <Text
-                        size="sm"
-                        fw={500}
-                        c="#94a3b8"
-                    >
-                        No account?
-                    </Text> */}
-                    <Link to={"/sign-up"} className='font-normal text-[14px] hover:font-medium hover:text-[#4763ff]'>
-                        John now
-                    </Link>
-                </motion.section>
-            </motion.form>
+                        <IconButton 
+                            className="auth-google-button"
+                            iconElement={<FcGoogle className='auth-google-button-icon' />}
+                        />
+                    </motion.div>
+                </div>
+                <div className='auth-form-footer-link-section input-stagger-item'>
+                    <Text className="auth-form-footer-link-text">No account?</Text>
+                    <Link to="/sign-up" className='auth-form-footer-link'>John now</Link>
+                </div>
+            </section>
         </motion.section>
     );
 };
