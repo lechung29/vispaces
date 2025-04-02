@@ -115,7 +115,20 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
         }
     }
 
-    const [theme, setTheme] = React.useState<"light" | "dark">("light")
+    const [theme, setTheme] = React.useState<"light" | "dark">(() => {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+    })
+
+    React.useEffect(() => {
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+        const handleChange = (e: MediaQueryListEvent) => {
+            setTheme(e.matches ? "dark" : "light");
+        };
+
+        mediaQuery.addEventListener("change", handleChange);
+        return () => mediaQuery.removeEventListener("change", handleChange);
+    }, []);
 
     React.useEffect(() => {
         document.documentElement.classList.toggle("dark", theme === "dark");
@@ -123,11 +136,6 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
 
     return (
         <motion.section ref={scope}>
-            <button onClick={() => {
-                setTheme(theme === "dark" ? "light" : "dark")
-            }}>
-                Theme
-            </button>
             <section className="animation-auth-form">
                 <div className='common-login-logo'>
                     <img
