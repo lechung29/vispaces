@@ -117,11 +117,14 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
 
     const [theme, setTheme] = React.useState<"light" | "dark">("light")
 
+    React.useEffect(() => {
+        document.documentElement.classList.toggle("dark", theme === "dark");
+    }, [theme])
+
     return (
         <motion.section ref={scope}>
             <button onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark")
-                document.documentElement.classList.toggle("dark", theme === "dark");
             }}>
                 Theme
             </button>

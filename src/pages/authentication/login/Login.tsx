@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.scss';
 import { useNavigate } from 'react-router-dom';
 import { motion, stagger, useAnimate } from 'framer-motion';
@@ -105,13 +105,16 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
 
     const isDisabledSubmit = isDisabledInput || isLoading
 
-    const [theme, setTheme] = useState<"light" | "dark">("light")
+    const [theme, setTheme] = React.useState<"light" | "dark">("light")
+    
+    React.useEffect(() => {
+        document.documentElement.classList.toggle("dark", theme === "dark");
+    }, [theme])
 
     return (
         <motion.section ref={scope}>
             <button onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark")
-                document.documentElement.classList.toggle("dark", theme === "dark");
             }}>
                 Theme
             </button>
