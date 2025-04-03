@@ -1,0 +1,38 @@
+/** @format */
+
+.g-new-follower-item-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .g-new-follower-item-userInfo {
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.75rem;
+
+        &-info {
+            width: max-content;
+            display: flex;
+            flex-direction: column;
+
+            &-text {
+                color: var(--primary-text-color);
+            }
+        }
+    }
+
+    .g-new-follower-item-action-button {
+        --button-cursor: pointer;
+        padding: 6px 12px;
+        overflow: hidden;
+        cursor: var(--button-cursor);
+        font-size: 12px;
+        width: 80px;
+        height: 32px;
+        color: var(--primary-text-color);
+        cursor: not-allowed;
+    }
+}
