@@ -2,13 +2,13 @@
 
 import React from "react";
 import "./index.scss";
-import { Text } from "@/components/common";
+import { ITextFontWeight, Text } from "@/components/common";
 
 export interface IIconProps {
     size?: number;
     color?: string;
     withLoadingText?: boolean;
-    fontWeight?: string
+    fontWeight?: ITextFontWeight
 }
 
 const LoadingIcon: React.FunctionComponent<Required<IIconProps>> = (props) => {

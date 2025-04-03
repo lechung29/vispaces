@@ -4,24 +4,26 @@ import React from 'react'
 import "./index.scss"
 import { classNames } from '@/utils';
 import { Button, ButtonProps } from '@radix-ui/themes';
+import { Text } from '../text';
 
 export interface ISubmitButtonChildrenProps extends IIconProps {
 }
 export interface ISubmitButtonProps extends Omit<ButtonProps, "variant" | "color" | "loading" | "radius"> {
-    displayText?: string;
+    displayText: string;
     onClick?: IFunc1<any, void | Promise<void>>;
     isLoading?: boolean;
     className?: string;
     buttonHeight?: number | string;
     buttonWidth?: number | string;
     childrenProps?: ISubmitButtonChildrenProps;
+    leftSection?: JSX.Element
 }
 
 const defaultChildrenProps: ISubmitButtonChildrenProps = {
     withLoadingText: false,
     color: "white",
     size: 14,
-    fontWeight: "400"
+    fontWeight: 400
 };
 
 const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
@@ -31,6 +33,7 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
         className, 
         disabled, 
         children, 
+        leftSection,
         buttonHeight = 40, 
         buttonWidth = "auto",
         childrenProps = {},
@@ -53,6 +56,18 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
     const isLoadingValue = React.useMemo(() => {
         return isLoading !== undefined ? isLoading : isLoadingPromise
     }, [isLoading, isLoadingPromise])
+
+    const onRenderDisplayText = () => {
+        return <div className="flex items-center justify-center gap-2">
+            {leftSection}
+            <Text 
+                as="p"
+                fw={fontWeight}
+                fontSize={size}
+                displayText={displayText}
+            />
+        </div>
+    }
     
     return (
         <Button
@@ -76,7 +91,7 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
                     size={size!}
                     fontWeight={fontWeight!} 
                 /> 
-                : displayText || children
+                : onRenderDisplayText() || children
             }
         </Button>
     )

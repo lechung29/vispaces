@@ -4,11 +4,11 @@ import { motion } from "framer-motion"
 import "./index.scss"
 import { IoCloseOutline } from "react-icons/io5";
 import { TooltipItem } from '@/utils'
-import { AnimatedButton } from '../animatedComponent'
 import { IoIosArrowRoundDown } from "react-icons/io";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { NotificationItem } from '../notificationitem'
 import { IconButton, ScrollArea, Text } from '@radix-ui/themes';
+import { SubmitButton } from '../common';
 
 export interface INotificationPanelProps {
     isOpen: boolean
@@ -102,9 +102,10 @@ const NotificationPanelView: React.FunctionComponent<INotificationPanelProps> = 
                         <NotificationItem isRead={false}/>
                     </motion.article>
                     <motion.section className='w-full h-auto px-4 my-3 flex items-center justify-center'>
-                        <AnimatedButton
+                        <SubmitButton
                             className='submit-primary-button disabled:cursor-not-allowed disabled:text-white w-auto h-auto !px-3 !py-1 text-[#fff] !text-[13px] !rounded-3xl'
                             disabled={true}
+                            displayText="Load more..."
                             leftSection={<motion.div
                                 whileInView={{
                                     scale: [0.5, 1],
@@ -119,9 +120,7 @@ const NotificationPanelView: React.FunctionComponent<INotificationPanelProps> = 
                             >
                                 <IoIosArrowRoundDown size={20} />
                             </motion.div>}
-                        >
-                            Load more
-                        </AnimatedButton>
+                        />
                     </motion.section>
                 </motion.section>
             </ScrollArea>

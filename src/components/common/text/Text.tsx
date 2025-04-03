@@ -7,10 +7,12 @@ export interface ITextRef {
 
 }
 
+export type ITextFontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+
 export type ITextProps = TextProps & {
     displayText: string;
     fontSize?: number;
-    fw?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+    fw?: ITextFontWeight;
     ref?: React.ForwardedRef<ITextRef>
 };
 
