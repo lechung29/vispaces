@@ -28,6 +28,7 @@ const TextFieldView: React.FunctionComponent<ITextInputProps> = (props) => {
         size = "3", 
         radius = "full", 
         variant = "soft", 
+        type = "text",
         haveSearchIcon = false, 
         leftSection, 
         rightSection, 
@@ -61,6 +62,7 @@ const TextFieldView: React.FunctionComponent<ITextInputProps> = (props) => {
                 {...rest}
                 autoComplete="off"
                 className={classNames("text-input-section", className)}
+                type={type}
                 size={size}
                 radius={radius}
                 variant={variant}

@@ -1,0 +1,49 @@
+/** @format */
+
+@import "@radix-ui/colors/black-alpha.css";
+@import "@radix-ui/colors/violet.css";
+
+.g-tooltipContent {
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 15px;
+    line-height: 1;
+    color: var(--tooltip-text-color);
+    font-weight: 500;
+    background-color: var(--tooltip-background-color);
+    box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+    max-width: 400px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: none;
+    animation-duration: 400ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+    transform-origin: var(--radix-tooltip-content-transform-origin);
+    animation: scaleIn 0.5s ease-out;
+
+    &-Text {
+        font-size: 14px;
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: wrap;
+        word-break: break-word;
+    }
+}
+
+.g-tooltipArrow {
+    fill: var(--tooltip-background-color);
+    // background-color: var(--tooltip-background-color);
+}
+
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}

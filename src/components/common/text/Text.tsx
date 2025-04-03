@@ -3,13 +3,31 @@
 import { Text, TextProps } from "@radix-ui/themes";
 import React from "react";
 
+export interface ITextRef {
+
+}
+
 export type ITextProps = TextProps & {
     displayText: string;
+    fontSize?: number;
+    fw?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+    ref?: React.ForwardedRef<ITextRef>
 };
 
-const TextView: React.FunctionComponent<ITextProps> = (props) => {
-    const { displayText, ...rest } = props;
-    return <Text {...rest}>{displayText}</Text>;
-};
+const TextView = React.forwardRef<ITextRef, ITextProps>((props, _ref) => {
+    const { displayText, style, fontSize = 16, fw = 400, ...rest } = props;
+    return (
+        <Text
+            {...rest}
+            style={{
+                ...style,
+                fontSize: `${fontSize}px!important`,
+                fontWeight: `${fw}!important`,
+            }}
+        >
+            {displayText}
+        </Text>
+    );
+});
 
 export { TextView as Text };

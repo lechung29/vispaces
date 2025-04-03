@@ -4,6 +4,8 @@
     /* Background */
     --auth-background-color: linear-gradient(90deg, #d63c68, #6a82fb);
     --auth-sub-background-color: white;
+    --main-background-color: #f6f9fb;
+    --main-sub-background-color: white;
 
     /* Text */
     --primary-text-color: #362c2c;
@@ -26,12 +28,18 @@
 
     /* Icon */
     --primary-icon-color: #d63c68;
+
+    /* Tooltip */
+    --tooltip-background-color: #362c2c;
+    --tooltip-text-color: white;
 }
 
 .dark {
     /* Background */
     --auth-background-color: rgba(15, 23, 42, 1);
     --auth-sub-background-color: rgba(75, 85, 99, 1);
+    --main-background-color: rgba(15, 23, 42, 1);
+    --main-sub-background-color: rgba(75, 85, 99, 1);
 
     /* Text */
     --primary-text-color: white;
@@ -54,4 +62,8 @@
 
     /* Icon */
     --primary-icon-color: #d63c68;
+
+    /* Tooltip */
+    --tooltip-background-color: white;
+    --tooltip-text-color: #362c2c;
 }

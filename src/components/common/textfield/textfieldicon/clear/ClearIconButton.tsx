@@ -3,7 +3,7 @@
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { defaultIconStyle, IconButton, IIconButtonProps } from "@/components";
 
-export type PasswordIconButtonProps = Omit<IIconButtonProps, "iconElement" | "style"> & {
+export type PasswordIconButtonProps = Omit<IIconButtonProps, "iconElement" | "style" | "ref"> & {
     showClear?: boolean;
 };
 

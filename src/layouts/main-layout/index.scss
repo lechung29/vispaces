@@ -1,5 +1,26 @@
-.common-layout-section {
+.g-main-layout-section {
     position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    .g-main-layout-scrollbar {
+        .rt-ScrollAreaScrollbar {
+            background-color: transparent;
+    
+            .rt-ScrollAreaThumb {
+                background-color: white;
+            }
+        }
+    }
+
+    &-outlet {
+        flex: 1;
+        min-height: 100vh;
+        background-color: var(--main-background-color);
+    }
 
     .g-notification-bar {
         top: 10px;

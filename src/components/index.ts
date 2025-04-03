@@ -1,4 +1,3 @@
-export * from "./animatedComponent";
 export * from "./storyavatar";
 export * from "./storylist";
 export * from "./newpost";

@@ -1,4 +1,5 @@
 export * from "./title-resolver"
 export * from "./main-layout"
 export * from "./auth-layout"
+export * from "./setting-layout"
 export * from "./navigation"

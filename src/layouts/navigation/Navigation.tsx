@@ -16,9 +16,10 @@ import { Breakpoint, classNames, useMinWidth } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/redux/store/store';
 import { logout, panelState, toggleNotificationPanel, toggleSearchPanel } from '@/redux/reducers';
 import { IAction, IFunc, IFunc2 } from '@/types/Function';
-import { NotificationPanel, SearchPanel, UserButton } from '@/components';
+import { Avatar, NotificationPanel, SearchPanel, Tooltip, UserButton } from '@/components';
 import { useImmerState } from '@/hooks/useImmerState';
-import { Tooltip } from '@radix-ui/themes';
+import { HoverCard } from 'radix-ui';
+import { Flex, ScrollArea } from '@radix-ui/themes';
 
 interface INavigateRouter {
     title: string;
@@ -29,7 +30,7 @@ interface INavigateRouter {
 }
 
 interface INavigationBarState {
-    userCardPosition: FloatingPosition
+    userCardPosition: "top" | "bottom"
 }
 
 const initialState: INavigationBarState = {
@@ -83,76 +84,36 @@ const NavigationView: React.FunctionComponent = () => {
 
         return (!isLarge || openSearchPanel || openNotificationsPanel)
             ? <Tooltip
-                content={item.title}
-                style={{
-                    color: "white",
-                    background: "linear-gradient(90deg,#d63c68,#6a82fb)",
-                    fontSize: "13px",
-                    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
-                }}
-                // style={{
-                //     arrow: {
-                //         background: "#d63c68"
-                //     }
-                // }}
-                // position={"right"}
-                // color="rgba(255, 255, 255, 1)"
-                // openDelay={100}
-                // closeDelay={100}
-                // arrowSize={6}
-                // transitionProps={{
-                //     transition: 'fade-right',
-                //     duration: 300
-                // }}
-                // withArrow
-                // events={{
-                //     focus: true,
-                //     hover: true,
-                //     touch: true,
-                // }}
-            >
-                {children}
-            </Tooltip>
+                tooltipContent={item.title}
+                element={children}
+            />
             : children
     }
 
     const onRenderUserCardMenu = (list: INavigateRouter[]) => {
-        return <Menu
-            shadow="xs"
-            width={240}
-            offset={2}
-            closeOnClickOutside
-            trigger='click-hover'
-            openDelay={200}
-            closeDelay={200}
-            onPositionChange={(position) => {
-                setState({ userCardPosition: position })
-            }}
-        >
-            <Menu.Target>
+        return <HoverCard.Root>
+            <HoverCard.Trigger asChild>
                 {(isLarge && !(openSearchPanel || openNotificationsPanel)) ? <UserButton
                     image='/src/assets/avatar.jpg'
                     name='Killian Le'
                     email='killian.le@avepoint.com'
                     menuPosition={userCardPosition}
                 /> : <motion.section className='w-full flex justify-center'>
-                    <Avatar
-                        size={"sm"}
-                        src={"/src/assets/avatar.jpg"}
-                        radius="xl"
-                        className="cursor-pointer"
+                    <Avatar 
+                        src="/src/assets/avatar.jpg"
+                        avatarName="killian.le"
+                        withTooltip={false}
                     />
                 </motion.section>}
-            </Menu.Target>
-            <Menu.Dropdown className='overflow-hidden !p-0 !rounded-xl'>
+            </HoverCard.Trigger>
+            <HoverCard.Portal>
+                <HoverCard.Content>
                 <motion.div className='w-full h-[6px] bg-gradient-to-r to-purple-500 via-red-500 from-pink-500' ></motion.div>
                 <motion.section className='w-full px-4 py-3'>
                     <motion.figure className='w-full flex items-center justify-center gap-3 mb-3'>
                         <Avatar
-                            size={28}
-                            src={"/src/assets/avatar.jpg"}
-                            radius="xl"
-                            className="cursor-pointer"
+                            src="/src/assets/avatar.jpg"
+                            avatarName="killian.le"
                         />
                         <motion.figcaption className='flex-1 flex flex-col gap-1'>
                             <motion.p className='font-semibold text-[#4b5563] text-[15px] leading-4'>Killian Le</motion.p>
@@ -170,11 +131,11 @@ const NavigationView: React.FunctionComponent = () => {
                         </motion.figcaption>
                     </motion.figure>
                 </motion.section>
-                <Divider className='w-full' my="2px" size={"xs"} />
+                {/* <Divider className='w-full' my="2px" size={"xs"} /> */}
                 <motion.section className='w-full px-2 py-1'>
-                    {list.map((item, index) => (<Menu.Item
+                    {list.map((item, index) => (<div
                         key={index}
-                        leftSection={item.icon}
+                        // leftSection={item.icon}
                         onClick={() => {
                             item?.onClick
                                 ? item.onClick()
@@ -182,10 +143,11 @@ const NavigationView: React.FunctionComponent = () => {
                         }}
                     >
                         {item.title}
-                    </Menu.Item>))}
+                    </div>))}
                 </motion.section>
-            </Menu.Dropdown>
-        </Menu>
+                </HoverCard.Content>
+            </HoverCard.Portal>
+        </HoverCard.Root>
     }
 
     const NavigateRouter: INavigateRouter[] = [
@@ -218,9 +180,9 @@ const NavigationView: React.FunctionComponent = () => {
                 dispatch(toggleSearchPanel(false))
                 dispatch(toggleNotificationPanel(true))
             },
-            icon: <motion.div className='w-auto h-auto relative'>
+            icon: <div className='w-auto h-auto relative'>
                 <IoMdHeartEmpty className="common-navigation-icon" />
-                <motion.span className="absolute flex w-3 h-3 top-0 right-0">
+                <span className="absolute flex w-3 h-3 top-0 right-0">
                     <motion.div
                         className='absolute w-2 h-2 rounded bg-red-300 top-0 right-0'
                         initial={{ scale: 1, opacity: 1 }}
@@ -236,9 +198,9 @@ const NavigationView: React.FunctionComponent = () => {
                             repeatType: "loop",
                         }}
                     />
-                    <motion.span className="absolute top-0 right-0 inline-flex rounded-full h-2 w-2 bg-red-500"></motion.span>
-                </motion.span>
-            </motion.div>
+                    <span className="absolute top-0 right-0 inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                </span>
+            </div>
         },
         {
             title: "Friends",
@@ -268,26 +230,49 @@ const NavigationView: React.FunctionComponent = () => {
         }
     ]
     return (
-        <motion.aside
+        <section
             ref={navigationRef}
-            className={`common-navigation-section relative p-2 h-screen border-r bg-white ${!isLarge ? "w-auto" : !(openSearchPanel || openNotificationsPanel) ? "w-[20%]" : "w-auto"}`}
+            className="common-navigation-section"
+            style={{
+                "--navigation-width": !isLarge
+                    ? "auto"
+                    : !(openSearchPanel || openNotificationsPanel)
+                        ? "20%"
+                        : "auto"
+            } as React.CSSProperties}
         >
-            <ScrollArea h={"calc(100vh - 1rem)"} type='never'>
-                <motion.img
+            <ScrollArea
+                className="g-navigation-scrollbar" 
+                size="1" 
+                type="scroll" 
+                scrollbars="vertical"
+                scrollHideDelay={1000}
+                style={{
+                    height: "100vh", 
+                }}
+            >
+                <img
                     src="/src/assets/vi_space_logo.png"
                     alt="vi_space"
-                    className={`w-full object-cover cursor-pointer pb-2 ${!isLarge ? "hidden" : !(openSearchPanel || openNotificationsPanel) ? "block" : "hidden"}`}
+                    className="g-navigation-logo"
+                    style={{
+                        "--logo-display": !isLarge
+                            ? "hidden"
+                            : !(openSearchPanel || openNotificationsPanel)
+                                ? "block"
+                                : "hidden"
+                    } as React.CSSProperties}
                     onClick={() => navigate("/")}
                 />
-                <Stack
-                    className={classNames('w-full', {
-                        "pt-5": !isLarge || openSearchPanel || openNotificationsPanel
-                    })}
-                    gap={"xs"}
+                <div 
+                    className="g-navigation-list"
+                    style={{
+                        "--item-padding-top": !isLarge || openSearchPanel || openNotificationsPanel ? "1.25rem" : 0
+                    } as React.CSSProperties}
                 >
                     {NavigateRouter.filter((item) => !item.fromUserCard).map((item, index) => <Fragment key={index}>{onRenderRouterItem(item, index)}</Fragment>)}
                     {onRenderUserCardMenu(NavigateRouter.filter(item => item.fromUserCard))}
-                </Stack>
+                </div>
             </ScrollArea>
             {openSearchPanel && <SearchPanel
                 headerTitle='Search'
@@ -303,7 +288,7 @@ const NavigationView: React.FunctionComponent = () => {
                 hasCloseButton={true}
                 parentRef={navigationRef}
             />}
-        </motion.aside>
+        </section>
     )
 }
 
