@@ -11,6 +11,12 @@ export const defaultIconStyle: React.CSSProperties = {
     color: "var(--primary-icon-color)"
 }
 
+export const bigIconStyle: React.CSSProperties = {
+    width: "28px",
+    height: "28px",
+    color: "var(--primary-icon-color)"
+}
+
 export interface IIconButtonRef {}
 
 export interface IIconButtonProps extends Omit<IconButtonProps, "highContrast" | "color"> {
