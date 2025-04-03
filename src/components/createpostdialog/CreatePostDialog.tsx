@@ -1,6 +1,5 @@
 /** @format */
 
-import { IAction } from "@/types/Function";
 import React from "react";
 import { TbClockHour3 } from "react-icons/tb";
 import { TextArea } from "@radix-ui/themes";
@@ -8,24 +7,21 @@ import { Dialog } from "radix-ui";
 import { AnimationSubmitButton, bigIconStyle, IconButton, Label, Text } from "../common";
 import { AiOutlineClose } from "react-icons/ai";
 
-interface ICreatePostDialog {
+interface IDialogProps {
     triggerButton: JSX.Element;
-    isOpen: boolean;
-    onClose: IAction;
-    title: string;
-    onSave: IAction;
+
 }
 
-const CreatePostDialog: React.FunctionComponent<ICreatePostDialog> = (props) => {
-    const { isOpen, triggerButton, title, onSave } = props;
+const CreatePostDialog: React.FunctionComponent<IDialogProps> = (props) => {
+    const { triggerButton } = props;
     return (
-        <Dialog.Root open={isOpen}>
+        <Dialog.Root>
             <Dialog.Trigger asChild>{triggerButton}</Dialog.Trigger>
             <Dialog.Portal>
                 <Dialog.Overlay className="g-DialogOverlay" />
             </Dialog.Portal>
             <Dialog.Content className="g-DialogContent">
-                <Dialog.Title className="g-DialogTitle">{title}</Dialog.Title>
+                <Dialog.Title className="g-DialogTitle">Create Status</Dialog.Title>
                 <div className="g-createPostDialog-content">
                     <div className="g-createPostDialog-message-status">
                         <Label displayText="What do you have in mind?" />
@@ -51,7 +47,7 @@ const CreatePostDialog: React.FunctionComponent<ICreatePostDialog> = (props) => 
                                 displayText="Create"
                                 buttonWidth="auto"
                                 buttonHeight={32}
-                                onClick={onSave}
+                                onClick={() => console.log("Save")}
                             />
                         </div>
                     </div>

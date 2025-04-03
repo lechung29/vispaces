@@ -5,6 +5,7 @@ import { delay } from "@/utils"
 import { Button } from "@radix-ui/themes"
 import "./index.scss"
 import { Avatar, Text } from "../common"
+import LoadingIcon from "../icons/loadingicon/LoadingIcon"
 
 interface INewFollowerItemProps {
 
@@ -34,7 +35,12 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
         let textColor: string = ""
         switch (followStatus) {
             case FollowButtonState.Following:
-                // title = <Loader size={14} color="rgba(255, 255, 255, 1)" />
+                title = <LoadingIcon 
+                    size={14}
+                    color="white"
+                    fontWeight={400}
+                    withLoadingText={false}
+                />
                 background = "#228be6"
                 textColor = "#fff"
                 break;
