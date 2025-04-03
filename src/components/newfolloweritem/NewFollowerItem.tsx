@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useMemo } from "react"
 import { motion } from "framer-motion"
-// import { Avatar, Button, Loader, Title } from '@mantine/core'
-import { useImmerState } from '@/hooks/useImmerState'
-import { IFunc } from '@/types/Function'
-import { classNames, delay } from '@/utils'
-import { Avatar, Button, Text } from '@radix-ui/themes'
+import { useImmerState } from "@/hooks/useImmerState"
+import { delay } from "@/utils"
+import { Button } from "@radix-ui/themes"
+import "./index.scss"
+import { Avatar, Text } from "../common"
 
 interface INewFollowerItemProps {
 
@@ -73,7 +73,7 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
         }
     }, [followStatus])
 
-    const onFollowUser: IFunc<Promise<void>> = () => {
+    const onFollowUser = async () => {
         if (followStatus === FollowButtonState.Following) {
             return Promise.resolve()
         }
@@ -82,32 +82,44 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
     }
 
     return (
-        <motion.section className='w-full flex items-center justify-between'>
-            <motion.article className='w-auto flex items-center justify-start gap-3'>
+        <section className="g-new-follower-item-section">
+            <div className="g-new-follower-item-userInfo">
                 <Avatar
                     src="/src/assets/avatar.jpg"
                     alt="it's me"
-                    className='cursor-pointer'
-                    fallback
+                    avatarName="Bach Le"
                 />
-                <motion.figcaption className='w-max flex flex-col'>
-                    <Text className='!text-[14px] !font-semibold'>Bach Le</Text>
-                    <Text className='!text-[12px] !text-[#6b7280] !font-medium'>Suggested For You</Text>
-                </motion.figcaption>
-            </motion.article>
+                <div className="g-new-follower-item-userInfo-info">
+                    <Text 
+                        className="g-new-follower-item-userInfo-info-text"
+                        displayText="Bach Le"
+                        as="p"
+                        fontSize={14}
+                        fw={500}
+                    />
+                    <Text 
+                        className="g-new-follower-item-userInfo-info-text"
+                        displayText="Suggested For You"
+                        as="p"
+                        fontSize={12}
+                        fw={500}    
+                    />
+                </div>
+            </div>
             <Button
-                className={classNames(`!px-3 !text-[${followButtonProperties.textColor}] overflow-hidden cursor-pointer !text-[12px] !w-[80px] !h-[32px] !py-[6px]`, {
-                    "!cursor-not-allowed": followStatus === FollowButtonState.Following
-                })}
-                // fw={500}
-                variant='soft'
-                radius={"full"}
+                className="g-new-follower-item-action-button"
+                style={{
+                    backgroundColor: followButtonProperties.background,
+                    color: followButtonProperties.textColor,
+                    "--button-cursor": followStatus === FollowButtonState.Following ? "not-allowed" : "pointer"
+                } as React.CSSProperties}
+                variant="soft"
+                radius="full"
                 onClick={onFollowUser}
-                // color={followButtonProperties.background}
             >
                 {followButtonProperties.title}
             </Button>
-        </motion.section>
+        </section>
     )
 }
 
