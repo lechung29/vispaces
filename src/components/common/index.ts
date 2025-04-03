@@ -7,4 +7,5 @@ export * from "./iconbutton";
 export * from "./text";
 export * from "./link";
 export * from "./avatar";
-export * from "./tooltip"
+export * from "./tooltip";
+export * from "./label";
