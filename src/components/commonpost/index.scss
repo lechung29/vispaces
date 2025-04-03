@@ -1,0 +1,194 @@
+/** @format */
+
+.g-common-post-section {
+    --tw-drop-shadow: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+    background-color: var(--main-sub-background-color);
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+
+    &-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .g-common-post-author-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+
+            .g-common-post-author-avatar {
+                cursor: pointer;
+            }
+
+            .g-common-post-author-username {
+                display: flex;
+                flex-direction: column;
+
+                &-name {
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+
+                &-time {
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: var(--primary-text-color);
+                }
+            }
+        }
+
+        .g-common-post-action-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        &-text {
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        &-media {
+            border-radius: 0.5rem;
+            height: auto;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &-action {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-list {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            .g-common-post-section-action-item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.25rem;
+
+                .g-common-post-section-action-item-count {
+                    color: var(--primary-text-color);
+                    font-weight: 500;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+
+    &-comment {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        &-item {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0.75rem;
+
+            &-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+
+                .g-common-post-section-comment-item-text {
+                    width: max-content;
+                    padding: 0.5rem 0.75rem;
+                    display: flex;
+                    flex-direction: column;
+                    border-radius: 1rem;
+                    position: relative;
+                    background-color: var(--main-background-color);
+
+                    .g-common-post-section-comment-item-notice {
+                        position: absolute;
+                        right: -25px;
+                        bottom: -10px;
+
+                        .g-common-post-section-comment-item-notice-text {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 0.25rem;
+                        }
+                    }
+                }
+
+                .g-common-post-section-comment-item-action {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: 1rem;
+                    width: 100%;
+
+                    .g-common-post-section-comment-item-action-default {
+                        cursor: pointer;
+                        color: var(--primary-text-color);
+                    }
+
+                    .item-action-active {
+                        color: var(--primary-link-color)
+                    }
+                }
+            }
+        }
+
+        &-loadMore {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.5rem;
+
+            &-text {
+                color: var(--primary-text-color);
+                cursor: pointer;
+
+                &:hover {
+                    color: var(--primary-link-color)
+                }
+            }
+        }
+    }
+
+    &-newComment {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+
+        &-input {
+            flex: 1;
+            margin-top: 0;
+        }
+    }
+}

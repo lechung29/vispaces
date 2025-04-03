@@ -1,12 +1,50 @@
+/** @format */
+
 .common-navigation-section {
+    --navigation-width: auto;
+    position: relative;
+    padding: 8px;
+    height: 100vh;
+    width: var(--navigation-width);
+    border-right-width: 1px;
+    background-color: var(--main-sub-background-color);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 
+    .g-navigation-logo {
+        --logo-display: hidden;
+        width: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        padding-bottom: 0.5rem;
+        display: var(--logo-display);
+
+    }
+
+    .g-navigation-list {
+        --item-padding-top: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding-top: var(--item-padding-top);
+    }
+
     .active {
-        background: linear-gradient(90deg,#d63c68,#6a82fb);  
+        background: linear-gradient(90deg, #d63c68, #6a82fb);
         color: #fff;
-    
+
         .common-navigation-icon {
             color: #fff;
+        }
+    }
+}
+
+.g-navigation-scrollbar {
+    .rt-ScrollAreaScrollbar {
+        background-color: transparent;
+
+        .rt-ScrollAreaThumb {
+            background-color: white;
         }
     }
 }

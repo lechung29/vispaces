@@ -11,11 +11,14 @@ export const defaultIconStyle: React.CSSProperties = {
     color: "var(--primary-icon-color)"
 }
 
+export interface IIconButtonRef {}
+
 export interface IIconButtonProps extends Omit<IconButtonProps, "highContrast" | "color"> {
-    iconElement: JSX.Element
+    iconElement: JSX.Element;
+    ref: React.ForwardedRef<IIconButtonRef>
 }
 
-const IconButtonView: React.FunctionComponent<IIconButtonProps> = (props) => {
+const IconButtonView = React.forwardRef<IIconButtonRef, IIconButtonProps>((props, _ref) => {
     const { 
         iconElement, 
         variant = "soft",
@@ -33,7 +36,7 @@ const IconButtonView: React.FunctionComponent<IIconButtonProps> = (props) => {
     >
         {iconElement}
     </IconButton>
-};
+})
 
 export {
     IconButtonView as IconButton

@@ -144,7 +144,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                         value={email}
                         errorMessage={emailError}
                         leftSection={<BiSolidUser style={defaultIconStyle} />}
-                        rightSection={<ClearIconButton 
+                        rightSection={<ClearIconButton
                             className="g-clear-input-icon-button"
                             radius="full"
                             variant="ghost" 

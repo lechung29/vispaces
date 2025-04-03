@@ -4,7 +4,7 @@ import { defaultIconStyle, IconButton, IIconButtonProps } from "@/components";
 import { useControllableState } from "@/hooks/useControlLabelState";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 
-export type PasswordIconButtonProps = Omit<IIconButtonProps, "iconElement" | "style"> & {
+export type PasswordIconButtonProps = Omit<IIconButtonProps, "iconElement" | "style" | "ref"> & {
     showPassword?: boolean;
     onShowPasswordChange?: (value: boolean) => void;
 };
