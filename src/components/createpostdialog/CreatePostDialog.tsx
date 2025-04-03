@@ -3,10 +3,9 @@
 import { IAction } from "@/types/Function";
 import React from "react";
 import { TbClockHour3 } from "react-icons/tb";
-import { motion } from "framer-motion";
-import { Text, TextArea } from "@radix-ui/themes";
+import { TextArea } from "@radix-ui/themes";
 import { Dialog } from "radix-ui";
-import { bigIconStyle, IconButton, Label } from "../common";
+import { AnimationSubmitButton, bigIconStyle, IconButton, Label, Text } from "../common";
 import { AiOutlineClose } from "react-icons/ai";
 
 interface ICreatePostDialog {
@@ -18,7 +17,7 @@ interface ICreatePostDialog {
 }
 
 const CreatePostDialog: React.FunctionComponent<ICreatePostDialog> = (props) => {
-    const { isOpen, triggerButton, onClose, title, onSave } = props;
+    const { isOpen, triggerButton, title, onSave } = props;
     return (
         <Dialog.Root open={isOpen}>
             <Dialog.Trigger asChild>{triggerButton}</Dialog.Trigger>
@@ -30,29 +29,32 @@ const CreatePostDialog: React.FunctionComponent<ICreatePostDialog> = (props) => 
                 <div className="g-createPostDialog-content">
                     <div className="g-createPostDialog-message-status">
                         <Label displayText="What do you have in mind?" />
-                        <TextArea label="What do you have in mind?" placeholder="Please enter your mind here..." radius="full" rows={4} />
+                        <TextArea 
+                            placeholder="Please enter your mind here..." 
+                            radius="full" 
+                            rows={4} 
+                        />
                     </div>
-                    <motion.section className="action-footer w-full mt-4 mb-2 flex items-center justify-between">
-                        <motion.section className="footer-note flex justify-center items-center w-[50%] gap-2">
-                            <TbClockHour3 size={30} color="#0284c7" />
-                            <Text className="!text-[14px] text-[#4b5563] flex-1 !font-medium">Your Status will be available for 24 Hours</Text>
-                        </motion.section>
-                        <motion.section className="footer-buttons flex justify-end items-center w-[50%]">
-                            <AnimatedButton
-                                className="py-2 px-8 bg-[#3b82f6] disabled:cursor-not-allowed w-auto h-auto text-white font-medium items-center rounded-lg"
-                                whileHover={{
-                                    scale: 1.025,
-                                    transition: {
-                                        type: "spring",
-                                        stiffness: 1000,
-                                    },
-                                }}
+                    <div className="g-createPostDialog-action-footer">
+                        <div className="g-createPostDialog-action-footer-note">
+                            <TbClockHour3 style={bigIconStyle} />
+                            <Text 
+                                className="g-createPostDialog-action-footer-note-text"
+                                displayText="Your Status will be available for 24 Hours"
+                                fontSize={14}
+                                fw={500}
+                            />
+                        </div>
+                        <div className="g-createPostDialog-action-footer-buttons-list">
+                            <AnimationSubmitButton
+                                className="g-createPostDialog-action-footer-buttons-item"
+                                displayText="Create"
+                                buttonWidth="auto"
+                                buttonHeight={32}
                                 onClick={onSave}
-                            >
-                                Create
-                            </AnimatedButton>
-                        </motion.section>
-                    </motion.section>
+                            />
+                        </div>
+                    </div>
                 </div>
                 <Dialog.Close asChild>
                     <IconButton 
