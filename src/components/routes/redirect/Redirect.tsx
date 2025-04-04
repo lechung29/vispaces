@@ -1,8 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { motion } from "framer-motion"
-import LoadingIcon from "@/components/icons/loadingicon";
 import "./index.scss"
+import { LoadingIcon } from "@/components/icons";
 
 interface IRedirectPageProps {
 	to: string;
@@ -28,10 +27,15 @@ const RedirectToAuth: React.FunctionComponent<IRedirectPageProps> = (props) => {
 	}, [count, navigate, location, props.to]);
     
 	return (
-		<motion.section className="g-redirect-page-section">
-            <LoadingIcon color="#5488c7" size={20} />
-			<motion.p style={{ textAlign: "center"}}>{message}</motion.p>
-		</motion.section>
+		<section className="g-redirect-page-section">
+            <LoadingIcon 
+				color="#5488c7"
+				fontWeight={500}
+				withLoadingText={false} 
+				size={20} 
+			/>
+			<p style={{ textAlign: "center"}}>{message}</p>
+		</section>
 	);
 };
 
