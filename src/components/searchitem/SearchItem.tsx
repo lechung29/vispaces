@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react'
-import { FollowButtonState } from '../newfolloweritem'
-import { useImmerState } from '@/hooks/useImmerState'
+import React from "react"
+import { FollowButtonState } from "../newfolloweritem"
+import { useImmerState } from "@/hooks/useImmerState"
 import { motion } from "framer-motion"
-import { IFunc } from '@/types/Function'
-import { classNames, delay } from '@/utils'
-import { Avatar, Button, Text } from '@radix-ui/themes'
+import { IFunc } from "@/types/Function"
+import { delay } from "@/utils"
+import "./index.scss"
+import { Avatar, SubmitButton, Text } from "../common"
 
 interface ISearchItemProps {
     isFollowed?: boolean
@@ -23,7 +24,7 @@ const SearchItem: React.FunctionComponent<ISearchItemProps> = (props) => {
     const [state, setState] = useImmerState<ISearchItemState>(initialState)
     const { followStatus } = state
 
-    const followButtonProperties = useMemo(() => {
+    const followButtonProperties = React.useMemo(() => {
         let title: React.ReactNode
         let background: string = ""
         let textColor: string = ""
@@ -77,32 +78,41 @@ const SearchItem: React.FunctionComponent<ISearchItemProps> = (props) => {
             .then(() => setState({ followStatus: FollowButtonState.Followed }))
     }
     return (
-        <motion.section className='w-full flex items-center justify-between hover:bg-[#f1f0f9] px-2 py-3 rounded-xl cursor-pointer'>
-            <motion.figure className='w-auto flex items-center justify-start gap-3'>
+        <section className="g-search-item-section">
+            <div className="g-search-item-section-info">
                 <Avatar
                     src="/src/assets/avatar.jpg"
                     alt="it's me"
-                    className='cursor-pointer'
-                    fallback
+                    avatarName="Bach Le"
                 />
-                <motion.div className='w-max flex flex-col'>
-                    <Text className='!text-[14px] !font-semibold'>Bach Le</Text>
-                    <Text className='!text-[12px] !text-[#6b7280] !font-medium'>Suggested For You</Text>
-                </motion.div>
-            </motion.figure>
-            {!isFollowed && <Button
-                className={classNames(`!px-3 !text-[${followButtonProperties.textColor}] overflow-hidden cursor-pointer !text-[12px] !w-[80px] !h-[32px] !py-[6px]`, {
-                    "!cursor-not-allowed": followStatus === FollowButtonState.Following
-                })}
-                // fw={500}
-                variant='soft'
-                radius={"full"}
+                <div className="g-search-item-section-info-text">
+                    <Text 
+                        as="p"
+                        fontSize={14}
+                        fw={500}
+                        displayText="Bach Le"
+                    />
+                    <Text 
+                        as="p"
+                        fontSize={12}
+                        fw={500}
+                        displayText="Suggested For You"
+                    />
+                </div>
+            </div>
+            {!isFollowed && <SubmitButton
+                className="g-search-item-section-action"
+                disabled={followStatus === FollowButtonState.Following}
+                style={{
+                    background: followButtonProperties.background,
+                    color: followButtonProperties.textColor
+                }}
+                buttonHeight={32}
+                buttonWidth={80}
                 onClick={onFollowUser}
-                // color={followButtonProperties.background}
-            >
-                {followButtonProperties.title}
-            </Button>}
-        </motion.section>
+                children={followButtonProperties.title}
+            />}
+        </section>
     )
 }
 

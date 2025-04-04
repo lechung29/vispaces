@@ -9,7 +9,7 @@ import { Text } from '../text';
 export interface ISubmitButtonChildrenProps extends IIconProps {
 }
 export interface ISubmitButtonProps extends Omit<ButtonProps, "variant" | "color" | "loading" | "radius"> {
-    displayText: string;
+    displayText?: string;
     onClick?: IFunc1<any, void | Promise<void>>;
     isLoading?: boolean;
     className?: string;
@@ -58,15 +58,16 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
     }, [isLoading, isLoadingPromise])
 
     const onRenderDisplayText = () => {
-        return <div className="flex items-center justify-center gap-2">
-            {leftSection}
-            <Text 
-                as="p"
-                fw={fontWeight}
-                fontSize={size}
-                displayText={displayText}
-            />
-        </div>
+        return displayText
+            ? <div className="flex items-center justify-center gap-2">
+                {leftSection}
+                <Text 
+                    as="p"
+                    fw={fontWeight}
+                    fontSize={size}
+                    displayText={displayText}
+                />
+            </div> : children
     }
     
     return (
@@ -91,7 +92,7 @@ const SubmitButton: React.FunctionComponent<ISubmitButtonProps> = (props) => {
                     size={size!}
                     fontWeight={fontWeight!} 
                 /> 
-                : onRenderDisplayText() || children
+                : onRenderDisplayText()
             }
         </Button>
     )
