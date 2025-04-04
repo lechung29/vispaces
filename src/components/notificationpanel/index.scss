@@ -1,6 +1,88 @@
-.notification-panel-section {
+.g-notification-panel-section {
+    width: 24rem;
+    height: 100vh;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    background-color: var(--main-sub-background-color);
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    z-index: 10;
 
+    .g-notification-panel-scrollbar {
+        .rt-ScrollAreaScrollbar {
+            background-color: transparent;
+    
+            .rt-ScrollAreaThumb {
+                background-color: white;
+            }
+        }
+    }
+
+    .g-notification-panel-container {
+        width: 100%;
+        height: 100%;
+        padding: 1.25rem;
+
+        .g-notification-panel-header {
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+
+            .g-notification-panel-header-title {
+                color: var(--primary-text-color);
+            }
+
+
+            .g-notification-panel-header-action {
+                width: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.25rem;
+            }
+        }
+
+        .g-notification-panel-newNotifications-text {
+            width: 100%;
+            height: auto;
+            padding: 0 1rem;
+            margin: 1.25rem 0;
+            text-align: start;
+            color: var(--primary-text-color);
+        }
+
+        .g-notification-panel-newNotifications-content {
+            width: 100%;
+            height: auto;
+            padding: 0 1rem;
+            margin: 1.25rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .g-notification-panel-footer {
+            width: 100%;
+            height: auto;
+            padding: 0 1rem;
+            margin: 0.75rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .g-notification-panel-footer-button {
+                font-size: 13px;
+                color: var(--primary-text-color);
+                padding: 0.25rem 0.75rem;
+                border-radius: 1.5rem;
+            }
+        }
+
+        
+    }
     .search-input {
         .mantine-Input-input:focus-within {
             outline: none;
@@ -11,8 +93,4 @@
             color: #4d4b4b;
         }
     }
-}
-
-.mantine-Button-section {
-    margin-inline-end: 4px !important;
 }

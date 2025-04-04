@@ -1,4 +1,4 @@
-import LoadingIcon, { IIconProps } from '@/components/icons/loadingicon';
+import { LoadingIcon, IIconProps } from '@/components/icons/loadingicon';
 import { IFunc1 } from '@/types/Function';
 import React from 'react'
 import "./index.scss"
