@@ -3,9 +3,9 @@ import "./index.css";
 import { AuthLayout, Layout } from "./layouts";
 import { TitleResolver } from "./layouts"
 import { Home, Login, MessagePage, SignUp, SocialSetting, GeneralSetting, NotificationSettings, PrivacySettings, PasswordSettings } from "./pages";
-import 'react-photo-view/dist/react-photo-view.css';
-import ProtectedRoute from "./components/routes/protectedroute";
+import "react-photo-view/dist/react-photo-view.css";
 import { SettingLayout } from "./layouts/setting-layout/SettingLayout";
+import { ProtectedRoute } from "@/components"
 
 const App = () => {
     return (

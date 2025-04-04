@@ -39,4 +39,6 @@ const RedirectToAuth: React.FunctionComponent<IRedirectPageProps> = (props) => {
 	);
 };
 
-export default RedirectToAuth;
+export {
+	RedirectToAuth
+}
