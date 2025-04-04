@@ -1,9 +1,89 @@
-.setting-navigation-tab-item {
-    border-bottom: 2px solid transparent;
-    &:has(.active) {
-        border-bottom: 2px solid #3b82f6;
-        .active {
-            color: #3b82f6;
+.g-setting-navigation-card-section {
+    background-color: var(--main-sub-background-color);
+    border-radius: 12px;
+    border-color: #e2e8f0;
+    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+
+    .g-setting-navigation-card-section-info {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        padding: 1.5rem;
+        gap: 1rem;
+
+        .g-setting-navigation-card-section-userInfo {
+            flex: 1;
+
+            &-name {
+                color: var(--primary-text-color);
+                font-size: 1rem;
+                line-height: 1.5rem
+            }
+
+            &-displayName {
+                color: var(--primary-link-color);
+                line-height: 1.25rem;
+                margin-top: 4px;
+            }
+        }
+    }
+
+    .g-setting-navigation-card-section-separator {
+        background-color: var(--primary-text-color);
+        height: 1px;
+    }
+
+    .g-setting-navigation-card-section-router {
+        position: relative;
+        width: 100%;
+        padding: 0 0.5rem;
+
+        .g-setting-navigation-card-section-swiper {
+            width: 100%;
+            height: auto;
+
+            .setting-navigation-tab-item {
+                margin-right: 0;
+                width: auto;
+                height: 100%;
+                padding: 1rem 0;
+                border-bottom: 2px solid transparent;
+
+                .setting-navigation-tab-item-link {
+                    font-weight: 600;
+                    font-size: 14px;
+                    color: var(--primary-text-color);
+                    padding: 1rem 1.5rem;
+                }
+                
+                &:has(.setting-navigation-tab-item-link-active) {
+                    border-bottom: 2px solid var(--primary-link-color);
+                    .setting-navigation-tab-item-link-active {
+                        color: var(--primary-link-color);
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        & {
+            .g-setting-navigation-card-section-info {
+                padding: 2rem;
+                padding: 2.5rem;
+
+                .g-setting-navigation-card-section-userInfo {
+
+                    &-name {
+                        color: var(--primary-text-color);
+                        font-size: 1.25rem;
+                        line-height: 1.75rem
+                    }
+                }
+            }
         }
     }
 }

@@ -1,8 +1,6 @@
 /** @format */
 
 import React from "react";
-import { motion } from "framer-motion";
-import UpdateAvatar from "./UpateAvatar";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperInstance } from "swiper";
@@ -10,9 +8,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { Link } from "react-router-dom";
 import "./settingnavigationcard.scss"
 import { classNames } from "@/utils";
+import { Link, Text } from "../common";
+import { Separator } from "radix-ui";
+import { UpdateAvatar } from "./UpdateAvatar";
 
 export interface ICommonNavigationRouterProps {
     title: string;
@@ -46,34 +46,51 @@ const SettingNavigationCard: React.FunctionComponent = () => {
     ]
 
     return (
-        <motion.section className="bg-white border-slate-200 rounded-xl shadow-sm">
-            <motion.section className="w-full h-auto flex items-center md:p-10 p-6 md:gap-8 gap-4">
+        <section className="g-setting-navigation-card-section">
+            <div className="g-setting-navigation-card-section-info">
                 <UpdateAvatar />
-                <motion.div className="flex-1">
-                    <motion.h3 className="md:text-xl text-base font-semibold text-black">Killian Le</motion.h3>
-                    <motion.p className="text-sm text-blue-600 mt-1 font-medium">@Killian</motion.p>
-                </motion.div>
-            </motion.section>
-            <motion.hr className="border-t border-gray-100 dark:border-slate-700" />
-            <motion.section className="relative w-full px-2">
+                <div className="g-setting-navigation-card-section-userInfo">
+                    <Text 
+                        className="g-setting-navigation-card-section-userInfo-name" 
+                        as="p"
+                        displayText="Killian Le"
+                        fw={500}
+                    />
+                    <Text 
+                        className="g-setting-navigation-card-section-userInfo-displayName"
+                        as="p"
+                        fontSize={14}
+                        displayText="@Killian"
+                        fw={500}
+                    />
+                </div>
+            </div>
+            <Separator.Root className="g-setting-navigation-card-section-separator"/>
+            <div className="g-setting-navigation-card-section-router">
                 <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                     spaceBetween={50}
                     slidesPerView={9}
-                    className="w-full h-auto"
+                    className="g-setting-navigation-card-section-swiper"
                     onSwiper={(swiper) => {
                         swiperRef.current = swiper;
                     }}
                 >
                     {settingNavigationRouter.map((item, index) => (
-                        <SwiperSlide key={index} className="setting-navigation-tab-item !mr-0 !w-auto !h-full py-4">
-                            <Link className={classNames("font-semibold text-[14px] text-[#627b80] px-6 py-4", {"active": window.location.pathname === item.path})} to={item.path}>{item.title}</Link>
+                        <SwiperSlide key={index} className="setting-navigation-tab-item">
+                            <Link 
+                                className={classNames("setting-navigation-tab-item-link", {"setting-navigation-tab-item-link-active": window.location.pathname === item.path})} 
+                                to={item.path}
+                                displayText={item.title}
+                            />
                         </SwiperSlide>
                     ))}
                 </Swiper>
-            </motion.section>
-        </motion.section>
+            </div>
+        </section>
     );
 };
 
-export default SettingNavigationCard;
+export {
+    SettingNavigationCard
+}

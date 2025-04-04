@@ -1,10 +1,9 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { IAction } from "@/types/Function";
-import SettingNavigationCard from "@/components/settingnavigation/SettingNavigationCard";
-import SettingNavigationContent from "@/components/settingnavigation/SettingNavigationContent";
+import { defaultIconStyle, SettingNavigationCard, SettingNavigationContent, Text } from "@/components";
+import "./index.scss"
 
 
 export interface ISettingLayoutProps {}
@@ -15,17 +14,28 @@ const SettingLayout: React.FunctionComponent<ISettingLayoutProps> = () => {
     const backToPreviousPage: IAction = () => {
         navigate(-1);
     }
-    return <motion.section className="h-full w-full max-w-2xl py-6 md:mx-auto mx-8 relative">
-        <motion.div className="settings-title-part w-full py-6 mb-4 h-full">
-            <motion.div className="flex items-center gap-1 mb-1">
-                <IoChevronBack size={14} color="3b82f6"/>
-                <motion.span className="text-[#3b82f6] text-[14px] font-semibold cursor-pointer" onClick={backToPreviousPage}>Back</motion.span>
-            </motion.div>
-            <motion.h1 className="settings-title text-[30px] text-black font-black">Settings</motion.h1>
-        </motion.div>
+    return <section className="g-setting-layout-section">
+        <div className="g-settings-title-part">
+            <div className="g-settings-title-part-button">
+                <IoChevronBack style={defaultIconStyle}/>
+                <Text 
+                    className="g-settings-title-part-button-text"
+                    displayText="Back"
+                    fontSize={14}
+                    fw={400}
+                    onClick={backToPreviousPage}
+                />
+            </div>
+            <Text 
+                className="g-settings-title-part-page-name"
+                displayText="Settings"
+                fontSize={30}
+                fw={900}
+            />
+        </div>
         <SettingNavigationCard />
         <SettingNavigationContent />
-    </motion.section>;
+    </section>;
 };
 
 export { SettingLayout };
