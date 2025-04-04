@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import "./index.scss";
 import { ScrollArea } from "@radix-ui/themes";
 
-export const AuthLayout: React.FunctionComponent = () => {
+const AuthLayout: React.FunctionComponent = () => {
     return (
         <ScrollArea 
             className="g-auth-layout-scrollbar"
@@ -23,3 +23,7 @@ export const AuthLayout: React.FunctionComponent = () => {
         </ScrollArea>
     );
 };
+
+export {
+    AuthLayout
+}

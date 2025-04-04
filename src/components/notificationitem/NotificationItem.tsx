@@ -4,7 +4,7 @@ import React from "react";
 import { useImmerState } from "@/hooks/useImmerState";
 import { FollowButtonState } from "../newfolloweritem";
 import { delay } from "@/utils";
-import './index.scss'
+import "./index.scss"
 import { Avatar, Text } from "../common";
 
 interface ISearchItemProps {
@@ -42,7 +42,7 @@ const NotificationItem: React.FunctionComponent<ISearchItemProps> = (props) => {
             <div className="g-notification-item-section-info">
                 <Avatar 
                     src="/src/assets/avatar.jpg"
-                    alt="it's me"
+                    alt="its me"
                     avatarName="Killian" 
                 />
                 <div className="g-notification-item-section-info-content">

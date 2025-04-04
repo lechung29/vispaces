@@ -1,19 +1,19 @@
-import React from 'react';
-import './../login/index.scss';
-import { useNavigate } from 'react-router-dom';
-import { motion, stagger, useAnimate } from 'framer-motion';
+import React from "react";
+import "./../login/index.scss";
+import { useNavigate } from "react-router-dom";
+import { motion, stagger, useAnimate } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
-import { AnimationTextField, defaultIconStyle, ClearIconButton, PasswordIconButton, AnimationSubmitButton, IconButton, Text, Link } from '@/components';
-import { useImmerState } from '@/hooks/useImmerState';
-import { validateSignUp } from '../validation';
-import { AuthService } from '@/services';
-import { delay } from '@/utils';
-import { IResponseStatus } from '@/types/request';
-import { useAppDispatch } from '@/redux/store/store';
-import { showNotification } from '@/redux/reducers';
-import { BiSolidUser } from 'react-icons/bi';
+import { AnimationTextField, defaultIconStyle, ClearIconButton, PasswordIconButton, AnimationSubmitButton, IconButton, Text, Link } from "@/components";
+import { useImmerState } from "@/hooks/useImmerState";
+import { validateSignUp } from "../validation";
+import { AuthService } from "@/services";
+import { delay } from "@/utils";
+import { IResponseStatus } from "@/types/request";
+import { useAppDispatch } from "@/redux/store/store";
+import { showNotification } from "@/redux/reducers";
+import { BiSolidUser } from "react-icons/bi";
 import { MdOutlineAlternateEmail } from "react-icons/md";
-import { IoKeySharp } from 'react-icons/io5';
+import { IoKeySharp } from "react-icons/io5";
 
 interface ISignUpViewProps { }
 
@@ -33,14 +33,14 @@ interface ISignUpViewState {
 }
 
 const initialState: ISignUpViewState = {
-    email: '',
-    displayName: '',
-    password: '',
-    confirmPassword: '',
-    emailError: '',
-    displayNameError: '',
-    passwordError: '',
-    confirmPasswordError: '',
+    email: "",
+    displayName: "",
+    password: "",
+    confirmPassword: "",
+    emailError: "",
+    displayNameError: "",
+    passwordError: "",
+    confirmPasswordError: "",
     showPassword: false,
     showConfirmPassword: false,
     isLoading: false,
@@ -64,7 +64,7 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
                 delay: 0.5,
                 stiffness: 80,
                 duration: 1,
-                ease: 'easeIn',
+                ease: "easeIn",
                 type: "spring",
             })
 
@@ -137,7 +137,7 @@ const SignUpView: React.FunctionComponent<ISignUpViewProps> = (_props) => {
     return (
         <motion.section ref={scope}>
             <section className="animation-auth-form">
-                <div className='common-login-logo'>
+                <div className="common-login-logo">
                     <img
                         className="common-login-logo-image input-stagger-item"
                         src="/src/assets/vi_space_logo.png"

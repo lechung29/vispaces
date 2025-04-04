@@ -6,7 +6,7 @@
     --auth-sub-background-color: white;
     --main-background-color: #f6f9fb;
     --main-sub-background-color: white;
-    --main-third-bg-color: #334155;
+    --main-third-bg-color: #4b5563;
 
     /* Text */
     --primary-text-color: #362c2c;
@@ -33,15 +33,22 @@
     /* Tooltip */
     --tooltip-background-color: #362c2c;
     --tooltip-text-color: white;
+
+    /* Create post */
+    --create-post-background-color: white;
+    --create-post-sub-background-color: #f1f5f9;
+
+    /* Border */
+    --primary-separator-color: rgb(229, 231, 235);
 }
 
 .dark {
     /* Background */
     --auth-background-color: rgba(15, 23, 42, 1);
-    --auth-sub-background-color: rgba(75, 85, 99, 1);
+    --auth-sub-background-color: #334155;
     --main-background-color: rgba(15, 23, 42, 1);
-    --main-sub-background-color: rgba(75, 85, 99, 1);
-    --main-third-bg-color: #334155;
+    --main-sub-background-color: #334155;
+    --main-third-bg-color: rgba(75, 85, 99, 1);
 
     /* Text */
     --primary-text-color: white;
@@ -68,4 +75,11 @@
     /* Tooltip */
     --tooltip-background-color: white;
     --tooltip-text-color: #362c2c;
+
+    /* Create post */
+    --create-post-background-color: #1e293b;
+    --create-post-sub-background-color: #334155;
+
+    /* Border */
+    --primary-separator-color: #4b5563;
 }

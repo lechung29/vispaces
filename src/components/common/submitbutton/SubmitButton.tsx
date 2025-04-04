@@ -1,10 +1,10 @@
-import { LoadingIcon, IIconProps } from '@/components/icons/loadingicon';
-import { IFunc1 } from '@/types/Function';
-import React from 'react'
+import { LoadingIcon, IIconProps } from "@/components/icons/loadingicon";
+import { IFunc1 } from "@/types/Function";
+import React from "react"
 import "./index.scss"
-import { classNames } from '@/utils';
-import { Button, ButtonProps } from '@radix-ui/themes';
-import { Text } from '../text';
+import { classNames } from "@/utils";
+import { Button, ButtonProps } from "@radix-ui/themes";
+import { Text } from "../text";
 
 export interface ISubmitButtonChildrenProps extends IIconProps {
 }

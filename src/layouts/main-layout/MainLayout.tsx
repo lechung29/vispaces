@@ -3,7 +3,7 @@ import "./index.scss"
 import { Navigation } from "../navigation";
 import { ScrollArea } from "@radix-ui/themes";
 
-export const Layout: React.FunctionComponent = () => {
+const MainLayout: React.FunctionComponent = () => {
     return <section className="g-main-layout-section">
         <Navigation />
         <ScrollArea 
@@ -23,3 +23,7 @@ export const Layout: React.FunctionComponent = () => {
         </ScrollArea>
     </section>
 };
+
+export {
+    MainLayout
+}

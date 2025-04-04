@@ -12,7 +12,7 @@ const UpdateAvatar: React.FunctionComponent<IUpdateAvatarProps> = () => {
         <div className="g-change-avatar-section" onClick={() => console.log("success")}>
             <Avatar 
               src="/src/assets/avatar.jpg" 
-              alt="it's me" 
+              alt="its me" 
               size="7" 
               className="g-change-avatar-section-avatar "
               avatarName="Killian Le"

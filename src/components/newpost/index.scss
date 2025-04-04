@@ -1,20 +1,22 @@
 /** @format */
 
 .g-new-post-section {
-    background-color: var(--main-sub-background-color);
+    background-color: var(--create-post-background-color);
     height: auto;
     width: 100%;
     padding: 1rem;
     border-radius: 0.5rem;
+    font-size: 14px;
     --tw-drop-shadow: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
     filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
     .g-new-post-section-text {
-        background-color: var(--main-third-bg-color);
+        background-color: var(--create-post-sub-background-color);
         text-align: center;
         border-radius: 0.5rem;
         flex: 1;
@@ -22,5 +24,23 @@
         padding: 10px 0;
         cursor: pointer;
         font-weight: 500;
+    }
+
+    .g-new-post-section-button-photo {
+        color: #0284c7;
+        background-color: #e0f2fe;
+
+        &:hover {
+            opacity: 0.85;
+        }
+    }
+
+    .g-new-post-section-button-video {
+        background-color: #fce7f3;
+        color: #db2777;
+
+        &:hover {
+            opacity: 0.85;
+        }
     }
 }

@@ -1,0 +1,59 @@
+.g-home-page-section {
+    width: auto;
+    height: 100%;
+    padding: 2.5rem 1.25rem;
+    margin: 0 auto;
+    position: relative;
+
+    .g-home-story-part {
+        width: 100%;
+        height: 100%;
+    }
+
+    .g-home-content-part {
+        margin: 3rem 0;
+        padding: 0 3.5rem;
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 2.5rem;
+
+        .g-home-content-part-left {
+            width: 60%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        .g-home-content-part-right {
+            width: 40%;
+            height: auto;
+            top: 1rem;
+            position: sticky;
+
+            .g-home-content-part-right-listPlace {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 1.75rem;
+                padding-top: 2.5rem;
+            }
+        }
+    }
+}
+
+.g-home-right-scrollbar {
+    .rt-ScrollAreaScrollbar {
+        background-color: transparent;
+
+        .rt-ScrollAreaThumb {
+            background-color: white;
+        }
+    }
+}

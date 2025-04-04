@@ -13,7 +13,7 @@ const MessageItem: React.FunctionComponent<IMessageItemProps> = (_props) => {
                 <Avatar
                     avatarName="Killian"
                     src="/src/assets/avatar.jpg"
-                    alt="it's me"
+                    alt="its me"
                 />
             </div>
             <div className="g-message-item-content">

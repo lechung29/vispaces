@@ -1,21 +1,21 @@
-import React, { Fragment, useState } from 'react'
-import { PostActionMenu } from '../postactionmenu'
+import React, { Fragment, useState } from "react"
+import { PostActionMenu } from "../postactionmenu"
 import { FaImage } from "react-icons/fa6";
-import { PhotoProvider, PhotoView } from 'react-photo-view'
+import { PhotoProvider, PhotoView } from "react-photo-view"
 import { IoHeartSharp } from "react-icons/io5";
 import { FaCommentDots } from "react-icons/fa6";
 import { IoShareOutline } from "react-icons/io5";
 import { AiFillLike } from "react-icons/ai";
-import { classNames } from '@/utils';
+import { classNames } from "@/utils";
 import { IoIosArrowDown } from "react-icons/io";
-import { Badge } from '@radix-ui/themes';
-import { TextField } from '../common/textfield';
+import { Badge } from "@radix-ui/themes";
+import { TextField } from "../common/textfield";
 import "./index.scss"
-import { Avatar } from '../common/avatar';
-import { Text } from '../common/text';
-import { Tooltip } from '../common/tooltip';
-import { defaultIconStyle, IconButton } from '../common/iconbutton';
-import { AnimationSubmitButton } from '../common/animations';
+import { Avatar } from "../common/avatar";
+import { Text } from "../common/text";
+import { Tooltip } from "../common/tooltip";
+import { defaultIconStyle, IconButton } from "../common/iconbutton";
+import { AnimationSubmitButton } from "../common/animations";
 
 interface ICommonPostProps {
 
@@ -39,7 +39,7 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                     <Avatar
                         avatarName="killian.le"
                         src="/src/assets/avatar.jpg"
-                        alt="it's me"
+                        alt="its me"
                         className="g-common-post-author-avatar"
                     />
                     <div className="g-common-post-author-username">
@@ -69,7 +69,7 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                             src="/src/assets/b38bfc6b-06f6-4336-9487-bdd473466643.jpg"
                             alt="post-image"
                         />
-                        {/* <video src='/src/assets/ViSpace _ Home - Google Chrome 2024-12-03 13-17-13.mp4' controls  autoPlay> */}
+                        {/* <video src="/src/assets/ViSpace _ Home - Google Chrome 2024-12-03 13-17-13.mp4" controls  autoPlay> */}
 
                         {/* </video> */}
                     </PhotoView>
@@ -125,14 +125,14 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                 </div>
             </div>
             {isOpenComment && <Fragment>
-                {/* <Divider className='w-full' my="0" size={"xs"} /> */}
+                {/* <Divider className="w-full" my="0" size={"xs"} /> */}
                 <div className="g-common-post-section-comment">
                     <div className="g-common-post-section-comment-item">
                         <Avatar
                             avatarName="killian.le"
                             size="2"
                             src="/src/assets/avatar.jpg"
-                            alt="it's me"
+                            alt="its me"
                         />
                         <div className="g-common-post-section-comment-item-content">
                             <div className="g-common-post-section-comment-item-text">
@@ -190,7 +190,7 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                         />
                     </div>
                 </div>
-                {/* <Divider className='w-full' my="0" size={"xs"} /> */}
+                {/* <Divider className="w-full" my="0" size={"xs"} /> */}
                 <div className="g-common-post-section-newComment">
                     <Avatar
                         avatarName="Killian le"
@@ -206,7 +206,7 @@ const CommonPostView: React.FunctionComponent<ICommonPostProps> = (_props) => {
                         onChange={(value, _e) => setCommentValue(value)}
                         rightSection={<IconButton
                             aria-label="Add image"
-                            onClick={() => setCommentValue('')}
+                            onClick={() => setCommentValue("")}
                             iconElement={<FaImage style={defaultIconStyle} />}
                         />}
                     />

@@ -2,15 +2,17 @@
 
 import { Tooltip } from "radix-ui";
 import React from "react";
-import "./index.scss"
+import "./index.scss";
+
+export interface ITooltipRef {}
 
 export interface ITooltipProps {
     tooltipContent: string;
     element: React.ReactNode;
-    side?: "bottom" | "left" | "right" | "top"
+    side?: "bottom" | "left" | "right" | "top";
 }
 
-const TooltipView: React.FunctionComponent<ITooltipProps> = (props) => {
+const TooltipView = React.forwardRef<ITooltipRef, ITooltipProps>((props, _ref) => {
     const { tooltipContent, element, side = "top" } = props;
     return (
         <Tooltip.Provider delayDuration={500} disableHoverableContent={true}>
@@ -25,6 +27,5 @@ const TooltipView: React.FunctionComponent<ITooltipProps> = (props) => {
             </Tooltip.Root>
         </Tooltip.Provider>
     );
-};
-
+});
 export { TooltipView as Tooltip };

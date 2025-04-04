@@ -1,0 +1,10 @@
+.g-user-button-wrapper {
+    padding: 8px 12px;
+    color: var(--primary-text-color);
+
+    .g-user-button-wrapper-button {
+        gap: 0.5rem;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+}
