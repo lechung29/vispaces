@@ -90,7 +90,7 @@ const NotificationPanelView: React.FunctionComponent<INotificationPanelProps> = 
                     height: "100vh", 
                 }}
             >
-                <section className="g-notification-panel-container w-full h-full py-5">
+                <section className="g-notification-panel-container">
                     <div className="g-notification-panel-header">
                         <Text 
                             className="g-notification-panel-header-title"
