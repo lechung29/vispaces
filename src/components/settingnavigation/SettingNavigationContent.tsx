@@ -1,13 +1,17 @@
-import React from 'react'
-import { motion } from "framer-motion";
-import { Outlet } from 'react-router-dom';
+/** @format */
+
+import React from "react";
+import { Outlet } from "react-router-dom";
+import "./settingnavigationcontent.scss";
 
 const SettingNavigationContent: React.FunctionComponent = () => {
-  return (
-    <motion.section className="bg-white border-slate-700 rounded-xl overflow-hidden my-6 md:py-12 md:px-20 p6 shadow-sm">
-        <Outlet />
-    </motion.section>
-  )
-}
+    return (
+        <section className="g-setting-navigation-content-section">
+            <Outlet />
+        </section>
+    );
+};
 
-export default SettingNavigationContent
+export {
+    SettingNavigationContent,
+}
