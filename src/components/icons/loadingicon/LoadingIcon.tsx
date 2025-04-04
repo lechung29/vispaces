@@ -35,4 +35,6 @@ const LoadingIcon: React.FunctionComponent<Required<IIconProps>> = (props) => {
     );
 };
 
-export default LoadingIcon;
+export{
+    LoadingIcon
+} 
