@@ -1,5 +1,5 @@
-// import { Avatar, Divider, FloatingPosition, Menu, ScrollArea, Stack, Tooltip } from '@mantine/core'
-import React, { Fragment, useRef } from 'react'
+// import { Avatar, Divider, FloatingPosition, Menu, ScrollArea, Stack, Tooltip } from "@mantine/core"
+import React, { Fragment, useRef } from "react"
 import { motion } from "framer-motion"
 import { AiOutlineHome } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
@@ -9,17 +9,17 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoLogOutOutline } from "react-icons/io5";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegCircleUser } from "react-icons/fa6";
 import "./index.scss"
-import { Breakpoint, classNames, useMinWidth } from '@/utils';
-import { useAppDispatch, useAppSelector } from '@/redux/store/store';
-import { logout, panelState, toggleNotificationPanel, toggleSearchPanel } from '@/redux/reducers';
-import { IAction, IFunc, IFunc2 } from '@/types/Function';
-import { Avatar, NotificationPanel, SearchPanel, Tooltip, UserButton } from '@/components';
-import { useImmerState } from '@/hooks/useImmerState';
-import { HoverCard } from 'radix-ui';
-import { Flex, ScrollArea } from '@radix-ui/themes';
+import { Breakpoint, classNames, useMinWidth } from "@/utils";
+import { useAppDispatch, useAppSelector } from "@/redux/store/store";
+import { logout, panelState, toggleNotificationPanel, toggleSearchPanel } from "@/redux/reducers";
+import { IAction, IFunc, IFunc2 } from "@/types/Function";
+import { Avatar, NotificationPanel, SearchPanel, Tooltip, UserButton } from "@/components";
+import { useImmerState } from "@/hooks/useImmerState";
+import { HoverCard } from "radix-ui";
+import { Flex, ScrollArea } from "@radix-ui/themes";
 
 interface INavigateRouter {
     title: string;
@@ -62,7 +62,7 @@ const NavigationView: React.FunctionComponent = () => {
                         return;
                     }
                 }}
-                className={classNames('px-3 py-2 rounded-md !font-normal text-[15px] hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
+                className={classNames("px-3 py-2 rounded-md !font-normal text-[15px] hover:bg-slate-100 cursor-pointer flex items-center gap-2", {
                     "active": (window.location.pathname === item.path && !openSearchPanel && !openNotificationsPanel)
                 })}
                 to={item.path!}
@@ -73,7 +73,7 @@ const NavigationView: React.FunctionComponent = () => {
             : <motion.section
                 key={index}
                 tabIndex={0}
-                className={classNames('px-3 py-2 rounded-md !font-normal text-[15px] hover:bg-slate-100 cursor-pointer flex items-center gap-2', {
+                className={classNames("px-3 py-2 rounded-md !font-normal text-[15px] hover:bg-slate-100 cursor-pointer flex items-center gap-2", {
                     "active": item.title === "Search" ? openSearchPanel : openNotificationsPanel
                 })}
                 onClick={item?.onClick}
@@ -94,11 +94,11 @@ const NavigationView: React.FunctionComponent = () => {
         return <HoverCard.Root>
             <HoverCard.Trigger asChild>
                 {(isLarge && !(openSearchPanel || openNotificationsPanel)) ? <UserButton
-                    image='/src/assets/avatar.jpg'
-                    name='Killian Le'
-                    email='killian.le@avepoint.com'
+                    image="/src/assets/avatar.jpg"
+                    name="Killian Le"
+                    email="killian.le@avepoint.com"
                     menuPosition={userCardPosition}
-                /> : <motion.section className='w-full flex justify-center'>
+                /> : <motion.section className="w-full flex justify-center">
                     <Avatar 
                         src="/src/assets/avatar.jpg"
                         avatarName="killian.le"
@@ -108,31 +108,31 @@ const NavigationView: React.FunctionComponent = () => {
             </HoverCard.Trigger>
             <HoverCard.Portal>
                 <HoverCard.Content>
-                <motion.div className='w-full h-[6px] bg-gradient-to-r to-purple-500 via-red-500 from-pink-500' ></motion.div>
-                <motion.section className='w-full px-4 py-3'>
-                    <motion.figure className='w-full flex items-center justify-center gap-3 mb-3'>
+                <motion.div className="w-full h-[6px] bg-gradient-to-r to-purple-500 via-red-500 from-pink-500" ></motion.div>
+                <motion.section className="w-full px-4 py-3">
+                    <motion.figure className="w-full flex items-center justify-center gap-3 mb-3">
                         <Avatar
                             src="/src/assets/avatar.jpg"
                             avatarName="killian.le"
                         />
-                        <motion.figcaption className='flex-1 flex flex-col gap-1'>
-                            <motion.p className='font-semibold text-[#4b5563] text-[15px] leading-4'>Killian Le</motion.p>
-                            <motion.p className='font-semibold text-[#9ca3af] text-[12px] leading-3'>Killian Le</motion.p>
+                        <motion.figcaption className="flex-1 flex flex-col gap-1">
+                            <motion.p className="font-semibold text-[#4b5563] text-[15px] leading-4">Killian Le</motion.p>
+                            <motion.p className="font-semibold text-[#9ca3af] text-[12px] leading-3">Killian Le</motion.p>
                         </motion.figcaption>
                     </motion.figure>
-                    <motion.figure className='w-full flex items-center justify-between'>
-                        <motion.figcaption className='following-count flex items-center justify-center gap-1'>
-                            <motion.p className='font-bold text-[#4b5563] text-[12px]'>620K</motion.p>
-                            <motion.p className='font-semibold text-[#9ca3af] text-[12px]'>Following</motion.p>
+                    <motion.figure className="w-full flex items-center justify-between">
+                        <motion.figcaption className="following-count flex items-center justify-center gap-1">
+                            <motion.p className="font-bold text-[#4b5563] text-[12px]">620K</motion.p>
+                            <motion.p className="font-semibold text-[#9ca3af] text-[12px]">Following</motion.p>
                         </motion.figcaption>
-                        <motion.figcaption className='follower-count flex items-center justify-center gap-1'>
-                            <motion.p className='font-bold text-[#4b5563] text-[12px]'>38K</motion.p>
-                            <motion.p className='font-semibold text-[#9ca3af] text-[12px]'>Followers</motion.p>
+                        <motion.figcaption className="follower-count flex items-center justify-center gap-1">
+                            <motion.p className="font-bold text-[#4b5563] text-[12px]">38K</motion.p>
+                            <motion.p className="font-semibold text-[#9ca3af] text-[12px]">Followers</motion.p>
                         </motion.figcaption>
                     </motion.figure>
                 </motion.section>
-                {/* <Divider className='w-full' my="2px" size={"xs"} /> */}
-                <motion.section className='w-full px-2 py-1'>
+                {/* <Divider className="w-full" my="2px" size={"xs"} /> */}
+                <motion.section className="w-full px-2 py-1">
                     {list.map((item, index) => (<div
                         key={index}
                         // leftSection={item.icon}
@@ -180,11 +180,11 @@ const NavigationView: React.FunctionComponent = () => {
                 dispatch(toggleSearchPanel(false))
                 dispatch(toggleNotificationPanel(true))
             },
-            icon: <div className='w-auto h-auto relative'>
+            icon: <div className="w-auto h-auto relative">
                 <IoMdHeartEmpty className="common-navigation-icon" />
                 <span className="absolute flex w-3 h-3 top-0 right-0">
                     <motion.div
-                        className='absolute w-2 h-2 rounded bg-red-300 top-0 right-0'
+                        className="absolute w-2 h-2 rounded bg-red-300 top-0 right-0"
                         initial={{ scale: 1, opacity: 1 }}
                         animate={{
                             scale: [1, 2, 2],
@@ -275,14 +275,14 @@ const NavigationView: React.FunctionComponent = () => {
                 </div>
             </ScrollArea>
             {openSearchPanel && <SearchPanel
-                headerTitle='Search'
+                headerTitle="Search"
                 isOpen={openSearchPanel}
                 onClose={() => dispatch(toggleSearchPanel(false))}
                 hasCloseButton={true}
                 parentRef={navigationRef}
             />}
             {openNotificationsPanel && <NotificationPanel
-                headerTitle='Notifications'
+                headerTitle="Notifications"
                 isOpen={openNotificationsPanel}
                 onClose={() => dispatch(toggleNotificationPanel(false))}
                 hasCloseButton={true}

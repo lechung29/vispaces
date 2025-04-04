@@ -3,7 +3,7 @@
 import { classNames } from "@/utils";
 import { Label } from "radix-ui";
 import React from "react";
-import './index.scss'
+import "./index.scss"
 
 export type ILabelProps = Label.LabelProps & {
     displayText: string;

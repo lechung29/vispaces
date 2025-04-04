@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
-import { AuthLayout, Layout } from "./layouts";
+import { AuthLayout, MainLayout } from "./layouts";
 import { TitleResolver } from "./layouts"
 import { Home, Login, MessagePage, SignUp, SocialSetting, GeneralSetting, NotificationSettings, PrivacySettings, PasswordSettings } from "./pages";
 import "react-photo-view/dist/react-photo-view.css";
@@ -12,11 +12,11 @@ const App = () => {
         <BrowserRouter>
             <Routes>
                 <Route path="/*" element={<TitleResolver />}>
-                    <Route element={<Layout />}>
+                    <Route element={<MainLayout />}>
                         <Route index element={<Home />} />
                     </Route>
                     <Route element={<ProtectedRoute />}>
-                        <Route element={<Layout />} >
+                        <Route element={<MainLayout />} >
                             <Route path="messages" element={<MessagePage />} />
                             <Route element={<SettingLayout />} >
                                 <Route path="account-settings" element={<GeneralSetting /> }/>

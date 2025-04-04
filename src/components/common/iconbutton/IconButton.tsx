@@ -8,13 +8,13 @@ import { classNames } from "@/utils";
 export const defaultIconStyle: React.CSSProperties = {
     width: "20px",
     height: "20px",
-    color: "var(--primary-icon-color)"
+    // color: "var(--primary-icon-color)"
 }
 
 export const bigIconStyle: React.CSSProperties = {
     width: "28px",
     height: "28px",
-    color: "var(--primary-icon-color)"
+    // color: "var(--primary-icon-color)"
 }
 
 export interface IIconButtonRef {}

@@ -82,7 +82,7 @@ const SearchItem: React.FunctionComponent<ISearchItemProps> = (props) => {
             <div className="g-search-item-section-info">
                 <Avatar
                     src="/src/assets/avatar.jpg"
-                    alt="it's me"
+                    alt="its me"
                     avatarName="Bach Le"
                 />
                 <div className="g-search-item-section-info-text">

@@ -1,16 +1,16 @@
-import React from 'react';
-import './index.scss';
-import { useNavigate } from 'react-router-dom';
-import { motion, stagger, useAnimate } from 'framer-motion';
+import React from "react";
+import "./index.scss";
+import { useNavigate } from "react-router-dom";
+import { motion, stagger, useAnimate } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
-import { AnimationSubmitButton, AnimationTextField, ClearIconButton, defaultIconStyle, IconButton, Link, PasswordIconButton, Text } from '@/components';
-import { useImmerState } from '@/hooks/useImmerState';
-import { validateSignIn } from '../validation';
-import { AuthService } from '@/services';
-import { delay, mapUserInfoFromDataToState } from '@/utils';
-import { IResponseStatus } from '@/types/request';
-import { useAppDispatch } from '@/redux/store/store';
-import { login, showNotification } from '@/redux/reducers';
+import { AnimationSubmitButton, AnimationTextField, ClearIconButton, defaultIconStyle, IconButton, Link, PasswordIconButton, Text } from "@/components";
+import { useImmerState } from "@/hooks/useImmerState";
+import { validateSignIn } from "../validation";
+import { AuthService } from "@/services";
+import { delay, mapUserInfoFromDataToState } from "@/utils";
+import { IResponseStatus } from "@/types/request";
+import { useAppDispatch } from "@/redux/store/store";
+import { login, showNotification } from "@/redux/reducers";
 import { IoKeySharp } from "react-icons/io5";
 import { BiSolidUser } from "react-icons/bi";
 
@@ -27,10 +27,10 @@ interface ILoginViewState {
 }
 
 const initialState: ILoginViewState = {
-    email: '',
-    password: '',
-    emailError: '',
-    passwordError: '',
+    email: "",
+    password: "",
+    emailError: "",
+    passwordError: "",
     showPassword: false,
     isLoading: false,
     isDisabledInput: false,
@@ -53,7 +53,7 @@ const LoginView: React.FunctionComponent<ILoginViewProps> = (_props) => {
                 delay: 0.25,
                 stiffness: 80,
                 duration: 1,
-                ease: 'easeIn',
+                ease: "easeIn",
                 type: "spring",
             })
 

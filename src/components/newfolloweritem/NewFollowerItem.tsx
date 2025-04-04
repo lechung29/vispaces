@@ -5,7 +5,7 @@ import { delay } from "@/utils"
 import { Button } from "@radix-ui/themes"
 import "./index.scss"
 import { Avatar, Text } from "../common"
-import LoadingIcon from "../icons/loadingicon/LoadingIcon"
+import { LoadingIcon } from "../icons"
 
 interface INewFollowerItemProps {
 
@@ -92,7 +92,7 @@ const NewFollowerItem: React.FunctionComponent<INewFollowerItemProps> = (_props)
             <div className="g-new-follower-item-userInfo">
                 <Avatar
                     src="/src/assets/avatar.jpg"
-                    alt="it's me"
+                    alt="its me"
                     avatarName="Bach Le"
                 />
                 <div className="g-new-follower-item-userInfo-info">

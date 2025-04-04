@@ -2,11 +2,11 @@
 
 import { IoChevronForward } from "react-icons/io5";
 import React from "react";
-import { motion } from "framer-motion";
 import { classNames } from "@/utils";
-import { Avatar, Button } from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
 import { BaseButton } from "@radix-ui/themes/components/_internal/base-button";
-import { Text } from "../common";
+import { Avatar, defaultIconStyle, Text } from "../common";
+import "./index.scss";
 
 interface IUserButtonProps extends React.ComponentPropsWithoutRef<typeof BaseButton> {
     image: string;
@@ -17,21 +17,13 @@ interface IUserButtonProps extends React.ComponentPropsWithoutRef<typeof BaseBut
 }
 
 const UserButton = React.forwardRef<HTMLButtonElement, IUserButtonProps>(({ image, name, email, icon, menuPosition, ...others }: IUserButtonProps, ref) => (
-    <Button
-        ref={ref}
-        style={{
-            padding: "8px 12px",
-            color: "var(--mantine-color-text)",
-            borderRadius: "var(--mantine-radius-sm)",
-        }}
-        {...others}
-    >
-        <div className="!gap-2 !flex-nowrap group">
-            <Avatar size={"4"} src={image} radius="full" className="cursor-pointer" fallback />
-            <motion.section style={{ flex: 1 }}>
-                <Text size="2" displayText={name} />
-                <Text size="2" displayText={email} />
-            </motion.section>
+    <Button {...others} ref={ref} className="g-user-button-wrapper">
+        <div className="g-user-button-wrapper-button group">
+            <Avatar size="2" src={image} radius="full" avatarName="Killian Le" />
+            <div className="flex-1">
+                <Text fontSize={14} fw={400} as="p" displayText={name} />
+                <Text fontSize={14} fw={400} as="p" displayText={email} />
+            </div>
 
             {icon || (
                 <IoChevronForward
@@ -39,7 +31,7 @@ const UserButton = React.forwardRef<HTMLButtonElement, IUserButtonProps>(({ imag
                         "group-hover:-rotate-90": menuPosition === "top",
                         "group-hover:rotate-90": menuPosition === "bottom",
                     })}
-                    size="1rem"
+                    style={defaultIconStyle}
                 />
             )}
         </div>
